@@ -4,6 +4,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
+    "strictNullChecks": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
@@ -13,7 +14,17 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["src/client/components/*"],
+      "@/lib/*": ["src/client/lib/*"],
+      "@/store/*": ["src/client/store/*"],
+      "@/styled/*": ["src/client/styled/*"],
+      "@/pages/*": ["src/pages/*"],
+      "@/src/*": ["src/*"],
+      "@/public/*": ["public/*"]
+    },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
