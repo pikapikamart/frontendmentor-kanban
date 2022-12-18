@@ -1,3 +1,4 @@
+export * from '@testing-library/react'
 import { render } from "@testing-library/react";
 
 
@@ -14,9 +15,11 @@ const Provider = ({ children }: ProviderProps) => {
   )
 }
 
-export const customRender = ( ui: React.ReactElement, options = {} ) =>{
+const customRender = ( ui: React.ReactElement, options = {} ) =>{
   render(ui, {
     wrapper: Provider,
     ...options
   })
 }
+
+export { customRender as render }

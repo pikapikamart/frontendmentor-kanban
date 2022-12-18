@@ -1,11 +1,23 @@
 import { useState } from "react"
 
 
-export const useFormValidation = () =>{
-  const [ valid, setValid ] = useState(false)
+type Fields = {
+  [ key: string ] : string
+}
+
+type Options = {
+  
+}
+
+type UseFormValidation = ( fields: Fields ) => {
+
+}
+
+export const useFormValidation: UseFormValidation = ( fields ) =>{
+  const [ formValid, setFormValid ] = useState(false)
+
 
   return {
-    valid,
-    setValid
+    formValid,
   }
 }
