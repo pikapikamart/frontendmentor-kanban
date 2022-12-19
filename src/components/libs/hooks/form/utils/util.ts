@@ -1,6 +1,6 @@
 
 
-type FormField = HTMLInputElement | HTMLTextAreaElement
+export type FormField = HTMLInputElement | HTMLTextAreaElement
 
 export const addFieldErrors = ( field: FormField ) =>{
   field.setAttribute("aria-invalid", "true")
