@@ -1,4 +1,4 @@
-import { Form } from "../components/form"
+import { Form } from "../client/components/form"
 
 
 const HomePage = () =>{

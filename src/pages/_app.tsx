@@ -1,3 +1,4 @@
+import { trpc } from "@/lib/trpc"
 import { AppProps } from "next/app"
 
 
@@ -9,4 +10,4 @@ const App = ({ Component, pageProps }: AppProps) => {
 }
 
 
-export default App
+export default trpc.withTRPC(App)
