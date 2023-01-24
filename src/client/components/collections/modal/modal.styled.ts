@@ -2,6 +2,8 @@ import { rem } from "@/styled/functions"
 import styled from "styled-components"
 
 
+// customize the background color
+
 export const BaseModalOnClickExit = styled.div`
   inset: 0;
   position: absolute;
