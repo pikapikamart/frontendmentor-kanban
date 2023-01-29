@@ -1,4 +1,4 @@
-import { rem } from "@/styled/functions"
+import { rem } from "@/client/styled/functions"
 import styled from "styled-components"
 
 

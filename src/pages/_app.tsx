@@ -1,4 +1,4 @@
-import { trpc } from "@/lib/trpc"
+import { trpc } from "@/client/lib/trpc"
 import { AppProps } from "next/app"
 import { SessionProvider } from "next-auth/react"
 
