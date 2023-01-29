@@ -1,6 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
-import { rem } from '@/client/styled/functions';
 
 
 interface ButtonProps {
@@ -30,9 +28,6 @@ interface ButtonProps {
  * Primary UI component for user interaction
  */
 
-const StyledButton = styled.button`
-  font-size: ${ rem(20) };
-`
 
 export const Button = ({
   primary = false,
@@ -44,11 +39,11 @@ export const Button = ({
   const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary'
 
   return (
-    <StyledButton
+    <button
       type="button"
       className={ `storybook-button storybook-button--${ size } ${ mode }` }
       style={{ backgroundColor }}
       { ...props }>{ label }
-    </StyledButton>
+    </button>
   );
 };
