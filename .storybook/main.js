@@ -22,6 +22,7 @@ module.exports = {
       "node_modules",
     ]
 
+    // can be refactored
     config.resolve.alias = {
       ...config.resolve.alias,
       "@/client": path.resolve(__dirname, "../src/client"),
