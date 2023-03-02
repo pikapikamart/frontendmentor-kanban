@@ -1,11 +1,11 @@
 
 
-const HomePage = () =>{
-
+const Homepage = () => {
+  
   return (
-    <>Homepage</>
+    <main></main>
   )
 }
 
 
-export default HomePage
+export default Homepage

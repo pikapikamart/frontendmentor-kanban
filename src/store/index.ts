@@ -1,26 +1,38 @@
-import { useImmerReducer } from "use-immer"
-import { createContainer } from "react-tracked"
 import { Dispatch } from "react"
+import { createContainer } from "react-tracked"
+import { useImmerReducer } from "use-immer"
+import { 
+  ClientAction, 
+  ClientDraft, 
+  clientDraft, 
+  clientReducer } from "./drafts/client"
 
+  
+type Draft = {
+  client: ClientDraft
+}
+type Selection = |
+  { type: "CLIENT", action: ClientAction }
 
-type Action = 
-  | { type: "START_TRACKING" }
+const reducer = ( draft: Draft, selection: Selection ) => {
+  
+  switch(selection.type) {
+    case "CLIENT":
+      clientReducer(draft.client, selection.action)
 
-type Draft = {}
-
-const initialState: Draft = {} 
-
-const reducer = ( draft: Draft, action: Action ) =>{
-
-  switch(action.type) {
-    case "START_TRACKING":
+      return
+    default:
       return draft
-  }
+  } 
 }
 
-const useValue = (): [ Draft, Dispatch<Action> ] =>{
+const initialState: Draft = {
+  client: clientDraft
+}
+
+const useValue = (): [ Draft, Dispatch<Selection> ] => {
   const [ state, dispatch ] = useImmerReducer(reducer, initialState)
-  
+
   return [ state, dispatch ]
 }
 
