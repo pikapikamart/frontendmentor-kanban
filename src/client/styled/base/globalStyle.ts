@@ -4,8 +4,6 @@ import { createGlobalStyle } from "styled-components";
 const globalStyle = createGlobalStyle`
   html,
   body {
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     margin: 0;
     padding: 0;
   }
@@ -63,6 +61,7 @@ const globalStyle = createGlobalStyle`
   }
   /* Font Families */
   body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
     min-height: 100vh;
     max-width: 100rem;
     margin: 0 auto;
