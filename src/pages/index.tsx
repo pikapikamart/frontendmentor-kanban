@@ -1,7 +1,7 @@
 
 
 const Homepage = () => {
-  
+
   return (
     <main>Jakarta</main>
   )

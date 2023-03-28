@@ -2,10 +2,12 @@ import { trpc } from "@/client/lib/trpc"
 import { AppProps } from "next/app"
 import { SessionProvider } from "next-auth/react"
 import { ThemeProvider } from "styled-components"
-import { Theme } from "@/client/styled/base"
+import { 
+  Theme,
+  DarkTheme } from "@/client/styled/base"
 import { NextPage } from "next"
 import { DefaultLayout } from "@/client/components/layout/default"
-import { Provider } from "@/store"
+import { Provider, useTrackedState } from "@/store"
 
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -23,11 +25,25 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   return (
     <Provider>
       <SessionProvider session={ pageProps.session }>
-        <ThemeProvider theme={ Theme }>
+        <ThemedApp>
           { getLayout(<Component { ...pageProps } />) }
-        </ThemeProvider>
+        </ThemedApp>
       </SessionProvider>
     </Provider>
+  )
+}
+
+type ThemedAppProps = {
+  children: React.ReactNode
+}
+
+const ThemedApp = ({ children }: ThemedAppProps) => {
+  const { darkmode } = useTrackedState()
+
+  return (
+    <ThemeProvider theme={ darkmode? DarkTheme : Theme  }>
+      { children }
+    </ThemeProvider>
   )
 }
 

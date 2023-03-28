@@ -10,13 +10,14 @@ module.exports = {
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     "@react-theming/storybook-addon",
+    'storybook-addon-next'
   ],
   "framework": "@storybook/react",
   "core": {
     "builder": "@storybook/builder-webpack5"
   },
   "typescript": { reactDocgen: false },
-  webpackFinal: async (config, { configType }) => {
+  webpackFinal: async (config) => {
     config.resolve.modules = [
       path.resolve(__dirname, ".."),
       "node_modules",
@@ -26,9 +27,9 @@ module.exports = {
     config.resolve.alias = {
       ...config.resolve.alias,
       "@/client": path.resolve(__dirname, "../src/client"),
-      "@/server": path.resolve(__dirname, "../src/client"),
-      "@/pages": path.resolve(__dirname, "../src/client"),
-      "@/stories": path.resolve(__dirname, "../src/client"),
+      "@/pages": path.resolve(__dirname, "../src/pages"),
+      "@/stories": path.resolve(__dirname, "../src/stories"),
+      "@/public": path.resolve(__dirname, "../public"),
     }
 
     return config;

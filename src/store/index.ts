@@ -1,36 +1,32 @@
 import { Dispatch } from "react"
 import { createContainer } from "react-tracked"
 import { useImmerReducer } from "use-immer"
-import { 
-  ClientAction, 
-  ClientDraft, 
-  clientDraft, 
-  clientReducer } from "./drafts/client"
 
   
 type Draft = {
-  client: ClientDraft
+  darkmode: boolean
 }
-type Selection = |
-  { type: "CLIENT", action: ClientAction }
 
-const reducer = ( draft: Draft, selection: Selection ) => {
+type Action = |
+  { type: "DARKMODE" }
+
+const reducer = ( draft: Draft, action: Action ) => {
   
-  switch(selection.type) {
-    case "CLIENT":
-      clientReducer(draft.client, selection.action)
+  switch(action.type) {
+    case "DARKMODE":
+      draft.darkmode = true
 
       return
     default:
       return draft
-  } 
+  }
 }
 
 const initialState: Draft = {
-  client: clientDraft
+  darkmode: false
 }
 
-const useValue = (): [ Draft, Dispatch<Selection> ] => {
+const useValue = (): [ Draft, Dispatch<Action> ] => {
   const [ state, dispatch ] = useImmerReducer(reducer, initialState)
 
   return [ state, dispatch ]
