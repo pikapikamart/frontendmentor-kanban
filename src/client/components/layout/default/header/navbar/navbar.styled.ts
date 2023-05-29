@@ -10,7 +10,6 @@ export const InnerWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.navboard};
   border-radius: ${ rem(8) };
   inset: ${ rem(80) } 0 auto 0;
-  min-width: ${ rem(264) };
   margin: 0 auto;
   max-width: ${ rem(300) };
   padding: ${ rem(16) } ${ rem(16) } ${ rem(16) } 0;
@@ -18,16 +17,18 @@ export const InnerWrapper = styled.div`
   z-index: 1;
   
   ${ breakpoint("tablet", `
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+    justify-content: space-between;
+    margin-top: 0;
     position: static;
     padding: ${ rem(32) } ${ rem(20) } 0 0;
 
-    display: grid;
-    height: inherit;
-    margin-top: 0;
-
     ${ IslandWrapper } { 
       align-self: end;
-      margin-bottom: ${ rem(96) };
+      margin-bottom: ${ rem(16) };
     }
   `) }
 `

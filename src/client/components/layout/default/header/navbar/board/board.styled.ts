@@ -2,8 +2,6 @@ import { rem } from "@/client/styled/functions"
 import styled from "styled-components"
 
 
-export const Wrapper = styled.div``
-
 export const BoardCounter = styled.p`
   color: ${({ theme }) => theme.colors.default};
   font-size: ${ rem(12) };

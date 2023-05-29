@@ -1,3 +1,4 @@
+import { FullWidth } from "@/client/styled/shared/shared"
 import { Board } from "../board"
 import { Island } from "../island"
 import { 
@@ -5,14 +6,21 @@ import {
   InnerWrapper, } from "../navbar.styled"
 
 
-const Desktop = () => {
+type Desktop = {
+  children: React.ReactNode
+}
+
+const Desktop = ({ children }: Desktop) => {
 
   return (
     <Wrapper>
       <InnerWrapper>
-          <Board />
+        <Board />
+        <FullWidth>
           <Island />
-        </InnerWrapper>
+          { children }
+        </FullWidth>
+      </InnerWrapper>
     </Wrapper>
   )
 }
