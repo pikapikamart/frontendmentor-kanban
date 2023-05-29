@@ -3,7 +3,9 @@ import styled from "styled-components"
 
 
 export const Wrapper = styled.div`
+  background-color: rgba(0, 0, 0, .5);
   left: 0;
+  height: 100%;
   padding: 0 ${ rem(54) } 0 ${ rem(54) };
   position: fixed;
   top: ${ rem(80) };
@@ -13,6 +15,7 @@ export const Wrapper = styled.div`
 export const InnerWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.navboard};
   border-radius: ${ rem(8) };
+  margin-top: ${ rem(16) };
   padding: ${ rem(16) } ${ rem(16) } ${ rem(16) } 0;
 `
 
@@ -72,13 +75,4 @@ export const CreateBoardButton = styled.button`
       fill: ${({ theme }) => theme.colors.button.main};
     }
   }
-`
-
-export const Islands = styled.div`
-  align-items: center;
-  background-color: #F4F7FD;
-  border-radius: ${ rem(8) };
-  display: flex;
-  height: ${ rem(48) };
-  margin-top: ${ rem(16) };
 `

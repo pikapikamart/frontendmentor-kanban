@@ -21,6 +21,7 @@ export const theme: DefaultTheme = {
     status: "#000112",
     navboard: "#FFFFFF",
     boardCurrent: "#FFFFFF",
+    colorSchemeInput: "#635FC7",
     default: "#828FA3"
   },
   fontSize: {
@@ -44,6 +45,6 @@ export const darkTheme: DefaultTheme = {
       secondary: "#FFFFFF",
       secondaryHover: "#FFFFFF"
     },
-    
+    boardHeading: "#FFFFFF"
   }
 }

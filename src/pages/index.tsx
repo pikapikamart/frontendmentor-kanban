@@ -3,7 +3,7 @@
 const Homepage = () => {
 
   return (
-    <main>Jakarta</main>
+    <main></main>
   )
 }
 

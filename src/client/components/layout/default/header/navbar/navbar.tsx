@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { 
   BoardExpansion,
   BoardHeader, 
@@ -14,17 +13,18 @@ const Navbar = () => {
   const [isExpanded, handleExpansion] = useExpansion()
   const isMobile = useDetectResponsiveness()
 
-  console.log(isMobile)
   return (
     <Wrapper>
-      <BoardHeader>
-        <BoardExpansion 
-          onClick={handleExpansion}
-          aria-expanded={isExpanded}>Platform Launch
-          <Image src={chevron} alt="" aria-hidden="true" />
-        </BoardExpansion>
-      </BoardHeader>
-      { isExpanded && <Board /> }
+      { isMobile && <>
+        <BoardHeader>
+          <BoardExpansion 
+            onClick={handleExpansion}
+            aria-expanded={isExpanded}>Platform Launch
+            <Image src={chevron} alt="" aria-hidden="true" />
+          </BoardExpansion>
+        </BoardHeader>
+        { isExpanded && <Board /> }
+      </> }
     </Wrapper>
   )
 }

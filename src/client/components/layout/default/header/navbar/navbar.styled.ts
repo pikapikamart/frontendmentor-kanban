@@ -6,6 +6,7 @@ export const Wrapper = styled.nav`
 `
 
 export const BoardHeader = styled.h1`
+  color: ${ ({ theme }) => theme.colors.boardHeading };
   font-size: ${ rem(18) };
 `
 

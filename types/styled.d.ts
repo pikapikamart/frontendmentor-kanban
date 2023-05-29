@@ -22,6 +22,7 @@ declare module "styled-components" {
       status: string,
       navboard: string,
       boardCurrent: string,
+      colorSchemeInput: string,
       default: string
     },
     fontSize: {
