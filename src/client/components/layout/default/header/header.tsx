@@ -5,10 +5,13 @@ import {
   Wrapper } from "./header.styled"
 import mobileLogo from "@/public/icons/logo-mobile.svg"
 import darkDesktopLogo from "@/public/icons/logo-dark.svg"
-import { Navbar } from "./navbar"
+import { useDetectResponsiveness } from "@/client/lib/hooks/useDetectResponsiveness"
+import { MobileNavbar } from "./navbar/mobile"
+import { DesktopNavbar } from "./navbar/desktop"
 
 
 const Header = () => {
+  const isMobile = useDetectResponsiveness()
 
   return (
     <Wrapper>
@@ -20,7 +23,8 @@ const Header = () => {
           src={ darkDesktopLogo }
           alt="Frontendmentor Kanban Task" />
       </LogoWrapper>
-      <Navbar />
+      { isMobile && <MobileNavbar /> }
+      { !isMobile && <DesktopNavbar /> }
     </Wrapper>
   )
 }

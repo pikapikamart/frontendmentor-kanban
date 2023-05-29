@@ -1,4 +1,7 @@
-import { breakpoint, fluid, rem } from "@/client/styled/functions"
+import { 
+  breakpoint, 
+  fluid, 
+  rem } from "@/client/styled/functions"
 import Image from "next/image"
 import styled from "styled-components"
 
@@ -8,7 +11,11 @@ export const Wrapper = styled.header`
   background-color: ${ ({ theme }) => theme.colors.header };
   display: flex;
   min-height: ${ fluid(64, 10.5, 98) };
-  padding: 0 ${ fluid(16, 3.4, 34) } 0 ${ fluid(16, 3.4, 34) }; 
+  padding: 0 ${ fluid(16, 3.4, 34) } 0 ${ fluid(16, 3.4, 34) };
+  
+  ${ breakpoint("tablet", `
+    position: relative;
+  `) }
 `
 
 export const LogoWrapper = styled.div`

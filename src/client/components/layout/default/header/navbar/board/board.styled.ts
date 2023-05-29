@@ -2,22 +2,7 @@ import { rem } from "@/client/styled/functions"
 import styled from "styled-components"
 
 
-export const Wrapper = styled.div`
-  background-color: rgba(0, 0, 0, .5);
-  left: 0;
-  height: 100%;
-  padding: 0 ${ rem(54) } 0 ${ rem(54) };
-  position: fixed;
-  top: ${ rem(80) };
-  width: 100%;
-`
-
-export const InnerWrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.navboard};
-  border-radius: ${ rem(8) };
-  margin-top: ${ rem(16) };
-  padding: ${ rem(16) } ${ rem(16) } ${ rem(16) } 0;
-`
+export const Wrapper = styled.div``
 
 export const BoardCounter = styled.p`
   color: ${({ theme }) => theme.colors.default};
@@ -66,6 +51,7 @@ export const CreateBoardButton = styled.button`
   font-weight: 700;
   height: ${ rem(48) };
   padding-left: ${ rem(24) };
+  width: 100%;
 
   svg {
     margin-right: ${ rem(12) };
