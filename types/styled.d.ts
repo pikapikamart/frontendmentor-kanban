@@ -5,20 +5,24 @@ declare module "styled-components" {
   export interface DefaultTheme {
     colors: {
       warning: string,
-      warningHober: string,
-      buttonMain: string,
-      buttonMainHover: string,
-      buttonSecondary: string,
-      buttonSecondaryHover: string,
-      light: string,
-      light2: string,
-      lightBlue: string,
-      lightBlueChanging: string,
-      lightBlue2: string,
-      darkBlue: string,
-      darkBlue2: string,
-      dark: string,
-      dark2: string
+      warningHover: string,
+      button: {
+        main: string,
+        mainHover: string,
+        secondary: string,
+        secondaryHover: string,
+        warning: string,
+        warningHover: string
+      },
+      boardHeading: string,
+      navlinks: string,
+      taskTitle: string,
+      subtask: string,
+      subtaskDone: string,
+      status: string,
+      navboard: string,
+      boardCurrent: string,
+      default: string
     },
     fontSize: {
       headingXL: number,

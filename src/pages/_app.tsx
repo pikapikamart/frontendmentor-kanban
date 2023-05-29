@@ -7,7 +7,9 @@ import {
   DarkTheme } from "@/client/styled/base"
 import { NextPage } from "next"
 import { DefaultLayout } from "@/client/components/layout/default"
-import { Provider, useTrackedState } from "@/store"
+import { 
+  Provider, 
+  useTrackedState } from "@/store"
 
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {

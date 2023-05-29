@@ -1,4 +1,5 @@
 import { breakpoint, fluid, rem } from "@/client/styled/functions"
+import Image from "next/image"
 import styled from "styled-components"
 
 
@@ -10,9 +11,25 @@ export const Wrapper = styled.header`
 `
 
 export const LogoWrapper = styled.div`
+  margin-right: ${ rem(16) };
 
   ${ breakpoint("tablet", `
     border-right: 
     flex-basis: ${ fluid(260, 30, 300) };
+  `) }
+`
+
+export const NextMobileLogo = styled(Image)`
+
+  ${ breakpoint("tablet", `
+    display: none;
+  `) }
+`
+
+export const NextDesktopLogo = styled(Image)`
+  display: none;
+
+  ${ breakpoint("tablet", `
+    display: block;
   `) }
 `

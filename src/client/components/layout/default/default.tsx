@@ -11,7 +11,6 @@ const Default = ( page: React.ReactElement ) =>{
       <GlobalStyle />
       <DefaultHeader />
       { page }
-      {/* <footer></footer> */}
     </>
   )
 }

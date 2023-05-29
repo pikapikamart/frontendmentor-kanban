@@ -4,20 +4,24 @@ import { DefaultTheme } from "styled-components";
 export const theme: DefaultTheme = {
   colors: {
     warning: "#EA5555",
-    warningHober: "#FF9898",
-    buttonMain: "#635FC7",
-    buttonMainHover: "#A8A4FF",
-    buttonSecondary: "rgba(99, 95, 199, .1)",
-    buttonSecondaryHover: "rgba(99, 95, 109, .25)",
-    light: "#FFFFFF",
-    light2: "#F4F7FD",
-    lightBlue: "#828FA3",
-    lightBlueChanging: "#828FA3",
-    lightBlue2: "#E4EBFA",
-    darkBlue: "#2B2C37",
-    darkBlue2: "#3E3F4E",
-    dark: "#000112",
-    dark2: "#20212C"
+    warningHover: "#FF9898",
+    button: {
+      main: "#635FC7",
+      mainHover: "#A8A4FF",
+      secondary: "rgba(99, 95, 199, .1)",
+      secondaryHover: "rgba(99, 95, 109, .25)",
+      warning: "#EA5555",
+      warningHover: "#FF9898", 
+    },
+    boardHeading: "#000112",
+    navlinks: "#828FA3",
+    taskTitle: "#000112",
+    subtask: "#000112",
+    subtaskDone: "rgba(0, 1, 18, .5)",
+    status: "#000112",
+    navboard: "#FFFFFF",
+    boardCurrent: "#FFFFFF",
+    default: "#828FA3"
   },
   fontSize: {
     headingXL: 24,
@@ -35,8 +39,11 @@ export const darkTheme: DefaultTheme = {
   ...theme,
   colors:{
     ...theme.colors,
-    buttonSecondaryHover: "#FFFFFF",
-    lightBlueChanging: "#FFFFFF",
-    dark: "#FFFFFF"
+    button: {
+      ...theme.colors.button,
+      secondary: "#FFFFFF",
+      secondaryHover: "#FFFFFF"
+    },
+    
   }
 }
