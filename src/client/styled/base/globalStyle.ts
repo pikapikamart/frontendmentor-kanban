@@ -93,6 +93,10 @@ const globalStyle = createGlobalStyle`
     position: absolute;
     width: 1px;
   }
+
+  body {
+    background-color: ${ ({ theme }) => theme.colors.body };
+  }
   
   @media (prefers-reduced-motion: reduce) {
     * {

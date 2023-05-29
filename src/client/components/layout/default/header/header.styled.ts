@@ -5,6 +5,7 @@ import styled from "styled-components"
 
 export const Wrapper = styled.header`
   align-items: center;
+  background-color: ${ ({ theme }) => theme.colors.header };
   display: flex;
   min-height: ${ fluid(64, 10.5, 98) };
   padding: 0 ${ fluid(16, 3.4, 34) } 0 ${ fluid(16, 3.4, 34) }; 

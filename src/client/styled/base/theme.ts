@@ -3,6 +3,8 @@ import { DefaultTheme } from "styled-components";
 
 export const theme: DefaultTheme = {
   colors: {
+    body: "#F4F7FD",
+    header: "#FFFFFF",
     warning: "#EA5555",
     warningHover: "#FF9898",
     button: {
@@ -40,6 +42,8 @@ export const darkTheme: DefaultTheme = {
   ...theme,
   colors:{
     ...theme.colors,
+    body: "#20212C",
+    header: "#2B2C37",
     button: {
       ...theme.colors.button,
       secondary: "#FFFFFF",

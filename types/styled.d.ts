@@ -4,6 +4,9 @@ import "styled-components";
 declare module "styled-components" {
   export interface DefaultTheme {
     colors: {
+      body: string,
+      header: string,
+      
       warning: string,
       warningHover: string,
       button: {
