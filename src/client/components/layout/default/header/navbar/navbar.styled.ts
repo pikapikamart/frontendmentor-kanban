@@ -4,7 +4,29 @@ import {
   rem } from "@/client/styled/functions"
 import styled from "styled-components"
 import { Wrapper as IslandWrapper } from "@/client/components/layout/default/header/navbar/island/island.styled"
+import { motion } from "framer-motion"
+import { CreateBoardButton } from "./board/board.styled"
 
+
+export const ShowSidebar = styled(motion.button)`
+  background-color: ${ ({ theme }) => theme.colors.button.main };
+  border-radius: 0 ${ rem(32) } ${ rem(32) } 0;
+  display: grid;
+  height: ${ rem(48) };
+  inset: auto auto ${ rem(32) } 0; 
+  place-content: center;
+  position: fixed;
+  width: ${ rem(56) };
+`
+
+export const HideSidebar = styled(CreateBoardButton)`
+  color: ${ ({ theme }) => theme.colors.navlinks };
+  margin-bottom: ${ rem(32) };
+
+  img {
+    margin-right: ${ rem(10) };
+  }
+`
 
 export const InnerWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.navboard};
@@ -42,7 +64,7 @@ export const DropdownOverlay = styled.div`
   width: 100%;
 `
 
-export const Wrapper = styled.nav`
+export const Wrapper = styled(motion.nav)`
 
   ${ ({ theme }) => `
   

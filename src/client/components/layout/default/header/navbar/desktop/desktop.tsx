@@ -4,24 +4,66 @@ import { Island } from "../island"
 import { 
   Wrapper,
   InnerWrapper, } from "../navbar.styled"
+import { 
+  HideSidebar, 
+  ShowSidebar } from "../navbar.styled"
+import { 
+  fadeLeftToRightVariant, 
+  fadeVariant } from "@/client/motion/variants"
+import Image from "next/image"
+import hideSidebar from "@/public/icons/hide-sidebar.svg"
+import showSidebar from "@/public/icons/show-sidebar.svg"
+import { AnimatePresence } from "framer-motion"
 
 
 type Desktop = {
-  children: React.ReactNode
+  isExpanded: boolean,
+  handleExpansion: () => void
 }
 
-const Desktop = ({ children }: Desktop) => {
+const Desktop = ({ 
+  isExpanded,
+  handleExpansion 
+}: Desktop) => {
 
   return (
-    <Wrapper>
-      <InnerWrapper>
-        <Board />
-        <FullWidth>
-          <Island />
-          { children }
-        </FullWidth>
-      </InnerWrapper>
-    </Wrapper>
+    <AnimatePresence initial={false} >
+      { isExpanded && (
+        <ShowSidebar 
+          onClick={ handleExpansion }
+          aria-expanded={ isExpanded }
+          key="show-sidebar"
+          { ...fadeVariant }>
+            <span className="sr-only">show sidebar</span>
+            <Image
+              alt=""
+              src={ showSidebar }
+              aria-hidden="true" />
+        </ShowSidebar>
+      ) }
+      { !isExpanded && (
+        <Wrapper
+          key="sidebar" 
+          { ...fadeLeftToRightVariant }>
+          <InnerWrapper>
+            <Board />
+            <FullWidth>
+              <Island />
+              <HideSidebar 
+                onClick={ handleExpansion }
+                aria-expanded={ isExpanded }>
+                  <span className="sr-only">hide sidebar</span>
+                <Image
+                  alt=""
+                  src={ hideSidebar }
+                  aria-hidden="true" />
+                Hide Sidebar
+              </HideSidebar>
+            </FullWidth>
+          </InnerWrapper>
+        </Wrapper>
+      ) }
+    </AnimatePresence>
   )
 }
 
