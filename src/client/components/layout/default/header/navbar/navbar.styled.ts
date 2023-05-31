@@ -28,7 +28,7 @@ export const HideSidebar = styled(CreateBoardButton)`
   }
 `
 
-export const InnerWrapper = styled.div`
+export const InnerWrapper = styled(motion.div)`
   background-color: ${({ theme }) => theme.colors.navboard};
   border-radius: ${ rem(8) };
   inset: ${ rem(80) } 0 auto 0;
@@ -55,7 +55,7 @@ export const InnerWrapper = styled.div`
   `) }
 `
 
-export const DropdownOverlay = styled.div`
+export const DropdownOverlay = styled(motion.div)`
   background-color: rgba(0, 0, 0, .5);
   height: 100%;
   inset: ${ rem(64) } 0 0 0;

@@ -17,23 +17,22 @@ const Header = () => {
   return (
     <Wrapper isExpanded={ isExpanded }>
       <LogoWrapper>
-        { isMobile && (
+        { isMobile? 
           <Image
             src={ mobileLogo }
-            alt="Frontendmentor Kanban Task" />
-        ) }
-        { !isMobile && (
+            alt="Frontendmentor Kanban Task" /> 
+          :
           <Image
             src={ darkDesktopLogo }
-            alt="Frontendmentor Kanban Task" />
-        ) }
+            alt="Frontendmentor Kanban Task" /> 
+        }
       </LogoWrapper>
-      { isMobile && <MobileNavbar /> }
-      { !isMobile && (
+      { isMobile?
+        <MobileNavbar /> :
         <DesktopNavbar
           isExpanded={ isExpanded }
           handleExpansion={ handleExpansion } />
-      )}
+      }
     </Wrapper>
   )
 }

@@ -21,14 +21,11 @@ type Desktop = {
   handleExpansion: () => void
 }
 
-const Desktop = ({ 
-  isExpanded,
-  handleExpansion 
-}: Desktop) => {
+const Desktop = ({ isExpanded, handleExpansion }: Desktop) => {
 
   return (
     <AnimatePresence initial={false} >
-      { isExpanded && (
+      { isExpanded?
         <ShowSidebar 
           onClick={ handleExpansion }
           aria-expanded={ isExpanded }
@@ -40,8 +37,7 @@ const Desktop = ({
               src={ showSidebar }
               aria-hidden="true" />
         </ShowSidebar>
-      ) }
-      { !isExpanded && (
+        :
         <Wrapper
           key="sidebar" 
           { ...fadeLeftToRightVariant }>
@@ -62,7 +58,7 @@ const Desktop = ({
             </FullWidth>
           </InnerWrapper>
         </Wrapper>
-      ) }
+      }
     </AnimatePresence>
   )
 }
