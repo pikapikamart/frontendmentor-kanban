@@ -1,6 +1,7 @@
 import { AppRouter } from '@/server/routers/_app';
 import { httpBatchLink } from '@trpc/client';
 import { createTRPCNext } from '@trpc/next';
+import FingerPrintjs from "@fingerprintjs/fingerprintjs"
 
 
 function getBaseUrl() {
@@ -30,6 +31,18 @@ export const trpc = createTRPCNext<AppRouter>({
            * @link https://trpc.io/docs/ssr
            **/
           url: `${getBaseUrl()}/api/trpc`,
+          headers: async() =>{
+            const sendFingerprint = async() =>{
+              const fpPromise = await FingerPrintjs.load();
+              const fingerprint = await fpPromise.get();
+
+              return fingerprint.visitorId
+            }
+            console.log(await sendFingerprint())
+            return {
+              fingerprint: `${ JSON.stringify((await sendFingerprint())) }`
+            }
+          },
         }),
       ],
       /**

@@ -5,7 +5,8 @@ import {
 
 export const useDetectResponsiveness = () =>{
   const [ isMobile, setIsMobile ] = useState(false)
-
+  const [ hasDetected, setHasDetected ] = useState(false)
+ 
   useEffect(() => {
     if ( typeof window === "undefined" ) return
 
@@ -16,9 +17,13 @@ export const useDetectResponsiveness = () =>{
     window.addEventListener("resize", handleResize)
 
     handleResize()
+    setHasDetected(true)
 
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 
-  return isMobile
+  return {
+    isMobile,
+    hasDetected
+  }
 }

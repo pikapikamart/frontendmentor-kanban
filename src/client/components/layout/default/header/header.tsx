@@ -11,8 +11,14 @@ import Image from "next/image"
 
 
 const Header = () => {
-  const isMobile = useDetectResponsiveness()
+  const { isMobile, hasDetected } = useDetectResponsiveness()
   const [ isExpanded, handleExpansion ] = useExpansion()
+
+  if ( !hasDetected ) return (
+    <Wrapper isExpanded={ isExpanded }>
+      <LogoWrapper />
+    </Wrapper>
+  )
 
   return (
     <Wrapper isExpanded={ isExpanded }>
