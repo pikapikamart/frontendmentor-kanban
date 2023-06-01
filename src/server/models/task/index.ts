@@ -40,6 +40,6 @@ const taskSchema: mongoose.Schema<TaskDocument> = new mongoose.Schema({
   }
 })
 
-const taskModel: mongoose.Model<TaskDocument> = mongoose.models.User || mongoose.model<TaskDocument>("Task", taskSchema)
+const taskModel: mongoose.Model<TaskDocument> = mongoose.models.Task || mongoose.model<TaskDocument>("Task", taskSchema)
 
 export { taskModel }

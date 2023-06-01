@@ -29,6 +29,7 @@
     "framer-motion": "^10.12.16",
     "immer": "^9.0.19",
     "mongoose": "^6.8.3",
+    "nanoid": "^4.0.2",
     "next": "13.0.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -37,7 +38,7 @@
     "storybook-addon-next": "^1.7.3",
     "styled-components": "^5.3.6",
     "trpc-playground": "^1.0.4",
-    "typescript": "4.9.4",
+    "typescript": "^5.0.4",
     "use-immer": "^0.8.1",
     "zod": "^3.20.2"
   },

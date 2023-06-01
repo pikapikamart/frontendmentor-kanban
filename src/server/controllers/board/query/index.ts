@@ -1,4 +1,5 @@
 import { UserContext } from "@/server/middleware/token";
+import { boardsWithTasks } from "./schema";
 
 
 export const getAllBoardWithTasksController = async({ user }: UserContext) =>{
@@ -7,5 +8,5 @@ export const getAllBoardWithTasksController = async({ user }: UserContext) =>{
     path: "boards"
   })
 
-  return user
+  return boardsWithTasks.parse(user.boards)
 }
