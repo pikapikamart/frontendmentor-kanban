@@ -8,7 +8,7 @@ export const createContext = async(opts: trpcNext.CreateNextContextOptions) =>{
   return {
     req,
     res,
-    token: req.headers.fingerprint
+    token: req.headers.fingerprint as string
   }
 }
 
