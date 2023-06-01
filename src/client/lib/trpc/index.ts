@@ -38,7 +38,7 @@ export const trpc = createTRPCNext<AppRouter>({
 
               return fingerprint.visitorId
             }
-            console.log(await sendFingerprint())
+        
             return {
               fingerprint: `${ JSON.stringify((await sendFingerprint())) }`
             }

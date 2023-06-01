@@ -1,6 +1,5 @@
 import { trpc } from "@/client/lib/trpc"
 import { AppProps } from "next/app"
-import { SessionProvider } from "next-auth/react"
 import { ThemeProvider } from "styled-components"
 import { 
   Theme,
@@ -26,11 +25,9 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 
   return (
     <Provider>
-      <SessionProvider session={ pageProps.session }>
-        <ThemedApp>
-          { getLayout(<Component { ...pageProps } />) }
-        </ThemedApp>
-      </SessionProvider>
+      <ThemedApp>
+        { getLayout(<Component { ...pageProps } />) }
+      </ThemedApp>
     </Provider>
   )
 }
