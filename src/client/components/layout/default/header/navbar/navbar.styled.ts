@@ -70,10 +70,22 @@ export const Wrapper = styled(motion.nav)`
   
     ${ breakpoint("tablet", `
       background-color: ${ theme.colors.header };
+      border-right: 1px solid #E4EBFA;
       height: calc(100vh - ${ fluid(64, 10.5, 98) });
       inset: 100% auto auto 0;
       position: absolute;
       width:${ fluid(260, 30, 300) };
+
+      &::before {
+        content: "";
+        background-color: #E4EBFA;
+        height: ${ fluid(64, 10.5, 98) };
+        inset: 0 -1px auto auto;
+        position: absolute;
+        transform: translateY(-100%);
+        width: 1px;
+        z-index: 10;
+      }
     `) }
   ` }
 
