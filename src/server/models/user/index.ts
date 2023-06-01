@@ -1,6 +1,8 @@
 import mongoose from "mongoose"
 import { MongooseDocument } from "types/utils"
-import { BoardDocument } from "../board/board"
+import { 
+  BoardDocument, 
+  boardModel } from "../board/board"
 
 
 export type User = {
@@ -12,8 +14,8 @@ export type UserDocument = User & MongooseDocument
 
 const userSchema: mongoose.Schema<UserDocument> = new mongoose.Schema({
   boards: [{
-    ref: "Board",
-    type: mongoose.Types.ObjectId,
+    ref: boardModel,
+    type: mongoose.Schema.Types.ObjectId,
   }],
   token: {
     type: String,

@@ -23,6 +23,8 @@ if (!cached) {
   cached = global.mongooseGlobal = { conn: null, promise: null };
 }
 
+mongoose.set("strictQuery", true)
+
 async function connectDatabase() {
 
   if (cached.conn) {

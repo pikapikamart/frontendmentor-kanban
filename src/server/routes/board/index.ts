@@ -1,3 +1,4 @@
+import { getAllBoardWithTasksController } from "@/server/controllers/board/query";
 import { databaseMiddleware } from "@/server/middleware/database";
 import { userTokenMiddleware } from "@/server/middleware/token";
 import { 
@@ -5,8 +6,12 @@ import {
   router } from "@/server/trpc";
 
 
-export const taskProcedure = procedure
+const boardProcedure = procedure
   .use(databaseMiddleware)
   .use(userTokenMiddleware)
 
-export const taskRouter = router({})
+export const boardRouter = router({
+  getAll: boardProcedure
+    .query(({ ctx }) => getAllBoardWithTasksController(ctx)),
+  
+})

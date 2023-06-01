@@ -1,5 +1,7 @@
 import mongoose from "mongoose"
-import { TaskDocument } from "../task"
+import { 
+  TaskDocument, 
+  taskModel } from "../task"
 import { MongooseDocument } from "types/utils"
 
 
@@ -20,8 +22,8 @@ const boardSchema: mongoose.Schema<BoardDocument> = new mongoose.Schema({
   column: [{
     title: String,
     tasks: [{
-      ref: "Task",
-      type: mongoose.Types.ObjectId
+      ref: taskModel,
+      type: mongoose.Schema.Types.ObjectId
     }]
   }]
 })
