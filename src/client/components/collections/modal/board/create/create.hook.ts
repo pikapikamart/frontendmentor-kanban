@@ -27,8 +27,7 @@ export const useCreateBoard = () => {
     register,
     handleSubmit,
     control,
-    formState: { errors }
-  } = useForm<CreateBoardSchema>({
+    formState: { errors: formErrors }} = useForm<CreateBoardSchema>({
     resolver: zodResolver(createBoardSchema)
   })
   const { 
@@ -38,13 +37,15 @@ export const useCreateBoard = () => {
     name: "column",
     control
   })
-
-  const { isLoading, mutate } = trpc.board.create.useMutation({
+  const { 
+    isLoading, 
+    mutate,
+    error: apiError } = trpc.board.create.useMutation({
     onSuccess: ( data ) => {
       // call the store
     }
   })
-
+  
   const onSubmit: SubmitHandler<CreateBoardSchema> = data => {
     mutate(data)
   }
@@ -62,10 +63,11 @@ export const useCreateBoard = () => {
   return {
     handleSubmit: handleSubmit(onSubmit),
     register,
-    errors,
+    formErrors,
     fields,
     handleAddColumn,
     removeColumn,
     isLoading,
+    apiError
   }
 }

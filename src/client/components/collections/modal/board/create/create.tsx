@@ -20,6 +20,7 @@ import {
   swipeRightVariant, 
   variantNaming } from "@/client/motion/variants"
 import { LoadingSpinner } from "../../../spinner"
+import { ToastError } from "../../../toast/error"
 
 
 type CreateProps = {
@@ -30,14 +31,16 @@ const Create = ({ exit }: CreateProps) => {
   const {
     register,
     handleSubmit,
-    errors,
+    formErrors,
     fields,
     handleAddColumn,
     removeColumn,
-    isLoading } = useCreateBoard()
+    isLoading,
+    apiError } = useCreateBoard()
     
   return (
     <>
+      { apiError  && <ToastError message={ apiError.message }/> }
       <AnimatePresence>
         { isLoading && <LoadingSpinner /> }
       </AnimatePresence>
@@ -51,9 +54,9 @@ const Create = ({ exit }: CreateProps) => {
             <Input
               id="title"
               { ...register("title")}
-              aria-invalid={ errors.title? "true" : "false" }
-              aria-describedby={ errors.title? "titleError" : "" } />
-            { errors.title && <Error id="titleError">{ errors.title.message }</Error> }
+              aria-invalid={ formErrors.title? "true" : "false" }
+              aria-describedby={ formErrors.title? "titleError" : "" } />
+            { formErrors.title && <Error id="titleError">{ formErrors.title.message }</Error> }
           </FieldWrapper>
           <FieldWrapper as="fieldset">
             <Label as="legend">Columns</Label>
@@ -67,8 +70,8 @@ const Create = ({ exit }: CreateProps) => {
                     <Input
                       id={ `column${ index }` }
                       { ...register(`column.${ index }.title`) } 
-                      aria-invalid={ errors.column?.[index] ? "true" : "false" }
-                      aria-describedby={ errors.column?.[index]? `columnError${index}` : "" } />
+                      aria-invalid={ formErrors.column?.[index] ? "true" : "false" }
+                      aria-describedby={ formErrors.column?.[index]? `columnError${index}` : "" } />
                     <RemoveInput 
                       type="button"
                       onClick={ () => removeColumn(index) }>
@@ -79,7 +82,7 @@ const Create = ({ exit }: CreateProps) => {
                         <span className="sr-only">Remove field</span>
                     </RemoveInput>
                   </RowFieldInner>
-                  { errors.column?.[index] && <Error id={ `columnError${ index }` }>{ errors.column?.[index]?.title?.message }</Error> }
+                  { formErrors.column?.[index] && <Error id={ `columnError${ index }` }>{ formErrors.column?.[index]?.title?.message }</Error> }
                 </RowFieldWrapper>
               )) }
             </AnimatePresence>
