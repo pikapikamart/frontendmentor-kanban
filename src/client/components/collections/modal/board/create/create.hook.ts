@@ -4,6 +4,7 @@ import {
   SubmitHandler } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { trpc } from "@/client/lib/trpc"
 
 
 const createBoardSchema = z.object({
@@ -37,6 +38,11 @@ export const useCreateBoard = () => {
     name: "column",
     control
   })
+  // const { isLoading, mutate } = trpc.board.create.useMutation({
+  //   onSuccess: () => {
+  //     // call the store
+  //   }
+  // })
 
   const onSubmit: SubmitHandler<CreateBoardSchema> = data => {
     console.log(data)
@@ -58,6 +64,7 @@ export const useCreateBoard = () => {
     errors,
     fields,
     handleAddColumn,
-    removeColumn
+    removeColumn,
+    isLoading
   }
 }
