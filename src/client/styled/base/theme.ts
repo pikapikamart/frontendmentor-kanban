@@ -15,6 +15,12 @@ export const theme: DefaultTheme = {
       warning: "#EA5555",
       warningHover: "#FF9898", 
     },
+    form: {
+      background: "#FFFFFF",
+      heading: "#000112",
+      label: "#828FA3",
+      input: "#000112"
+    },
     boardHeading: "#000112",
     navlinks: "#828FA3",
     taskTitle: "#000112",
@@ -49,6 +55,12 @@ export const darkTheme: DefaultTheme = {
       secondary: "#FFFFFF",
       secondaryHover: "#FFFFFF"
     },
-    boardHeading: "#FFFFFF"
+    form: {
+      background: "#2B2C37",
+      heading: "#FFFFFF",
+      label: "#FFFFFF",
+      input: "#FFFFFF"
+    },
+    boardHeading: "#FFFFFF",
   }
 }

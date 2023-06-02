@@ -6,7 +6,6 @@ declare module "styled-components" {
     colors: {
       body: string,
       header: string,
-      
       warning: string,
       warningHover: string,
       button: {
@@ -16,6 +15,12 @@ declare module "styled-components" {
         secondaryHover: string,
         warning: string,
         warningHover: string
+      },
+      form: {
+        background: string,
+        heading: string,
+        label: string,
+        input: string
       },
       boardHeading: string,
       navlinks: string,

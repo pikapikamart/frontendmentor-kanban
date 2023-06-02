@@ -3,13 +3,16 @@ import {
   useRef } from "react"
 
 
-export const useBaseModalFocus = ( exit: () => void ) =>{
-  const modalRef = useRef<HTMLDivElement | null>(null)
+type UseBaseModalFocusProps =  HTMLElement | null
 
+
+export const useBaseModalFocus = ( focusBackRef: UseBaseModalFocusProps ) =>{
+  const modalRef = useRef<HTMLDivElement | null>(null)
+  
   useEffect(() =>{
     modalRef.current?.focus()
 
-    return () => exit()
+    return () => focusBackRef?.focus()
   }, [])
 
   return {

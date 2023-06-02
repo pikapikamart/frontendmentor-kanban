@@ -15,6 +15,7 @@
     "story-dev": "concurrently \"npm run dev\" \"npm run storybook\""
   },
   "dependencies": {
+    "@ariakit/react": "^0.2.6",
     "@fingerprintjs/fingerprintjs": "^3.4.1",
     "@next/font": "13.0.7",
     "@svgr/webpack": "^7.0.0",
@@ -26,6 +27,7 @@
     "envalid": "^7.3.1",
     "eslint": "8.30.0",
     "eslint-config-next": "13.0.7",
+    "focus-trap-react": "^10.1.4",
     "framer-motion": "^10.12.16",
     "immer": "^9.0.19",
     "mongoose": "^6.8.3",
@@ -33,7 +35,7 @@
     "next": "13.0.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.41.0",
+    "react-hook-form": "^7.44.2",
     "react-tracked": "^1.7.11",
     "storybook-addon-next": "^1.7.3",
     "styled-components": "^5.3.6",

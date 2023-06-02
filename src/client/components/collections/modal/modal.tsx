@@ -4,6 +4,7 @@ import {
   BaseModalWrapper, 
   ModalDocument} from "./modal.styled"
 import { useBaseModalFocus } from "./modal.hook"
+import { fadeVariant } from "@/client/motion/variants"
 
 
 type ModalProps = {
@@ -13,7 +14,7 @@ type ModalProps = {
 }
 
 const Modal = ({ children, exit, focusBackRef }: ModalProps) =>{
-  const { modalRef } = useBaseModalFocus(exit)
+  const { modalRef } = useBaseModalFocus( focusBackRef )
 
   const exitModal = () =>{
     focusBackRef?.focus()
@@ -25,6 +26,8 @@ const Modal = ({ children, exit, focusBackRef }: ModalProps) =>{
       ref={ modalRef }
       role="dialog"
       tabIndex={ -1 }
+      key="baseModal"
+      { ...fadeVariant }
       aria-labelledby="modal-heading" >
       <ModalDocument role="document">
         <BaseModalOnClickExit onClick={ exitModal } />

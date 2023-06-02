@@ -11,7 +11,6 @@ import {
 export type Board = {
   owner: UserDocument["_id"],
   title: string,
-  linkPath: string,
   column: {
     title: string,
     tasks: TaskDocument["_id"][]
@@ -26,7 +25,6 @@ const boardSchema: mongoose.Schema<BoardDocument> = new mongoose.Schema({
     ref: userModel
   },
   title: String,
-  linkPath: String,
   column: [{
     title: String,
     tasks: [{

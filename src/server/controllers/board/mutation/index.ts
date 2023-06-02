@@ -1,6 +1,5 @@
 import { createBoard, findBoard } from "@/server/services/board"
 import { CreateBoardSchema } from "./schema"
-import { nanoid } from "nanoid"
 import { Board } from "@/server/models/board/board"
 import { boardWithTasks } from "../query/schema"
 import { UserContext } from "@/server/middleware/token"
@@ -15,7 +14,6 @@ export const createBoardController = async( { user }: UserContext, input: Create
   const boardData: Board = {
     ...input,
     owner: user._id,
-    linkPath: nanoid(10),
     column: input.column.map(column => ({
       title: column.title,
       tasks: []

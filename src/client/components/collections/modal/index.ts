@@ -1,1 +1,1 @@
-export { default as BaseModal } from "./modal"
+export { default as ModalDocument } from "./modal"
