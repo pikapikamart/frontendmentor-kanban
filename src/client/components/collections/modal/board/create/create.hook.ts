@@ -38,14 +38,15 @@ export const useCreateBoard = () => {
     name: "column",
     control
   })
-  // const { isLoading, mutate } = trpc.board.create.useMutation({
-  //   onSuccess: () => {
-  //     // call the store
-  //   }
-  // })
+
+  const { isLoading, mutate } = trpc.board.create.useMutation({
+    onSuccess: ( data ) => {
+      // call the store
+    }
+  })
 
   const onSubmit: SubmitHandler<CreateBoardSchema> = data => {
-    console.log(data)
+    mutate(data)
   }
 
   const handleAddColumn = (index: number) =>{
@@ -65,6 +66,6 @@ export const useCreateBoard = () => {
     fields,
     handleAddColumn,
     removeColumn,
-    isLoading
+    isLoading,
   }
 }
