@@ -16,6 +16,9 @@ import { useCreateBoard } from "./create.hook"
 import removeIcon from "@/public/icons/remove.svg"
 import { AnimatePresence } from "framer-motion"
 import FocusTrap from "focus-trap-react"
+import { 
+  swipeRightVariant, 
+  variantNaming } from "@/client/motion/variants"
 
 
 type CreateProps = {
@@ -33,9 +36,7 @@ const Create = ({ exit }: CreateProps) => {
     
   return (
     <FocusTrap>
-      <Wrapper 
-        as="form"
-        onSubmit={ handleSubmit }>
+      <Wrapper onSubmit={ handleSubmit }>
         <Heading>Add New Board</Heading>
         <FieldWrapper>
           <Label
@@ -43,13 +44,7 @@ const Create = ({ exit }: CreateProps) => {
             id="titleError">Board Name</Label>
           <Input
             id="title"
-            { ...register("title", {
-              required: "Title is required",
-              pattern: {
-                value: /^[A-Za-z]+$/i,
-                message: "A-Z only and no special characters"
-              }
-            })}
+            { ...register("title")}
             aria-invalid={ errors.title? "true" : "false" }
             aria-describedby={ errors.title? "titleError" : "" } />
           { errors.title && <Error id="titleError">{ errors.title.message }</Error> }
@@ -58,17 +53,14 @@ const Create = ({ exit }: CreateProps) => {
           <Label as="legend">Columns</Label>
           <AnimatePresence>       
             { fields.map((field, index) => (
-              <RowFieldWrapper key={ field.id }>
+              <RowFieldWrapper
+                { ...variantNaming }
+                variants={ swipeRightVariant }
+                key={ field.id }>
                 <RowFieldInner>
                   <Input
                     id={ `column${ index }` }
-                    { ...register(`column.${ index }.title`, {
-                      required: "Column name is required",
-                      pattern: {
-                        value: /^[A-Za-z]+$/i,
-                        message: "A-Z only and no special characters"
-                      }
-                    }) } 
+                    { ...register(`column.${ index }.title`) } 
                     aria-invalid={ errors.column?.[index] ? "true" : "false" }
                     aria-describedby={ errors.column?.[index]? `columnError${index}` : "" } />
                   <RemoveInput 
@@ -81,7 +73,7 @@ const Create = ({ exit }: CreateProps) => {
                       <span className="sr-only">Remove field</span>
                   </RemoveInput>
                 </RowFieldInner>
-                { errors.column?.[index] && <Error id={ `columnError${ index }` }>{ errors.column?.[0]?.title?.message }</Error> }
+                { errors.column?.[index] && <Error id={ `columnError${ index }` }>{ errors.column?.[index]?.title?.message }</Error> }
               </RowFieldWrapper>
             )) }
           </AnimatePresence>

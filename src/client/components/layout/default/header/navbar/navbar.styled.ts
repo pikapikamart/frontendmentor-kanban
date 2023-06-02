@@ -42,7 +42,7 @@ export const InnerWrapper = styled(motion.div)`
     border-radius: 0;
     display: flex;
     flex-direction: column;
-    height: inherit;
+    min-height: inherit;
     justify-content: space-between;
     margin-top: 0;
     position: static;
@@ -71,8 +71,8 @@ export const Wrapper = styled(motion.nav)`
     ${ breakpoint("tablet", `
       background-color: ${ theme.colors.header };
       border-right: 1px solid #E4EBFA;
-      height: calc(100vh - ${ fluid(64, 10.5, 98) });
       inset: 100% auto auto 0;
+      min-height: calc(100vh - ${ fluid(64, 10.5, 98) });
       position: absolute;
       width:${ fluid(260, 30, 300) };
 

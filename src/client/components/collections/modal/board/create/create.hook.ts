@@ -1,14 +1,25 @@
 import { 
   useFieldArray, 
-  useForm } from "react-hook-form"
+  useForm,
+  SubmitHandler } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 
-type CreateFormValues = {
-  title: string,
-  column: {
-    title: string
-  }[]
-}
+const createBoardSchema = z.object({
+  title: z
+    .string({ required_error: "Title is required" })
+    .min(1, "Title should not be empty")
+    .regex(/^(?! )[A-Za-z ]*$/, "A-Z only and no special characters"),
+  column: z.array(z.object({
+    title: z
+      .string({ required_error: "Column title is required" })
+      .min(1, "Column title should not be empty")
+      .regex(/^(?! )[A-Za-z ]*$/, "A-Z only and no special characters"),
+  }))
+})
+
+type CreateBoardSchema = z.infer<typeof createBoardSchema>
 
 export const useCreateBoard = () => {
   const {
@@ -16,7 +27,9 @@ export const useCreateBoard = () => {
     handleSubmit,
     control,
     formState: { errors }
-  } = useForm<CreateFormValues>()
+  } = useForm<CreateBoardSchema>({
+    resolver: zodResolver(createBoardSchema)
+  })
   const { 
     fields, 
     append, 
@@ -25,7 +38,7 @@ export const useCreateBoard = () => {
     control
   })
 
-  const onSubmit = ( data: CreateFormValues  ) => {
+  const onSubmit: SubmitHandler<CreateBoardSchema> = data => {
     console.log(data)
   }
 

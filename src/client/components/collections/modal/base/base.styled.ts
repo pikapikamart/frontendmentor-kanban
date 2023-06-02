@@ -90,7 +90,7 @@ export const Heading = styled.h2`
   margin-bottom: ${ fluid(24, 3.2, 32) };
 `
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.form`
   background-color: ${ ({ theme }) => theme.colors.form.background};
   border-radius: ${ rem(6) };
   max-width: ${ rem(480) };

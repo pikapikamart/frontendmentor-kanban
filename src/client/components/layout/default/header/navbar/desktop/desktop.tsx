@@ -9,7 +9,8 @@ import {
   ShowSidebar } from "../navbar.styled"
 import { 
   fadeLeftToRightVariant, 
-  fadeVariant } from "@/client/motion/variants"
+  fadeVariant, 
+  variantNaming} from "@/client/motion/variants"
 import Image from "next/image"
 import hideSidebar from "@/public/icons/hide-sidebar.svg"
 import showSidebar from "@/public/icons/show-sidebar.svg"
@@ -30,7 +31,8 @@ const Desktop = ({ isExpanded, handleExpansion }: Desktop) => {
           onClick={ handleExpansion }
           aria-expanded={ isExpanded }
           key="show-sidebar"
-          { ...fadeVariant }>
+          { ...variantNaming }
+          variants={ fadeVariant }>
             <span className="sr-only">show sidebar</span>
             <Image
               alt=""
@@ -40,7 +42,8 @@ const Desktop = ({ isExpanded, handleExpansion }: Desktop) => {
         :
         <Wrapper
           key="sidebar" 
-          { ...fadeLeftToRightVariant }>
+          { ...variantNaming }
+          variants={ fadeLeftToRightVariant }>
           <InnerWrapper>
             <Board />
             <FullWidth>

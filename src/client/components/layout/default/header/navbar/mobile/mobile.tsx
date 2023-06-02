@@ -10,7 +10,7 @@ import {
 import Image from "next/image"
 import chevron from "@/public/icons/icon-chevron-down.svg"
 import { AnimatePresence } from "framer-motion"
-import { fadeVariant } from "@/client/motion/variants"
+import { fadeVariant, variantNaming } from "@/client/motion/variants"
 
 
 const Mobile = () => {
@@ -33,13 +33,15 @@ const Mobile = () => {
           { isExpanded && <>
             <InnerWrapper 
               key="navbar-mobile"
-              { ...fadeVariant }>
+              { ...variantNaming }
+              variants={ fadeVariant }>
               <Board />
               <Island />
             </InnerWrapper>
             <DropdownOverlay 
               key="navbar-overlay"
-              { ...fadeVariant } />
+              { ...variantNaming }
+              variants={ fadeVariant } />
           </> }
         </AnimatePresence>
       </Wrapper>
