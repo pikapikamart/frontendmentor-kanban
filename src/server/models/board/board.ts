@@ -1,11 +1,7 @@
 import mongoose from "mongoose"
-import { 
-  TaskDocument, 
-  taskModel } from "../task"
+import { TaskDocument } from "../task"
 import { MongooseDocument } from "types/utils"
-import { 
-  UserDocument, 
-  userModel } from "../user"
+import { UserDocument } from "../user"
 
 
 export type Board = {
@@ -22,13 +18,13 @@ export type BoardDocument = Board & MongooseDocument
 const boardSchema: mongoose.Schema<BoardDocument> = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: userModel
+    ref: "User"
   },
   title: String,
   column: [{
     title: String,
     tasks: [{
-      ref: taskModel,
+      ref: "Task",
       type: mongoose.Schema.Types.ObjectId
     }]
   }]

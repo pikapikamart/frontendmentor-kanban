@@ -4,7 +4,8 @@ import {
   userModel } from "@/server/models/user"
 import { 
   DocumentDefinition, 
-  FilterQuery } from "mongoose"
+  FilterQuery, 
+  UpdateQuery} from "mongoose"
 
 
 export const findUser = async( query: FilterQuery<UserDocument> ) => (
@@ -13,4 +14,11 @@ export const findUser = async( query: FilterQuery<UserDocument> ) => (
 
 export const createUser = async( document: DocumentDefinition<User> ) => (
   userModel.create(document)
+)
+
+export const updateUser = async(
+  query: FilterQuery<UserDocument>,
+  update: UpdateQuery<UserDocument>
+) =>(
+  userModel.updateOne(query, update)
 )

@@ -1,12 +1,13 @@
 import { UserContext } from "@/server/middleware/token";
 import { boardsWithTasks } from "./schema";
+import { trpcSuccess } from "@/server/utils/trpc";
 
 
 export const getAllBoardWithTasksController = async({ user }: UserContext) =>{
   
-  user.populate({
+  await user.populate({
     path: "boards"
   })
-
-  return boardsWithTasks.parse(user.boards)
+  
+  return trpcSuccess(boardsWithTasks.parse(user.boards), "Boards")
 }

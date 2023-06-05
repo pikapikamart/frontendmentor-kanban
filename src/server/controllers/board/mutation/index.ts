@@ -5,7 +5,10 @@ import { CreateBoardSchema } from "./schema"
 import { Board } from "@/server/models/board/board"
 import { boardWithTasks } from "../query/schema"
 import { UserContext } from "@/server/middleware/token"
-import { trpcError, trpcSuccess } from "@/server/utils/trpc"
+import { 
+  trpcError, 
+  trpcSuccess } from "@/server/utils/trpc"
+import { updateUser } from "@/server/services/user"
 
 export const createBoardController = async( { user }: UserContext, input: CreateBoardSchema ) => {
   
@@ -14,7 +17,7 @@ export const createBoardController = async( { user }: UserContext, input: Create
   }
 
   const boardData: Board = {
-    ...input,
+    title: input.title,
     owner: user._id,
     column: input.column.map(column => ({
       title: column.title,
@@ -23,6 +26,15 @@ export const createBoardController = async( { user }: UserContext, input: Create
   }
 
   const newBoard = await createBoard(boardData)
-  
+
+  await updateUser(
+    { _id: user._id },
+    {
+      $push: {
+        boards: newBoard._id
+      }
+    }
+  )
+
   return trpcSuccess(boardWithTasks.parse(newBoard), "Board successfully created")
 }
