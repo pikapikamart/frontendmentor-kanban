@@ -1,16 +1,16 @@
 import { TrpcContext } from "@/server/context";
 import { middleware } from "../../trpc";
 import { 
-  createUser, 
-  findUser } from "@/server/services/user";
+  createUserService, 
+  findUserService } from "@/server/services/user";
 import { UserDocument } from "@/server/models/user";
 
 
 export const userTokenMiddleware = middleware(async({ctx, next}) => {
-  let user = await findUser({ token: ctx.token })
+  let user = await findUserService({ token: ctx.token })
 
   if ( !user ) {
-    user = await createUser({
+    user = await createUserService({
       token: ctx.token,
       boards: []
     })

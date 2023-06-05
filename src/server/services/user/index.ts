@@ -5,20 +5,28 @@ import {
 import { 
   DocumentDefinition, 
   FilterQuery, 
+  PopulateOptions, 
   UpdateQuery} from "mongoose"
 
 
-export const findUser = async( query: FilterQuery<UserDocument> ) => (
+export const findUserService = async( query: FilterQuery<UserDocument> ) => (
   userModel.findOne(query)
 )
 
-export const createUser = async( document: DocumentDefinition<User> ) => (
+export const createUserService = async( document: DocumentDefinition<User> ) => (
   userModel.create(document)
 )
 
-export const updateUser = async(
+export const updateUserService = async(
   query: FilterQuery<UserDocument>,
   update: UpdateQuery<UserDocument>
 ) =>(
   userModel.updateOne(query, update)
+)
+
+export const populateUserService = async(
+  user: UserDocument,
+  populate: PopulateOptions
+) => (
+  await user.populate(populate)
 )

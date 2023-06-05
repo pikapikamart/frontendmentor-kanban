@@ -1,7 +1,7 @@
 import z from "zod"
 
 
-export const boardWithTasks = z.object({
+export const boardWithTasksSchema = z.object({
   title: z.string({ required_error: "Title is required" }),
   column: z.array(z.object({
     title: z.string({ required_error: "Column title is required" }),
@@ -9,6 +9,6 @@ export const boardWithTasks = z.object({
   }))
 })
 
-export const boardsWithTasks = z.array(boardWithTasks)
+export const boardsWithTasksSchema = z.array(boardWithTasksSchema)
 
-export type BoardsWithTask = z.infer<typeof boardsWithTasks>
+export type BoardsWithTask = z.infer<typeof boardsWithTasksSchema>

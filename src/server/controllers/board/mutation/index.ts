@@ -1,18 +1,18 @@
 import { 
-  createBoard, 
-  findBoard } from "@/server/services/board"
+  createBoardService, 
+  findBoardService } from "@/server/services/board"
 import { CreateBoardSchema } from "./schema"
 import { Board } from "@/server/models/board/board"
-import { boardWithTasks } from "../query/schema"
+import { boardWithTasksSchema } from "../query/schema"
 import { UserContext } from "@/server/middleware/token"
 import { 
   trpcError, 
   trpcSuccess } from "@/server/utils/trpc"
-import { updateUser } from "@/server/services/user"
+import { updateUserService } from "@/server/services/user"
 
 export const createBoardController = async( { user }: UserContext, input: CreateBoardSchema ) => {
   
-  if ( await findBoard({ owner: user._id, title: input.title }, "_id") ) {
+  if ( await findBoardService({ owner: user._id, title: input.title }, "_id") ) {
     return trpcError("BAD_REQUEST", "Board already existed")
   }
 
@@ -25,9 +25,9 @@ export const createBoardController = async( { user }: UserContext, input: Create
     }))
   }
 
-  const newBoard = await createBoard(boardData)
+  const newBoard = await createBoardService(boardData)
 
-  await updateUser(
+  await updateUserService(
     { _id: user._id },
     {
       $push: {
@@ -36,5 +36,5 @@ export const createBoardController = async( { user }: UserContext, input: Create
     }
   )
 
-  return trpcSuccess(boardWithTasks.parse(newBoard), "Board successfully created")
+  return trpcSuccess(boardWithTasksSchema.parse(newBoard), "Board successfully created")
 }

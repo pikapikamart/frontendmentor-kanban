@@ -1,18 +1,27 @@
 import { UserContext } from "@/server/middleware/token";
-import { boardsWithTasks } from "./schema";
+import { boardsWithTasksSchema } from "./schema";
 import { trpcSuccess } from "@/server/utils/trpc";
 import { taskModel } from "@/server/models/task";
+import { populateUserService } from "@/server/services/user";
+import { BoardDocument } from "@/server/models/board/board";
 
 
 export const getAllBoardWithTasksController = async({ user }: UserContext) =>{
-  
-  await user.populate({
+
+  await populateUserService(user, {
     path: "boards",
     populate: {
       path: "column.tasks",
       model: taskModel
-    }
+    },
+    options: {
+      lean: true
+    },
+    transform: (doc: BoardDocument, id): Partial<BoardDocument> => ({
+      title: doc.title,
+      column: []
+    })
   })
   
-  return trpcSuccess(boardsWithTasks.parse(user.boards), "Boards")
+  return trpcSuccess(boardsWithTasksSchema.parse(user.boards), "Boards")
 }
