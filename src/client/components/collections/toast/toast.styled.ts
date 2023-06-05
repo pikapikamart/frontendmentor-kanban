@@ -5,7 +5,7 @@ import { rem } from "@/client/styled/functions"
 
 
 type ToastWrapperProps = {
-  colored: "red"
+  colored: "red" | "success"
 }
 
 const toastAnimation = keyframes`
@@ -31,10 +31,12 @@ export const ToastWrapper = styled.div<ToastWrapperProps>`
   text-align: left;
   z-index: 100;
 
-  ${ ({ colored }) => {
+  ${ ({ colored, theme }) => {
     switch(colored) {
       case "red":
         return css`background-color: rgb(200, 0, 0);`
+      case "success":
+        return css`background-color: ${ theme.colors.button.main };`
     }
   } }
 `

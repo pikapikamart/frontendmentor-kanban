@@ -1,9 +1,11 @@
-import { createBoard, findBoard } from "@/server/services/board"
+import { 
+  createBoard, 
+  findBoard } from "@/server/services/board"
 import { CreateBoardSchema } from "./schema"
 import { Board } from "@/server/models/board/board"
 import { boardWithTasks } from "../query/schema"
 import { UserContext } from "@/server/middleware/token"
-import { trpcError } from "@/server/utils/trpc"
+import { trpcError, trpcSuccess } from "@/server/utils/trpc"
 
 export const createBoardController = async( { user }: UserContext, input: CreateBoardSchema ) => {
   
@@ -22,5 +24,5 @@ export const createBoardController = async( { user }: UserContext, input: Create
 
   const newBoard = await createBoard(boardData)
   
-  return boardWithTasks.parse(newBoard)
+  return trpcSuccess(boardWithTasks.parse(newBoard), "Board successfully created")
 }

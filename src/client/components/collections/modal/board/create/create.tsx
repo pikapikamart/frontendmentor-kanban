@@ -36,7 +36,7 @@ const Create = ({ exit }: CreateProps) => {
     handleAddColumn,
     removeColumn,
     isLoading,
-    apiError } = useCreateBoard()
+    apiError } = useCreateBoard(exit)
     
   return (
     <>

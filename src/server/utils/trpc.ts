@@ -8,3 +8,11 @@ export const trpcError = (code: TRPC_ERROR_CODE_KEY, message: string) => {
     message
   })
 }
+
+export const trpcSuccess = <T = {}>( content: T, message: string ) => {
+
+  return {
+    content, 
+    message
+  }
+}
