@@ -14,7 +14,6 @@ export const useBoard = () =>{
     refetchOnWindowFocus: false,
     enabled: false,
     onSuccess: (data) => {
-      
       dispatch({
         type: "SET_BOARDS",
         payload: data.content
