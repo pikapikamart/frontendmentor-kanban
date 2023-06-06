@@ -93,7 +93,7 @@ export const Wrapper = styled(motion.nav)`
 
 export const NavHeading = styled.h1`
   color: ${ ({ theme }) => theme.colors.boardHeading };
-  font-size: ${ rem(18) };
+  font-size: ${ fluid(18, 2.6, 24) };
 `
 
 export const NavExpansion = styled.button`

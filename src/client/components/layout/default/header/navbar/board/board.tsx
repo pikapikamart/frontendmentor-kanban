@@ -25,7 +25,7 @@ const Board = () => {
       <BoardCounter>
         all boards
         <br />
-        <span>(3)</span>
+        <span>({ boards.length })</span>
       </BoardCounter>
       <BoardList>
         { boards.map(board => (

@@ -52,7 +52,6 @@ export const Four04Heading = styled.h1`
 
 export const Four04Wrapper = styled.div`
   margin: ${ fluid(48, 6, 80) } auto ${ rem(96) };
-  min-height: 80vh;
   max-width: ${ rem(432) };
   padding: 0 ${ rem(16) };
 `
