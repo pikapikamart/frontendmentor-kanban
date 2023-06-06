@@ -1,6 +1,6 @@
 import { createBoardController } from "@/server/controllers/board/mutation";
 import { createBoardSchema } from "@/server/controllers/board/mutation/schema";
-import { getAllBoardWithTasksController } from "@/server/controllers/board/query";
+import { getAllBoardController } from "@/server/controllers/board/query";
 import { databaseMiddleware } from "@/server/middleware/database";
 import { userTokenMiddleware } from "@/server/middleware/token";
 import { 
@@ -14,7 +14,7 @@ const boardProcedure = procedure
 
 export const boardRouter = router({
   getAll: boardProcedure
-    .query(({ ctx }) => getAllBoardWithTasksController(ctx)),
+    .query(({ ctx }) => getAllBoardController(ctx)),
   create: boardProcedure
     .input(createBoardSchema)
     .mutation(({ ctx, input }) => createBoardController(ctx, input))  

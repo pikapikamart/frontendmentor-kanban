@@ -6,7 +6,7 @@ import { populateUserService } from "@/server/services/user";
 import { BoardDocument } from "@/server/models/board/board";
 
 
-export const getAllBoardWithTasksController = async({ user }: UserContext) =>{
+export const getAllBoardController = async({ user }: UserContext) =>{
 
   await populateUserService(user, {
     path: "boards",
@@ -19,6 +19,7 @@ export const getAllBoardWithTasksController = async({ user }: UserContext) =>{
     },
     transform: (doc: BoardDocument, id): Partial<BoardDocument> => ({
       title: doc.title,
+      linkPath: doc.linkPath,
       column: []
     })
   })

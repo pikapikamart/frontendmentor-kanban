@@ -17,8 +17,12 @@ export const createBoardController = async( { user }: UserContext, input: Create
   }
 
   const boardData: Board = {
-    title: input.title,
     owner: user._id,
+    title: input.title,
+    linkPath: input.title
+      .split(" ")
+      .map(word => word.toLowerCase())
+      .join(""),
     column: input.column.map(column => ({
       title: column.title,
       tasks: []
