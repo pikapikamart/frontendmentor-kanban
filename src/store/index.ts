@@ -7,13 +7,11 @@ import { useImmerReducer } from "use-immer"
 type Draft = {
   darkmode: boolean,
   boards: BoardsWithTask,
-  currentBoard: string
 }
 
 type Action = |
   { type: "DARKMODE" } |
-  { type: "SET_BOARDS", payload: BoardsWithTask } | 
-  { type: "SET_CURRENT_BOARD", payload: string }
+  { type: "SET_BOARDS", payload: BoardsWithTask }
 
 const reducer = ( draft: Draft, action: Action ) => {
   
@@ -26,10 +24,6 @@ const reducer = ( draft: Draft, action: Action ) => {
       draft.boards = action.payload
 
       return
-    case "SET_CURRENT_BOARD":
-      draft.currentBoard = action.payload
-
-      return
     default:
       return draft
   }
@@ -37,8 +31,7 @@ const reducer = ( draft: Draft, action: Action ) => {
 
 const initialState: Draft = {
   darkmode: false,
-  boards: [],
-  currentBoard: ""
+  boards: []
 }
 
 const useValue = (): [ Draft, Dispatch<Action> ] => {

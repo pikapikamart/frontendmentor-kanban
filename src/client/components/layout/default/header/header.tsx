@@ -9,13 +9,13 @@ import { DesktopNavbar } from "./navbar/desktop"
 import { useExpansion } from "@/client/lib/hooks"
 import Image from "next/image"
 import { NavHeading } from "./navbar/navbar.styled"
-import { useTrackedState } from "@/store"
+import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 
 
 const Header = () => {
   const { isMobile, hasDetected } = useDetectResponsiveness()
   const [ isExpanded, handleExpansion ] = useExpansion()
-  const { currentBoard } = useTrackedState()
+  const { currentBoard } = useCurrentBoard()
 
   if ( !hasDetected ) return (
     <Wrapper isExpanded={ isExpanded }>

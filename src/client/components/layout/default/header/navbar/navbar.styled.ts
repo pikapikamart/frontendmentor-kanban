@@ -53,6 +53,10 @@ export const InnerWrapper = styled(motion.div)`
       margin-bottom: ${ rem(16) };
     }
   `) }
+
+  ${ breakpoint("desktop", `
+    padding: ${ rem(14) } ${ rem(20) } 0 0;
+  `) }
 `
 
 export const DropdownOverlay = styled(motion.div)`

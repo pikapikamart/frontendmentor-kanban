@@ -7,7 +7,7 @@ import { useEffect } from "react"
 
 
 export const useBoard = () =>{
-  const { boards, currentBoard } = useTrackedState()
+  const { boards } = useTrackedState()
   const dispatch = useDispatch()
   const { asPath } = useRouter()
   const { refetch } = trpc.board.getAll.useQuery(undefined, {
@@ -26,17 +26,6 @@ export const useBoard = () =>{
       refetch()
     }
   }, [])
-
-  useEffect(() =>{
-    const board = boards.find(board => board.linkPath===asPath.slice(1))
-
-    if ( board ) {
-      dispatch({
-        type: "SET_CURRENT_BOARD",
-        payload: board.title
-      })
-    }
-  }, [ boards.length ])
 
   return {
     boards,
