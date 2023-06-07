@@ -45,6 +45,9 @@ const Header = () => {
           <NavHeading>{ currentBoard }</NavHeading>
         </>
       }
+      { !!currentBoard && (
+        <></>
+      ) }
     </Wrapper>
   )
 }

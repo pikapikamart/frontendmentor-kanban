@@ -15,3 +15,7 @@ export const findBoardService = async( query: FilterQuery<BoardDocument>, projec
 export const createBoardService = async( document: DocumentDefinition<Board> ) =>(
   boardModel.create(document)
 )
+
+export const deleteBoardService = async(query: FilterQuery<BoardDocument>) => (
+  boardModel.findOneAndDelete(query)
+)
