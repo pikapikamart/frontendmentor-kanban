@@ -33,7 +33,7 @@ export const Wrapper = styled.header<WrapperProps>`
   border-bottom: 1px solid #E4EBFA;
   display: flex;
   min-height: ${ fluid(64, 10.5, 98) };
-  padding: 0 ${ fluid(16, 3.4, 34) } 0 ${ fluid(16, 3.4, 34) };
+  padding: 0 0 0 ${ fluid(16, 3.4, 34) };
 
   ${ breakpoint("tablet", `
     position: relative;

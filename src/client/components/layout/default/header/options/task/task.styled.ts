@@ -7,6 +7,8 @@ import styled from "styled-components";
 export const Wrapper = styled.button`
   background-color: ${ ({ theme }) => theme.colors.button.main };
   border-radius: ${ rem(32) };
+  color: #FFFFFF;
+  display: grid;
   font-size: ${ rem(15) };
   font-weight: 700;
   height: ${ fluid(32, 6, 48) }; 

@@ -30,6 +30,7 @@ export const theme: DefaultTheme = {
     navboard: "#FFFFFF",
     boardCurrent: "#FFFFFF",
     colorSchemeInput: "#635FC7",
+    boardDropdown: "#FFFFFF",
     default: "#828FA3"
   },
   fontSize: {
@@ -62,5 +63,6 @@ export const darkTheme: DefaultTheme = {
       input: "#FFFFFF"
     },
     boardHeading: "#FFFFFF",
+    boardDropdown: "#20212C"
   }
 }

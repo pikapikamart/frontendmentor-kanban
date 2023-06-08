@@ -30,6 +30,7 @@ declare module "styled-components" {
       status: string,
       navboard: string,
       boardCurrent: string,
+      boardDropdown: string,
       colorSchemeInput: string,
       default: string
     },

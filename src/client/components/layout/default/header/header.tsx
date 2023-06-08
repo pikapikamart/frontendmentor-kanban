@@ -10,7 +10,8 @@ import { useExpansion } from "@/client/lib/hooks"
 import Image from "next/image"
 import { NavHeading } from "./navbar/navbar.styled"
 import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
-import { AddTask } from "./options/task"
+import { AddTaskOption } from "./options/task"
+import { BoardOption } from "./options/board"
 
 
 const Header = () => {
@@ -48,8 +49,8 @@ const Header = () => {
       }
       { !!currentBoard && (
         <>
-
-          <AddTask />
+          <AddTaskOption />
+          <BoardOption />
         </>
       ) }
     </Wrapper>
