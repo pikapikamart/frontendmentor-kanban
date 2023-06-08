@@ -6,6 +6,7 @@ export const boardWithTasksSchema = z.object({
   linkPath: z.string({ required_error: "Linkpath is required" }),
   column: z.array(z.object({
     title: z.string({ required_error: "Column title is required" }),
+    id: z.string({ required_error: "Column id is required" }),
     tasks: z.array(z.any(), { required_error: "Tasks is required" })
   }))
 })
