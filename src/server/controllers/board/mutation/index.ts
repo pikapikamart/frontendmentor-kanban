@@ -73,7 +73,7 @@ export const editBoardController = async({ user }: UserContext, input: EditBoard
       tasks: []
     }
   })
-
+  
   const updatedBoard = await updateBoardService(
     {
       owner: user._id,
