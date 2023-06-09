@@ -9,7 +9,7 @@ import { ExitCallback } from "types/utils"
 import { useDispatch } from "@/store"
 
 
-const createBoardSchema = z.object({
+export const createBoardSchema = z.object({
   title: z
     .string({ required_error: "Title is required" })
     .min(1, "Title should not be empty")
@@ -22,7 +22,7 @@ const createBoardSchema = z.object({
   }))
 })
 
-type CreateBoardSchema = z.infer<typeof createBoardSchema>
+export type CreateBoardSchema = z.infer<typeof createBoardSchema>
 
 export const useCreateBoard = ( exit: ExitCallback ) => {
   const dispatch = useDispatch()

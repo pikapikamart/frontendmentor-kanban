@@ -14,6 +14,7 @@ import {
 import { useRef } from "react"
 import { ModalDocument } from "@/client/components/collections/modal"
 import { DeleteBoardModal } from "@/client/components/collections/modal/board/delete"
+import { EditBoardModal } from "@/client/components/collections/modal/board/edit"
 
 
 const Board = () =>{
@@ -67,6 +68,13 @@ const Board = () =>{
             focusBackRef={ focusBack.current }
             exit={ handleDeleteExpansion }>
             <DeleteBoardModal exit={ handleDeleteExpansion } />
+          </ModalDocument>
+        ) }
+        { editExpansion && (
+          <ModalDocument
+            focusBackRef={ focusBack.current }
+            exit={ handleEditExpansion }>
+            <EditBoardModal exit={ handleEditExpansion } />
           </ModalDocument>
         ) }
       </AnimatePresence>

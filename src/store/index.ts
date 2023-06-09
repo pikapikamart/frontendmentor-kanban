@@ -15,7 +15,8 @@ type Action = |
   { type: "DARKMODE" } |
   { type: "SET_BOARDS", payload: BoardsWithTask } |
   { type: "ADD_BOARD", payload: BoardWithTaskSchema } |
-  { type: "DELETE_BOARD", payload: string }
+  { type: "DELETE_BOARD", payload: string } |
+  { type: "EDIT_BOARD", payload: BoardWithTaskSchema }
 
 const reducer = ( draft: Draft, action: Action ) => {
   
@@ -34,6 +35,10 @@ const reducer = ( draft: Draft, action: Action ) => {
       return
     case "DELETE_BOARD":
       draft.boards = draft.boards.filter(board => board.linkPath!==action.payload)
+
+      return
+    case "EDIT_BOARD":
+      draft.boards = draft.boards.map(board => board.linkPath===action.payload.linkPath? action.payload : board)
 
       return
     default:

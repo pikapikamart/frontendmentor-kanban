@@ -90,7 +90,7 @@ export const editBoardController = async({ user }: UserContext, input: EditBoard
     { new: true}
   )
 
-  return updatedBoard
+  return trpcSuccess(boardWithTasksSchema.parse(updatedBoard), "Board successfully edited")
 }
 
 export const deleteBoardController = async({ user }: UserContext, input: DeleteBoardSchema) =>{
