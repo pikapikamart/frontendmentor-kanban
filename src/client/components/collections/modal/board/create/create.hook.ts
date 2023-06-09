@@ -6,6 +6,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { trpc } from "@/client/lib/trpc"
 import { ExitCallback } from "types/utils"
+import { useDispatch } from "@/store"
 
 
 const createBoardSchema = z.object({
@@ -24,6 +25,7 @@ const createBoardSchema = z.object({
 type CreateBoardSchema = z.infer<typeof createBoardSchema>
 
 export const useCreateBoard = ( exit: ExitCallback ) => {
+  const dispatch = useDispatch()
   const {
     register,
     handleSubmit,
@@ -43,7 +45,10 @@ export const useCreateBoard = ( exit: ExitCallback ) => {
     mutate,
     error: apiError } = trpc.board.create.useMutation({
     onSuccess: ( data ) => {
-      // store data in tracked
+      dispatch({
+        type: "ADD_BOARD",
+        payload: data.content
+      })
       exit()
     }
   })

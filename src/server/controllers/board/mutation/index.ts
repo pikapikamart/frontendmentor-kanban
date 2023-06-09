@@ -114,5 +114,5 @@ export const deleteBoardController = async({ user }: UserContext, input: DeleteB
     }
   )
 
-  return trpcSuccess("Success", "Board successfully deleted")
+  return trpcSuccess(deletedBoard.linkPath, "Board successfully deleted")
 }

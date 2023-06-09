@@ -11,6 +11,8 @@ export const boardWithTasksSchema = z.object({
   }))
 })
 
+export type BoardWithTaskSchema = z.infer<typeof boardWithTasksSchema>
+
 export const boardsWithTasksSchema = z.array(boardWithTasksSchema)
 
 export type BoardsWithTask = z.infer<typeof boardsWithTasksSchema>
