@@ -41,9 +41,7 @@ export const RowFieldWrapper = styled(motion.div)`
   margin-bottom: ${ rem(12) };
 `
 
-export const MainButton = styled.button.attrs(() => ({
-  type: "button" as "button" | "submit"
-}))`
+export const MainButton = styled.button`
   background-color: ${ ({ theme }) => theme.colors.button.main };
   border-radius: ${ rem(32) };
   color: #FFFFFF;

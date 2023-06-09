@@ -80,7 +80,11 @@ export const editBoardController = async({ user }: UserContext, input: EditBoard
       linkPath: input.linkPath
     },
     {
-      ...input,
+      title: input.title,
+      linkPath: input.title
+        .split(" ")
+        .map(word => word.toLowerCase())
+        .join(""),
       column: columnUpdate
     },
     { new: true}

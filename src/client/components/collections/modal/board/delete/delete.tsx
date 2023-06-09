@@ -8,6 +8,8 @@ import {
   WarningButton,
   WarningHeading, 
   Wrapper } from "../../base/base.styled"
+import { useDeleteBoard } from "./delete.hook"
+import { LoadingSpinner } from "../../../spinner"
 
 
 type DeleteProps = {
@@ -15,19 +17,22 @@ type DeleteProps = {
 }
 
 const Delete = ({ exit }: DeleteProps) =>{
+  const { handleDeletion, isLoading } = useDeleteBoard()
 
   return (
     <>
       <AnimatePresence>
-        {/* loading in here if success mutation */}
+        { isLoading && <LoadingSpinner /> }
       </AnimatePresence>
       <FocusTrap>
-        <Wrapper>
+        <Wrapper onSubmit={ handleDeletion }>
           <WarningHeading>Delete this board?</WarningHeading>
           <Description>Are you sure you want to delete the ‘Platform Launch’ board? This action will remove all columns and tasks and cannot be reversed.</Description>
           <RowOptionsWrapper>
-            <WarningButton>Delete</WarningButton>
-            <SecondaryButton onClick={ exit }>Cancel</SecondaryButton>
+            <WarningButton type="submit">Delete</WarningButton>
+            <SecondaryButton
+              type="button" 
+              onClick={ exit }>Cancel</SecondaryButton>
           </RowOptionsWrapper>
         </Wrapper>
       </FocusTrap>

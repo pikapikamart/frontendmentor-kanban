@@ -72,7 +72,9 @@ const Create = ({ exit }: CreateProps) => {
                       { ...register(`column.${ index }.title`) } 
                       aria-invalid={ formErrors.column?.[index] ? "true" : "false" }
                       aria-describedby={ formErrors.column?.[index]? `columnError${index}` : "" } />
-                    <RemoveInput onClick={ () => removeColumn(index) }>
+                    <RemoveInput
+                      type="button" 
+                      onClick={ () => removeColumn(index) }>
                       <Image
                         src={ removeIcon }
                         alt=""
@@ -84,10 +86,14 @@ const Create = ({ exit }: CreateProps) => {
                 </RowFieldWrapper>
               )) }
             </AnimatePresence>
-            <SecondaryButton onClick={ () => handleAddColumn(fields.length+1) }>+ Add New Column</SecondaryButton>
+            <SecondaryButton
+              type="button" 
+              onClick={ () => handleAddColumn(fields.length+1) }>+ Add New Column</SecondaryButton>
           </FieldWrapper>
           <MainButton type="submit">Create New Board</MainButton>
-          <Close onClick={ exit }>Close</Close>
+          <Close
+            type="button" 
+            onClick={ exit }>Close</Close>
         </Wrapper>
       </FocusTrap>
     </>

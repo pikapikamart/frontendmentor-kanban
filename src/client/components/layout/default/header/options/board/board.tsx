@@ -50,7 +50,9 @@ const Board = () =>{
                   </BoardItemTrigger>
                 </BoardItem>
                 <BoardItem>
-                  <BoardItemTrigger onClick={ handleDeleteExpansion }
+                  <BoardItemTrigger
+                    type="button" 
+                    onClick={ handleDeleteExpansion }
                     aria-expanded={ deleteExpansion }>Delete Board
                   </BoardItemTrigger>
                 </BoardItem>
