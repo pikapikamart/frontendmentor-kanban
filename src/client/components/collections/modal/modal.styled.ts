@@ -7,7 +7,7 @@ import styled from "styled-components"
 export const BaseModalOnClickExit = styled.div`
   background-color: rgba(0, 0, 0, .5);
   inset: 0;
-  position: absolute;
+  position: fixed;
 `
 
 export const ModalDocument = styled.div`

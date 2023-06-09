@@ -6,11 +6,11 @@ import {
   Input,
   Error,
   FieldWrapper,
-  Button,
+  MainButton,
   Close,
   RowFieldWrapper,
   RemoveInput,
-  AddRowField,
+  SecondaryButton,
   RowFieldInner} from "../../base/base.styled"
 import { useCreateBoard } from "./create.hook"
 import removeIcon from "@/public/icons/remove.svg"
@@ -72,9 +72,7 @@ const Create = ({ exit }: CreateProps) => {
                       { ...register(`column.${ index }.title`) } 
                       aria-invalid={ formErrors.column?.[index] ? "true" : "false" }
                       aria-describedby={ formErrors.column?.[index]? `columnError${index}` : "" } />
-                    <RemoveInput 
-                      type="button"
-                      onClick={ () => removeColumn(index) }>
+                    <RemoveInput onClick={ () => removeColumn(index) }>
                       <Image
                         src={ removeIcon }
                         alt=""
@@ -86,14 +84,10 @@ const Create = ({ exit }: CreateProps) => {
                 </RowFieldWrapper>
               )) }
             </AnimatePresence>
-            <AddRowField 
-              type="button"
-              onClick={ () => handleAddColumn(fields.length+1) }>+ Add New Column</AddRowField>
+            <SecondaryButton onClick={ () => handleAddColumn(fields.length+1) }>+ Add New Column</SecondaryButton>
           </FieldWrapper>
-          <Button type="submit">Create New Board</Button>
-          <Close 
-            type="button"
-            onClick={ exit }>Close</Close>
+          <MainButton type="submit">Create New Board</MainButton>
+          <Close onClick={ exit }>Close</Close>
         </Wrapper>
       </FocusTrap>
     </>

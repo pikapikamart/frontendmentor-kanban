@@ -1,9 +1,28 @@
 import { 
+  breakpoint,
   fluid, 
   rem } from "@/client/styled/functions"
 import { motion } from "framer-motion"
 import styled, { css } from "styled-components"
 
+
+export const Description = styled.p`
+  color: ${ ({ theme }) => theme.colors.default };
+  font-size: ${ rem(13) };
+  line-height: 1.8;
+  margin-bottom: ${ rem(26) };
+`
+
+export const RowOptionsWrapper = styled.div`
+  display: grid;
+  gap: ${ rem(16) } 0;
+  grid-template-columns: 1fr;
+
+  ${ breakpoint("tablet", `
+    grid-template-columns: 1fr 1fr;
+    gap: 0 ${ rem(16) };
+  `) }
+`
 
 export const RemoveInput = styled.button`
   display: grid;
@@ -22,7 +41,9 @@ export const RowFieldWrapper = styled(motion.div)`
   margin-bottom: ${ rem(12) };
 `
 
-export const Button = styled.button`
+export const MainButton = styled.button.attrs(() => ({
+  type: "button" as "button" | "submit"
+}))`
   background-color: ${ ({ theme }) => theme.colors.button.main };
   border-radius: ${ rem(32) };
   color: #FFFFFF;
@@ -34,8 +55,12 @@ export const Button = styled.button`
   width: 100%;
 `
 
-export const Close = styled(Button)`
-  margin-top: ${ rem(8) };
+export const WarningButton = styled(MainButton)`
+  background-color: ${ ({ theme }) => theme.colors.button.warning };
+`
+
+export const SecondaryButton = styled(MainButton)`
+  margin-top: 0;
 
   ${ ({ theme }) => css`
     background-color: ${  theme.colors.button.secondary };
@@ -43,7 +68,9 @@ export const Close = styled(Button)`
   ` }
 `
 
-export const AddRowField = styled(Close)``
+export const Close = styled(SecondaryButton)`
+  margin-top: ${ rem(8) };
+`
 
 export const Error = styled.span`
   color: rgb(255, 0, 0);
@@ -88,6 +115,10 @@ export const Heading = styled.h2`
   font-size: ${ rem(18) };
   line-height: 1.2;
   margin-bottom: ${ fluid(24, 3.2, 32) };
+`
+
+export const WarningHeading = styled(Heading)`
+  color: ${ ({ theme }) => theme.colors.button.warning };
 `
 
 export const Wrapper = styled.form`

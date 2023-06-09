@@ -5,7 +5,9 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 
-export const BoardItemTrigger = styled.button`
+export const BoardItemTrigger = styled.button.attrs(() => ({
+  type: "button"
+}))`
   padding: ${ rem(10) } 0 ${ rem(12) };
   text-align: left;
   width: 100%;
@@ -38,4 +40,8 @@ export const Trigger = styled.button`
 export const Wrapper = styled.div`
   margin: 0 ${ fluid(8, 1.7, 17) } 0 ${ rem(8) };
   position: relative;
+
+  &:focus {
+    outline: none;
+  }
 `
