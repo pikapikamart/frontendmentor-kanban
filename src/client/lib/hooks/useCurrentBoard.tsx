@@ -7,7 +7,7 @@ export const useCurrentBoard = () => {
   const { asPath } = useRouter()
 
   return {
-    currentBoard: boards.find(board => board.linkPath===asPath.slice(1))?.title?? "",
+    currentBoard: boards.find(board => board.linkPath===asPath.slice(1)),
     path: asPath.slice(1)
   }
 }

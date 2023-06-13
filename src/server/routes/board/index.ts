@@ -6,7 +6,9 @@ import {
   createBoardSchema, 
   deleteBoardSchema, 
   editBoardschema} from "@/server/controllers/board/mutation/schema";
-import { getAllBoardController, getBoardController } from "@/server/controllers/board/query";
+import { 
+  getAllBoardController, 
+  getBoardController } from "@/server/controllers/board/query";
 import { getBoardSchema } from "@/server/controllers/board/query/schema";
 import { databaseMiddleware } from "@/server/middleware/database";
 import { userTokenMiddleware } from "@/server/middleware/token";

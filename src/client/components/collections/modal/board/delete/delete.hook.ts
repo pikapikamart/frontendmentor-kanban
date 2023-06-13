@@ -20,9 +20,11 @@ export const useDeleteBoard = () =>{
 
   const handleDeletion = (event: React.FormEvent) =>{
     event.preventDefault()
+
+    if ( !currentBoard ) return
     
     mutate({
-      title: currentBoard,
+      title: currentBoard.title,
       linkPath: path
     })
   }

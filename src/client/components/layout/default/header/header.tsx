@@ -44,7 +44,7 @@ const Header = () => {
           <DesktopNavbar
             isExpanded={ isExpanded }
             handleExpansion={ handleExpansion } />
-          <NavHeading>{ currentBoard }</NavHeading>
+          <NavHeading>{ currentBoard?.title?? "" }</NavHeading>
         </>
       }
       { !!currentBoard && (
