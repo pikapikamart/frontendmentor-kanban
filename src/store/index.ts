@@ -1,22 +1,25 @@
 import { 
   BoardWithTaskSchema, 
-  BoardsWithTask } from "@/server/controllers/board/query/schema"
+  BoardsWithTaskSchema } from "@/server/controllers/board/query/schema"
 import { Dispatch } from "react"
 import { createContainer } from "react-tracked"
 import { useImmerReducer } from "use-immer"
 
-  
+
+type BoardWithTask = BoardWithTaskSchema & { hasLoaded?: boolean }
+
 type Draft = {
   darkmode: boolean,
-  boards: BoardsWithTask,
+  boards: BoardWithTask[],
 }
 
 type Action = |
   { type: "DARKMODE" } |
-  { type: "SET_BOARDS", payload: BoardsWithTask } |
+  { type: "SET_BOARDS", payload: BoardsWithTaskSchema } |
   { type: "ADD_BOARD", payload: BoardWithTaskSchema } |
   { type: "DELETE_BOARD", payload: string } |
-  { type: "EDIT_BOARD", payload: BoardWithTaskSchema }
+  { type: "EDIT_BOARD", payload: BoardWithTaskSchema } |
+  { type: "SET_BOARD", payload: BoardWithTask }
 
 const reducer = ( draft: Draft, action: Action ) => {
   
@@ -40,6 +43,13 @@ const reducer = ( draft: Draft, action: Action ) => {
     case "EDIT_BOARD":
       draft.boards = draft.boards.map(board => board.linkPath===action.payload.linkPath? action.payload : board)
 
+      return
+    case "SET_BOARD":
+      draft.boards = draft.boards.map(board => board.linkPath===action.payload.linkPath? {
+        ...action.payload,
+        hasLoaded: true
+      } : board)
+      
       return
     default:
       return draft

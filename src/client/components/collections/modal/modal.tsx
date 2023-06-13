@@ -4,7 +4,10 @@ import {
   BaseModalWrapper, 
   ModalDocument} from "./modal.styled"
 import { useBaseModalFocus } from "./modal.hook"
-import { fadeVariant, variantNaming } from "@/client/motion/variants"
+import { 
+  fadeVariant, 
+  variantNaming } from "@/client/motion/variants"
+import FocusTrap from "focus-trap-react"
 
 
 type ModalProps = {
@@ -22,7 +25,8 @@ const Modal = ({ children, exit, focusBackRef }: ModalProps) =>{
   }
 
   return createPortal(
-    <BaseModalWrapper
+    <FocusTrap>
+      <BaseModalWrapper
       ref={ modalRef }
       role="dialog"
       tabIndex={ -1 }
@@ -34,7 +38,8 @@ const Modal = ({ children, exit, focusBackRef }: ModalProps) =>{
         <BaseModalOnClickExit onClick={ exitModal } />
         { children }
       </ModalDocument>
-    </BaseModalWrapper>,
+    </BaseModalWrapper>
+    </FocusTrap>,
     document.body
   )
 }

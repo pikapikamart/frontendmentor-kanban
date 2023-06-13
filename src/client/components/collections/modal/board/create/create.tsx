@@ -44,58 +44,56 @@ const Create = ({ exit }: CreateProps) => {
       <AnimatePresence>
         { isLoading && <LoadingSpinner /> }
       </AnimatePresence>
-      <FocusTrap>
-        <Wrapper onSubmit={ handleSubmit }>
-          <Heading>Add New Board</Heading>
-          <FieldWrapper>
-            <Label
-              htmlFor="title"
-              id="titleError">Board Name</Label>
-            <Input
-              id="title"
-              { ...register("title")}
-              aria-invalid={ formErrors.title? "true" : "false" }
-              aria-describedby={ formErrors.title? "titleError" : "" } />
-            { formErrors.title && <Error id="titleError">{ formErrors.title.message }</Error> }
-          </FieldWrapper>
-          <FieldWrapper as="fieldset">
-            <Label as="legend">Columns</Label>
-            <AnimatePresence>       
-              { fields.map((field, index) => (
-                <RowFieldWrapper
-                  { ...variantNaming }
-                  variants={ swipeRightVariant }
-                  key={ field.id }>
-                  <RowFieldInner>
-                    <Input
-                      id={ `column${ index }` }
-                      { ...register(`column.${ index }.title`) } 
-                      aria-invalid={ formErrors.column?.[index] ? "true" : "false" }
-                      aria-describedby={ formErrors.column?.[index]? `columnError${index}` : "" } />
-                    <RemoveInput
-                      type="button" 
-                      onClick={ () => removeColumn(index) }>
-                      <Image
-                        src={ removeIcon }
-                        alt=""
-                        aria-hidden="true" />
-                        <span className="sr-only">Remove field</span>
-                    </RemoveInput>
-                  </RowFieldInner>
-                  { formErrors.column?.[index] && <Error id={ `columnError${ index }` }>{ formErrors.column?.[index]?.title?.message }</Error> }
-                </RowFieldWrapper>
-              )) }
-            </AnimatePresence>
-            <SecondaryButton
-              type="button" 
-              onClick={ () => handleAddColumn(fields.length+1) }>+ Add New Column</SecondaryButton>
-          </FieldWrapper>
-          <MainButton type="submit">Create New Board</MainButton>
-          <Close
+      <Wrapper onSubmit={ handleSubmit }>
+        <Heading>Add New Board</Heading>
+        <FieldWrapper>
+          <Label
+            htmlFor="title"
+            id="titleError">Board Name</Label>
+          <Input
+            id="title"
+            { ...register("title")}
+            aria-invalid={ formErrors.title? "true" : "false" }
+            aria-describedby={ formErrors.title? "titleError" : "" } />
+          { formErrors.title && <Error id="titleError">{ formErrors.title.message }</Error> }
+        </FieldWrapper>
+        <FieldWrapper as="fieldset">
+          <Label as="legend">Columns</Label>
+          <AnimatePresence initial={ false }>       
+            { fields.map((field, index) => (
+              <RowFieldWrapper
+                { ...variantNaming }
+                variants={ swipeRightVariant }
+                key={ field.id }>
+                <RowFieldInner>
+                  <Input
+                    id={ `column${ index }` }
+                    { ...register(`column.${ index }.title`) } 
+                    aria-invalid={ formErrors.column?.[index] ? "true" : "false" }
+                    aria-describedby={ formErrors.column?.[index]? `columnError${index}` : "" } />
+                  <RemoveInput
+                    type="button" 
+                    onClick={ () => removeColumn(index) }>
+                    <Image
+                      src={ removeIcon }
+                      alt=""
+                      aria-hidden="true" />
+                      <span className="sr-only">Remove field</span>
+                  </RemoveInput>
+                </RowFieldInner>
+                { formErrors.column?.[index] && <Error id={ `columnError${ index }` }>{ formErrors.column?.[index]?.title?.message }</Error> }
+              </RowFieldWrapper>
+            )) }
+          </AnimatePresence>
+          <SecondaryButton
             type="button" 
-            onClick={ exit }>Close</Close>
-        </Wrapper>
-      </FocusTrap>
+            onClick={ () => handleAddColumn(fields.length+1) }>+ Add New Column</SecondaryButton>
+        </FieldWrapper>
+        <MainButton type="submit">Create New Board</MainButton>
+        <Close
+          type="button" 
+          onClick={ exit }>Close</Close>
+      </Wrapper>
     </>
   )
 }

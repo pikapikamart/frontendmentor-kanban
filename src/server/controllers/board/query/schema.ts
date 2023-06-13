@@ -15,7 +15,7 @@ export type BoardWithTaskSchema = z.infer<typeof boardWithTasksSchema>
 
 export const boardsWithTasksSchema = z.array(boardWithTasksSchema)
 
-export type BoardsWithTask = z.infer<typeof boardsWithTasksSchema>
+export type BoardsWithTaskSchema = z.infer<typeof boardsWithTasksSchema>
 
 export const getBoardSchema = z.object({
   title: z.string({ required_error: "Title is required" }),

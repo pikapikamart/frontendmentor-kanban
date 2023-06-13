@@ -1,4 +1,3 @@
-import FocusTrap from "focus-trap-react"
 import { AnimatePresence } from "framer-motion"
 import { ExitCallback } from "types/utils"
 import { 
@@ -24,18 +23,16 @@ const Delete = ({ exit }: DeleteProps) =>{
       <AnimatePresence>
         { isLoading && <LoadingSpinner /> }
       </AnimatePresence>
-      <FocusTrap>
-        <Wrapper onSubmit={ handleDeletion }>
-          <WarningHeading>Delete this board?</WarningHeading>
-          <Description>Are you sure you want to delete the ‘Platform Launch’ board? This action will remove all columns and tasks and cannot be reversed.</Description>
-          <RowOptionsWrapper>
-            <WarningButton type="submit">Delete</WarningButton>
-            <SecondaryButton
-              type="button" 
-              onClick={ exit }>Cancel</SecondaryButton>
-          </RowOptionsWrapper>
-        </Wrapper>
-      </FocusTrap>
+      <Wrapper onSubmit={ handleDeletion }>
+        <WarningHeading>Delete this board?</WarningHeading>
+        <Description>Are you sure you want to delete the ‘Platform Launch’ board? This action will remove all columns and tasks and cannot be reversed.</Description>
+        <RowOptionsWrapper>
+          <WarningButton type="submit">Delete</WarningButton>
+          <SecondaryButton
+            type="button" 
+            onClick={ exit }>Cancel</SecondaryButton>
+        </RowOptionsWrapper>
+      </Wrapper>
     </>
   )
 }

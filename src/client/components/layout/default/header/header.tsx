@@ -30,10 +30,12 @@ const Header = () => {
       <LogoWrapper>
         { isMobile? 
           <Image
+            priority={ true }
             src={ mobileLogo }
             alt="Frontendmentor Kanban Task" /> 
           :
           <Image
+            priority={ true }
             src={ darkDesktopLogo }
             alt="Frontendmentor Kanban Task" /> 
         }

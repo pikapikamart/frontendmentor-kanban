@@ -1,24 +1,23 @@
 import { FourOhFour } from "@/client/components/collections/404"
 import Spinner from "@/client/components/collections/spinner/spinner"
-import { useBoard } from "@/client/components/layout/default/header/navbar/board/board.hook"
+import { useSetupBoards } from "@/client/components/layout/default/header/navbar/board/board.hook"
+import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 
 
 const Board = () =>{
-  const { 
-    boards, 
-    currentPath,
-    isLoading } = useBoard()
-
+  const { isLoading } = useSetupBoards()
+  const { currentBoard } = useCurrentBoard()
+  
   if ( isLoading ) return <Spinner />
 
-  if ( !boards.find(board => board.linkPath===currentPath) ) {
+  if ( !currentBoard ) {
     return (
       <FourOhFour>
         Make sure to check the url if correct
       </FourOhFour>
     )
   }
-
+ 
   return (
     <main></main>
   )
