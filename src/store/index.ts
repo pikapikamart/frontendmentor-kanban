@@ -41,7 +41,10 @@ const reducer = ( draft: Draft, action: Action ) => {
 
       return
     case "EDIT_BOARD":
-      draft.boards = draft.boards.map(board => board.linkPath===action.payload.linkPath? action.payload : board)
+      draft.boards = draft.boards.map(board => board.linkPath===action.payload.linkPath? {
+        ...action.payload,
+        hasLoaded: true
+      } : board)
 
       return
     case "SET_BOARD":

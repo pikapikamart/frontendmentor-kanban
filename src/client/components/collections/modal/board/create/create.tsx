@@ -6,7 +6,7 @@ import {
   Input,
   Error,
   FieldWrapper,
-  MainButton,
+  MainFormButton,
   Close,
   RowFieldWrapper,
   RemoveInput,
@@ -89,7 +89,7 @@ const Create = ({ exit }: CreateProps) => {
             type="button" 
             onClick={ () => handleAddColumn(fields.length+1) }>+ Add New Column</SecondaryButton>
         </FieldWrapper>
-        <MainButton type="submit">Create New Board</MainButton>
+        <MainFormButton type="submit">Create New Board</MainFormButton>
         <Close
           type="button" 
           onClick={ exit }>Close</Close>

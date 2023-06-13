@@ -2,6 +2,7 @@ import {
   breakpoint,
   fluid, 
   rem } from "@/client/styled/functions"
+import { MainButton } from "@/client/styled/shared/button"
 import { motion } from "framer-motion"
 import styled, { css } from "styled-components"
 
@@ -41,23 +42,17 @@ export const RowFieldWrapper = styled(motion.div)`
   margin-bottom: ${ rem(12) };
 `
 
-export const MainButton = styled.button`
-  background-color: ${ ({ theme }) => theme.colors.button.main };
-  border-radius: ${ rem(32) };
-  color: #FFFFFF;
-  display: grid;
+export const MainFormButton = styled(MainButton)`
   font-size: ${ rem(13) };
-  font-weight: 700;
   height: ${ rem(40) };
-  place-content: center;
   width: 100%;
 `
 
-export const WarningButton = styled(MainButton)`
+export const WarningButton = styled(MainFormButton)`
   background-color: ${ ({ theme }) => theme.colors.button.warning };
 `
 
-export const SecondaryButton = styled(MainButton)`
+export const SecondaryButton = styled(MainFormButton)`
   margin-top: 0;
 
   ${ ({ theme }) => css`

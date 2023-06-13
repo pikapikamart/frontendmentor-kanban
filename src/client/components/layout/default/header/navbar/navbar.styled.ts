@@ -62,6 +62,7 @@ export const InnerWrapper = styled(motion.div)`
 export const DropdownOverlay = styled(motion.div)`
   background-color: rgba(0, 0, 0, .5);
   height: 100%;
+
   inset: ${ rem(64) } 0 0 0;
   position: fixed;
   top: ${ rem(64) };

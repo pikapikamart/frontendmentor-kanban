@@ -6,7 +6,7 @@ import {
   Heading, 
   Input, 
   Label, 
-  MainButton, 
+  MainFormButton, 
   RemoveInput, 
   RowFieldInner, 
   RowFieldWrapper, 
@@ -19,6 +19,7 @@ import {
   variantNaming } from "@/client/motion/variants"
 import Image from "next/image"
 import removeIcon from "@/public/icons/remove.svg"
+import Spinner from "../../../spinner/spinner"
 
 
 type EditProps = {
@@ -32,11 +33,15 @@ const Edit = ({ exit }: EditProps) =>{
     fields,
     removeColumn,
     handleAddColumn,
-    handleSubmit
+    handleSubmit,
+    isLoading
   } = useEditBoard(exit)
 
   return (
     <>
+      <AnimatePresence>
+        { isLoading && <Spinner /> }
+      </AnimatePresence>
       <Wrapper onSubmit={ handleSubmit }>
         <Heading>Edit Board</Heading>
         <FieldWrapper>
@@ -82,7 +87,7 @@ const Edit = ({ exit }: EditProps) =>{
             type="button" 
             onClick={ () => handleAddColumn(fields.length+1) }>+ Add New Column</SecondaryButton>
         </FieldWrapper>
-        <MainButton type="submit">Create New Board</MainButton>
+        <MainFormButton type="submit">Save changes</MainFormButton>
         <Close
           type="button" 
           onClick={ exit }>Close</Close>

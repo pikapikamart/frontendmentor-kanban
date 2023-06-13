@@ -47,7 +47,7 @@ export const useEditBoard = ( exit: ExitCallback ) => {
     error: apiError } = trpc.board.edit.useMutation({
     onSuccess: ( data ) => {
       dispatch({
-        type: "ADD_BOARD",
+        type: "EDIT_BOARD",
         payload: data.content
       })
       exit()

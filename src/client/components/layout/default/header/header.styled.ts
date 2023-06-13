@@ -44,6 +44,10 @@ export const Wrapper = styled.header<WrapperProps>`
       ${ LogoWrapper } {
         flex-basis: calc(${ rem(200) } - ${ fluid(16, 3.4, 34) });
       }
+
+      & + main {
+        padding-left: 0;
+      }
     `) }
     ${ breakpoint("desktop", `
       ${ LogoWrapper } {
