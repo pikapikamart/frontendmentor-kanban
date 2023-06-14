@@ -1,4 +1,5 @@
 import { MainWrapper } from "@/client/components/board/board.styled"
+import { BoardColumnsSection } from "@/client/components/board/columns"
 import { EmptyBoardSection } from "@/client/components/board/empty"
 import { FourOhFour } from "@/client/components/collections/404"
 import Spinner from "@/client/components/collections/spinner/spinner"
@@ -26,7 +27,7 @@ const BoardPage = () =>{
       { isArrayEmpty(currentBoard.column)? 
       <EmptyBoardSection />
         :
-      <></>
+      <BoardColumnsSection />
     }
     </MainWrapper>
   )

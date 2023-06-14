@@ -3,10 +3,12 @@ import {
   BoardsWithTaskSchema } from "@/server/controllers/board/query/schema"
 import { Dispatch } from "react"
 import { createContainer } from "react-tracked"
+import { ArrayElement } from "types/utils"
 import { useImmerReducer } from "use-immer"
 
 
 type BoardWithTask = BoardWithTaskSchema & { hasLoaded?: boolean }
+export type BoardColumn = ArrayElement<BoardWithTask["column"]>
 
 type Draft = {
   darkmode: boolean,

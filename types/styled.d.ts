@@ -32,6 +32,7 @@ declare module "styled-components" {
       boardCurrent: string,
       boardDropdown: string,
       colorSchemeInput: string,
+      columnAddition: string,
       default: string
     },
     fontSize: {

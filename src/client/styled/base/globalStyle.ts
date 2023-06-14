@@ -63,7 +63,6 @@ const globalStyle = createGlobalStyle`
   body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     min-height: 100vh;
-    max-width: 100rem;
     margin: 0 auto;
     outline: none;
   }

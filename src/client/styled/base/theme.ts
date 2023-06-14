@@ -31,6 +31,7 @@ export const theme: DefaultTheme = {
     boardCurrent: "#FFFFFF",
     colorSchemeInput: "#635FC7",
     boardDropdown: "#FFFFFF",
+    columnAddition: "#E9EFFA",
     default: "#828FA3"
   },
   fontSize: {
@@ -63,6 +64,7 @@ export const darkTheme: DefaultTheme = {
       input: "#FFFFFF"
     },
     boardHeading: "#FFFFFF",
-    boardDropdown: "#20212C"
+    boardDropdown: "#20212C",
+    columnAddition: "rgba(43, 44, 55, .25)"
   }
 }
