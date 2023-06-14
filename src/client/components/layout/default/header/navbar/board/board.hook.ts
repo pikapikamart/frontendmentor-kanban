@@ -6,9 +6,9 @@ import { useEffect } from "react"
 
 
 export const useSetupBoards = () =>{
-  const { boards } = useTrackedState()
+  const { boardsLoaded } = useTrackedState()
   const dispatch = useDispatch()
-  const { refetch, isLoading } = trpc.board.getAll.useQuery(undefined, {
+  const { refetch } = trpc.board.getAll.useQuery(undefined, {
     refetchOnWindowFocus: false,
     enabled: false,
     onSuccess: (data) => {
@@ -20,13 +20,6 @@ export const useSetupBoards = () =>{
   })
   
   useEffect(() => {
-    if ( !boards.length ) {
-      refetch()
-    }
+    if ( !boardsLoaded ) refetch()
   }, [])
-
-  return {
-    boards,
-    isLoading
-  }
 }

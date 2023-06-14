@@ -16,7 +16,11 @@ type ModalProps = {
   focusBackRef: HTMLElement | null
 }
 
-const Modal = ({ children, exit, focusBackRef }: ModalProps) =>{
+const Modal = ({ 
+  children, 
+  exit, 
+  focusBackRef
+  }: ModalProps) =>{
   const { modalRef } = useBaseModalFocus( focusBackRef )
 
   const exitModal = () =>{

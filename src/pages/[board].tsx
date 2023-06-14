@@ -4,11 +4,12 @@ import { FourOhFour } from "@/client/components/collections/404"
 import Spinner from "@/client/components/collections/spinner/spinner"
 import { useSetupBoards } from "@/client/components/layout/default/header/navbar/board/board.hook"
 import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
+import { isArrayEmpty } from "@/client/lib/utils"
 
 
 const BoardPage = () =>{
-  const { isLoading } = useSetupBoards()
-  const { currentBoard } = useCurrentBoard()
+  useSetupBoards()
+  const { currentBoard, isLoading } = useCurrentBoard()
   
   if ( isLoading ) return <Spinner />
 
@@ -22,7 +23,7 @@ const BoardPage = () =>{
  
   return (
     <MainWrapper>
-      { !(!!currentBoard.column.length)? 
+      { isArrayEmpty(currentBoard.column)? 
       <EmptyBoardSection />
         :
       <></>

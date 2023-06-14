@@ -10,6 +10,7 @@ type BoardWithTask = BoardWithTaskSchema & { hasLoaded?: boolean }
 
 type Draft = {
   darkmode: boolean,
+  boardsLoaded: boolean,
   boards: BoardWithTask[],
 }
 
@@ -30,6 +31,7 @@ const reducer = ( draft: Draft, action: Action ) => {
       return
     case "SET_BOARDS":
       draft.boards = action.payload
+      draft.boardsLoaded = true
 
       return
     case "ADD_BOARD":
@@ -43,14 +45,14 @@ const reducer = ( draft: Draft, action: Action ) => {
     case "EDIT_BOARD":
       draft.boards = draft.boards.map(board => board.linkPath===action.payload.linkPath? {
         ...action.payload,
-        hasLoaded: true
+        boardsLoaded: true
       } : board)
 
       return
     case "SET_BOARD":
       draft.boards = draft.boards.map(board => board.linkPath===action.payload.linkPath? {
         ...action.payload,
-        hasLoaded: true
+        boardsLoaded: true
       } : board)
       
       return
@@ -61,6 +63,7 @@ const reducer = ( draft: Draft, action: Action ) => {
 
 const initialState: Draft = {
   darkmode: false,
+  boardsLoaded: false,
   boards: []
 }
 

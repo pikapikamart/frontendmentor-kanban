@@ -8,10 +8,10 @@ import { useEffect } from "react"
 
 export const useCurrentBoard = () => {
   const { boards } = useTrackedState()
-  const { asPath } = useRouter()
+  const { query } = useRouter()
   const dispatch = useDispatch()
-  const currentBoard = boards.find(board => board.linkPath===asPath.slice(1))
-  const { refetch } = trpc.board.get.useQuery({
+  const currentBoard = boards.find(board => board.linkPath===query.board)
+  const { refetch, isLoading } = trpc.board.get.useQuery({
     title: currentBoard?.title?? "",
     linkPath: currentBoard?.linkPath?? ""
   }, {
@@ -24,15 +24,17 @@ export const useCurrentBoard = () => {
       })
     }
   })
-
+  
   useEffect(() =>{
-    if ( !currentBoard?.hasLoaded && boards.length ) {
+    if ( currentBoard && !currentBoard.hasLoaded ) {
+
       refetch()
     }
-  }, [ currentBoard, boards ])
+  }, [ currentBoard ])
 
   return {
     currentBoard: currentBoard,
-    path: asPath.slice(1)
+    path: query.board?? "",
+    isLoading
   }
 }
