@@ -1,8 +1,10 @@
 import mongoose from "mongoose"
 import { MongooseDocument } from "types/utils"
+import { UserDocument } from "../user"
 
 
 export type Task = {
+  owner: UserDocument["_id"],
   id: string,
   title: string,
   description: string,
@@ -10,15 +12,16 @@ export type Task = {
     title: string,
     id: string
   }[],
-  status: {
-    title: string,
-    id: string
-  }
+  status: string
 } 
 
 export type TaskDocument = Task & MongooseDocument
 
 const taskSchema: mongoose.Schema<TaskDocument> = new mongoose.Schema({
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User" 
+  },
   id: {
     type: String,
     required: true,
@@ -28,16 +31,9 @@ const taskSchema: mongoose.Schema<TaskDocument> = new mongoose.Schema({
   description: String,
   subtask: [{
     title: String,
-    id: {
-      type: String,
-      required: true,
-      unique: true
-    }
-  }],
-  status: {
-    title: String,
     id: String
-  }
+  }],
+  status: String
 })
 
 const taskModel: mongoose.Model<TaskDocument> = mongoose.models.Task || mongoose.model<TaskDocument>("Task", taskSchema)

@@ -15,7 +15,7 @@ import {
   trpcSuccess } from "@/server/utils/trpc"
 import { updateUserService } from "@/server/services/user"
 import { ObjectId } from "mongoose"
-import { deleteMultipleTask } from "@/server/services/task"
+import { deleteMultipleTaskService } from "@/server/services/task"
 import { customNanoid } from "@/server/utils/nanoid"
 
 
@@ -104,7 +104,7 @@ export const deleteBoardController = async({ user }: UserContext, input: DeleteB
   // @ts-ignore
   const boardTasks = deletedBoard.column.reduce((accu, curr) => accu.concat(curr.tasks), [] as ObjectId[])
   
-  await deleteMultipleTask({ _id: { $in: boardTasks } })
+  await deleteMultipleTaskService({ _id: { $in: boardTasks } })
   await updateUserService(
     { _id: user._id },
     {
