@@ -5,13 +5,18 @@ import {
 import { 
   DocumentDefinition, 
   FilterQuery, 
+  PopulateOptions, 
   ProjectionType,
   QueryOptions,
   UpdateQuery} from "mongoose";
 
 
-export const findBoardService = async( query: FilterQuery<BoardDocument>, projection: ProjectionType<Board> = "" ) => (
-  boardModel.findOne(query, projection)
+export const findBoardService = async( 
+  query: FilterQuery<BoardDocument>, 
+  projection: ProjectionType<Board> = "",
+  populate?: PopulateOptions 
+  ) => (
+  populate? boardModel.findOne(query, projection).populate(populate) : boardModel.findOne(query, projection)
 )
 
 export const createBoardService = async( document: DocumentDefinition<Board> ) =>(

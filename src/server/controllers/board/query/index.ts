@@ -14,10 +14,6 @@ export const getAllBoardController = async({ user }: UserContext) =>{
 
   await populateUserService(user, {
     path: "boards",
-    populate: {
-      path: "column.tasks",
-      model: taskModel
-    },
     options: {
       lean: true
     },
@@ -32,11 +28,18 @@ export const getAllBoardController = async({ user }: UserContext) =>{
 }
 
 export const getBoardController = async({ user }: UserContext, input: GetBoardSchema) =>{
-  const foundBoard = await findBoardService({
-    owner: user._id,
-    linkPath: input.linkPath,
-    title: input.title
-  } 
+  const foundBoard = await findBoardService(
+    {
+      owner: user._id,
+      linkPath: input.linkPath,
+      title: input.title
+    },
+    "",
+    {
+      path: "column.tasks",
+      model: taskModel,
+      select: "-owner -_id"
+    }
   )
 
   if ( !foundBoard ) return trpcError("NOT_FOUND", "No board exists")
