@@ -2,6 +2,10 @@ import { rem } from "@/client/styled/functions";
 import styled from "styled-components";
 
 
+export const TasksList = styled.ul`
+  
+`
+
 export const Title = styled.h3`
   color: ${ ({ theme }) => theme.colors.default };
   font-size: ${ rem(12) };

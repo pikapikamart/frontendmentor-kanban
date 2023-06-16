@@ -1,7 +1,9 @@
 import { BoardColumn } from "@/store"
 import { 
+  TasksList,
   Title, 
   Wrapper } from "./column.styled"
+import { ColumnTask } from "./task"
 
 
 type ColumnProps = {
@@ -17,6 +19,13 @@ const Column = ({ column }: ColumnProps) => {
         <br />
         <span>({ column.tasks.length })</span>
       </Title>
+      <TasksList>
+        { column.tasks.map(task => (
+          <ColumnTask
+            key={ task.id }
+            task={ task } />
+        )) }
+      </TasksList>
     </Wrapper>
   )
 }

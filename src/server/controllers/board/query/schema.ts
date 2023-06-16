@@ -1,4 +1,5 @@
 import z from "zod"
+import { taskSchema } from "../../task/query/schema"
 
 
 export const boardWithTasksSchema = z.object({
@@ -7,7 +8,7 @@ export const boardWithTasksSchema = z.object({
   column: z.array(z.object({
     title: z.string({ required_error: "Column title is required" }),
     id: z.string({ required_error: "Column id is required" }),
-    tasks: z.array(z.any(), { required_error: "Tasks is required" })
+    tasks: z.array(taskSchema)
   }))
 })
 
