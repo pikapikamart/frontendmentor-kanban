@@ -8,6 +8,7 @@ import { trpc } from "@/client/lib/trpc"
 import { ExitCallback } from "types/utils"
 import * as Ariakit from '@ariakit/react'
 import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
+import { useDispatch } from "@/store"
 
 
 export const createTaskSchema = z.object({
@@ -37,6 +38,7 @@ export type CreateTaskSchema = z.infer<typeof createTaskSchema>
 
 export const useCreateTask = ( exit: ExitCallback ) => {
   const { currentBoard } = useCurrentBoard()
+  const dispatch = useDispatch()
   const {
     register,
     handleSubmit,
@@ -61,6 +63,13 @@ export const useCreateTask = ( exit: ExitCallback ) => {
     mutate,
     error: apiError } = trpc.task.create.useMutation({
     onSuccess: ( data ) => {
+      dispatch({
+        type: "ADD_TASK",
+        payload: {
+          ...data.content,
+          boardPath: currentBoard?.linkPath?? ""
+        }
+      })
       exit()
     }
   })

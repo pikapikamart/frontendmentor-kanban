@@ -1,6 +1,7 @@
 import { 
   BoardWithTaskSchema, 
   BoardsWithTaskSchema } from "@/server/controllers/board/query/schema"
+import { TaskSchema } from "@/server/controllers/task/query/schema"
 import { Dispatch } from "react"
 import { createContainer } from "react-tracked"
 import { ArrayElement } from "types/utils"
@@ -22,7 +23,8 @@ type Action = |
   { type: "ADD_BOARD", payload: BoardWithTaskSchema } |
   { type: "DELETE_BOARD", payload: string } |
   { type: "EDIT_BOARD", payload: BoardWithTaskSchema } |
-  { type: "SET_BOARD", payload: BoardWithTask }
+  { type: "SET_BOARD", payload: BoardWithTask } |
+  { type: "ADD_TASK", payload: TaskSchema & { boardPath: string } }
 
 const reducer = ( draft: Draft, action: Action ) => {
   
@@ -57,6 +59,17 @@ const reducer = ( draft: Draft, action: Action ) => {
         boardsLoaded: true
       } : board)
       
+      return
+    case "ADD_TASK":
+      const { boardPath, ...newTask } = action.payload
+      draft.boards = draft.boards.map(board => board.linkPath!==boardPath? board : {
+        ...board,
+        column: board.column.map(column => column.title!==newTask.status? column : {
+          ...column,
+          tasks: column.tasks.concat(newTask)
+        })
+      })
+
       return
     default:
       return draft
