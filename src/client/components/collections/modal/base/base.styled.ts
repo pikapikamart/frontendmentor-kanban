@@ -72,7 +72,7 @@ export const Error = styled.span`
   margin-top: ${ rem(4) };
 `
 
-export const Input = styled.input`
+const inputCss = css`
   border-radius: ${ rem(4) };
   border: 1px solid rgba(130, 143, 163, .25);
   display: block;
@@ -85,8 +85,46 @@ export const Input = styled.input`
   }
 `
 
+export const Select = styled.div`
+
+  .select {
+    ${ inputCss };
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .popover {
+    background-color: ${ ({ theme }) => theme.colors.boardDropdown };
+    border-radius: ${ rem(8) };
+    box-shadow: 0 10px 40px 0 rgba(54, 78, 126, .25);
+    overflow: hidden;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  .select-item {
+    color: ${ ({ theme }) => theme.colors.default };
+    font-size: ${ rem(13) };
+    font-weight: 500;
+
+    padding: ${ rem(10) } 0 ${ rem(8) } ${ rem(16) };
+
+    &[data-active-item] {
+      background-color: ${ ({ theme }) => theme.colors.button.main };
+      color: #FFFFFF;
+    }
+  }
+`
+
+export const Input = styled.input`
+  ${ inputCss };
+`
+
 export const Textarea = styled(Input).attrs(() => ({
-  as: "textarea"
+  as: "textarea",
+  rows: 6
 }))`
   resize: none;
 `

@@ -34,7 +34,7 @@ export const ToastWrapper = styled.div<ToastWrapperProps>`
   ${ ({ colored, theme }) => {
     switch(colored) {
       case "red":
-        return css`background-color: rgb(200, 0, 0);`
+        return css`background-color: rgb(250, 0, 0);`
       case "success":
         return css`background-color: ${ theme.colors.button.main };`
     }

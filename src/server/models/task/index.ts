@@ -8,7 +8,7 @@ export type Task = {
   id: string,
   title: string,
   description: string,
-  subtask: {
+  subtasks: {
     title: string,
     id: string
   }[],
@@ -29,7 +29,7 @@ const taskSchema: mongoose.Schema<TaskDocument> = new mongoose.Schema({
   },
   title: String,
   description: String,
-  subtask: [{
+  subtasks: [{
     title: String,
     id: String
   }],

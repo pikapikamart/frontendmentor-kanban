@@ -15,7 +15,6 @@ import {
 import { useCreateBoard } from "./create.hook"
 import removeIcon from "@/public/icons/remove.svg"
 import { AnimatePresence } from "framer-motion"
-import FocusTrap from "focus-trap-react"
 import { 
   swipeRightVariant, 
   variantNaming } from "@/client/motion/variants"
