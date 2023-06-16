@@ -16,9 +16,7 @@ const Board = () => {
     <>
       <AnimatePresence>
         { isExpanded && (
-          <ModalDocument
-            focusBackRef={ null } 
-            exit={ handleExpansion }>
+          <ModalDocument exit={ handleExpansion }>
             <CreateTaskModal exit={ handleExpansion } />
           </ModalDocument>
         ) }

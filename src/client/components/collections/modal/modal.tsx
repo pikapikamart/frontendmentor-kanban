@@ -13,7 +13,7 @@ import FocusTrap from "focus-trap-react"
 type ModalProps = {
   children: React.ReactNode,
   exit: () => void,
-  focusBackRef: HTMLElement | null
+  focusBackRef?: HTMLElement | null
 }
 
 const Modal = ({ 

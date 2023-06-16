@@ -6,7 +6,7 @@ import {
 type UseBaseModalFocusProps =  HTMLElement | null
 
 
-export const useBaseModalFocus = ( focusBackRef: UseBaseModalFocusProps ) =>{
+export const useBaseModalFocus = ( focusBackRef?: UseBaseModalFocusProps ) =>{
   const modalRef = useRef<HTMLDivElement | null>(null)
   
   useEffect(() =>{
