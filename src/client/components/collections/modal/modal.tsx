@@ -31,18 +31,18 @@ const Modal = ({
   return createPortal(
     <FocusTrap>
       <BaseModalWrapper
-      ref={ modalRef }
-      role="dialog"
-      tabIndex={ -1 }
-      key="baseModal"
-      { ...variantNaming }
-      variants={ fadeVariant }
-      aria-labelledby="modal-heading" >
-      <ModalDocument role="document">
-        <BaseModalOnClickExit onClick={ exitModal } />
-        { children }
-      </ModalDocument>
-    </BaseModalWrapper>
+        ref={ modalRef }
+        role="dialog"
+        tabIndex={ -1 }
+        key="baseModal"
+        { ...variantNaming }
+        variants={ fadeVariant }
+        aria-labelledby="modal-heading" >
+        <ModalDocument role="document">
+          <BaseModalOnClickExit onClick={ exitModal } />
+          { children }
+        </ModalDocument>
+      </BaseModalWrapper>
     </FocusTrap>,
     document.body
   )

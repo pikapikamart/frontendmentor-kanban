@@ -10,6 +10,7 @@ import styled, { css } from "styled-components"
 export const Description = styled.p`
   color: ${ ({ theme }) => theme.colors.default };
   font-size: ${ rem(13) };
+  font-weight: 500;
   line-height: 1.8;
   margin-bottom: ${ rem(26) };
 `
