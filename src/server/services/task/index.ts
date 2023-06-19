@@ -6,7 +6,8 @@ import {
   DocumentDefinition, 
   FilterQuery, 
   ProjectionType,
-  QueryOptions} from "mongoose";
+  QueryOptions,
+  UpdateQuery} from "mongoose";
 
 
 export const deleteMultipleTaskService = async(query: FilterQuery<TaskDocument>) => (
@@ -22,4 +23,12 @@ export const findTaskService = async(
   projection: ProjectionType<TaskDocument> = "" ,
   option: QueryOptions = { lean: true }) => (
   taskModel.findOne(query, projection, option)
+)
+
+export const updateTaskService = async(
+  query: FilterQuery<TaskDocument>,
+  update: UpdateQuery<TaskDocument>,
+  options: QueryOptions = { new: true }
+) => (
+  taskModel.findOneAndUpdate(query, update, options)
 )

@@ -11,7 +11,6 @@ export type Task = {
   subtasks: {
     title: string,
     done: boolean,
-    id: string
   }[],
   status: string
 } 
@@ -36,7 +35,6 @@ const taskSchema: mongoose.Schema<TaskDocument> = new mongoose.Schema({
       type: Boolean,
       default: false
     },
-    id: String
   }],
   status: String
 })

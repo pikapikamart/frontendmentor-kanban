@@ -23,7 +23,7 @@ export const getAllBoardController = async({ user }: UserContext) =>{
       column: []
     })
   })
-  
+
   return trpcSuccess(boardsWithTasksSchema.parse(user.boards), "Boards")
 }
 

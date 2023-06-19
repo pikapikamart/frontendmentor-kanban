@@ -1,5 +1,9 @@
-import { createTaskController } from "@/server/controllers/task/mutation";
-import { createTaskSchema } from "@/server/controllers/task/mutation/schema";
+import { 
+  createTaskController, 
+  editSubtasksWithStatusController } from "@/server/controllers/task/mutation";
+import { 
+  createTaskSchema, 
+  editSubtasksWithStatus } from "@/server/controllers/task/mutation/schema";
 import { databaseMiddleware } from "@/server/middleware/database";
 import { userTokenMiddleware } from "@/server/middleware/token";
 import { 
@@ -14,5 +18,8 @@ export const taskProcedure = procedure
 export const taskRouter = router({
   create: taskProcedure
     .input(createTaskSchema)
-    .mutation(({ ctx, input }) => createTaskController(ctx, input))
+    .mutation(({ ctx, input }) => createTaskController(ctx, input)),
+  editSubtasksWithStatus: taskProcedure
+    .input(editSubtasksWithStatus)
+    .mutation(({ ctx, input }) => editSubtasksWithStatusController(ctx, input)) 
 })

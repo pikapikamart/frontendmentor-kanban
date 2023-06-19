@@ -11,7 +11,7 @@ export const useCurrentBoard = () => {
   const { query } = useRouter()
   const dispatch = useDispatch()
   const currentBoard = boards.find(board => board.linkPath===query.board)
-  const { refetch, isLoading } = trpc.board.get.useQuery({
+  const { refetch, isLoading, isFetching } = trpc.board.get.useQuery({
     title: currentBoard?.title?? "",
     linkPath: currentBoard?.linkPath?? ""
   }, {
@@ -35,6 +35,6 @@ export const useCurrentBoard = () => {
   return {
     currentBoard: currentBoard,
     path: query.board?? "",
-    isLoading
+    isLoading: isLoading && isFetching
   }
 }
