@@ -17,6 +17,7 @@ export const ShowSidebar = styled(motion.button)`
   place-content: center;
   position: fixed;
   width: ${ rem(56) };
+  z-index: 5;
 `
 
 export const HideSidebar = styled(CreateBoardButton)`

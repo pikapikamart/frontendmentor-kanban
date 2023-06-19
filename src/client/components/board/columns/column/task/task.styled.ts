@@ -16,9 +16,10 @@ export const TaskButton = styled.button`
   }
 `
 
-export const TaskHeading = styled.h4`
+export const TaskTitle = styled.h4`
   color: ${ ({ theme }) => theme.colors.form.heading };
   font-size: ${ rem(15) };
+  line-height: 1.2;
   margin-bottom: ${ rem(8) };
 `
 

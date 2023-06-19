@@ -29,6 +29,7 @@ export const createTaskController = async({ user }: UserContext, input: CreateTa
     id: customNanoid(10),
     subtasks: input.subtasks.map(subtask => ({
       title: subtask.title,
+      done: false,
       id: customNanoid(10)
     })),
   }

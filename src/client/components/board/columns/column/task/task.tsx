@@ -2,8 +2,9 @@ import { TaskSchema } from "@/server/controllers/task/query/schema"
 import { 
   SubtasksCount,
   TaskButton,
-  TaskHeading, 
+  TaskTitle, 
   Wrapper } from "./task.styled"
+import { isArrayEmpty } from "@/client/lib/utils"
 
 
 type TaskProps = {
@@ -14,10 +15,16 @@ const Task = ({ task }: TaskProps) =>{
 
   return (
     <Wrapper>
-      <TaskHeading>
+      <TaskTitle>
         <TaskButton>{ task.title }</TaskButton>
-      </TaskHeading>
-      <SubtasksCount>{ task.subtasks.length } of { task.subtasks.length } subtasks</SubtasksCount>
+      </TaskTitle>
+      <SubtasksCount>
+        { isArrayEmpty(task.subtasks)?
+          <>No subtasks</>
+          :
+          <>{ task.subtasks.reduce((accu, curr) => curr.done? accu + 1 : accu, 0) } of { task.subtasks.length } subtasks</> 
+        }
+      </SubtasksCount>
     </Wrapper>
   )
 }

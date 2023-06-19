@@ -31,6 +31,7 @@ export const Dropdown = styled(motion.form)`
   padding: ${ rem(10) } ${ rem(16) } ${ rem(8) } ${ rem(16) };
   position: absolute;
   width: ${ rem(192) };
+  z-index: 5;
 `
 
 export const Trigger = styled.button`
