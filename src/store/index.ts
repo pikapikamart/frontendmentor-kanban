@@ -10,6 +10,7 @@ import { useImmerReducer } from "use-immer"
 
 type BoardWithTask = BoardWithTaskSchema & { hasLoaded?: boolean }
 export type BoardColumn = ArrayElement<BoardWithTask["column"]>
+export type Subtask = ArrayElement<TaskSchema["subtasks"]>
 
 type Draft = {
   darkmode: boolean,

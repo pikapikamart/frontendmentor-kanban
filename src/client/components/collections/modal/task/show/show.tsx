@@ -4,6 +4,7 @@ import {
   FieldWrapper, 
   Heading, 
   Label, 
+  MainFormButton, 
   Select, 
   Wrapper } from "../../base/base.styled"
 import { ExitCallback } from "types/utils"
@@ -15,6 +16,8 @@ import {
 import { isArrayEmpty } from "@/client/lib/utils"
 import * as Ariakit from "@ariakit/react"
 import { useShowTask } from "./show.hook"
+import { AnimatePresence } from "framer-motion"
+import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 
 
 type ShowProps = {
@@ -23,14 +26,16 @@ type ShowProps = {
 }
 
 const Show = ({ task }: ShowProps) =>{
+  const { currentBoard } = useCurrentBoard()
   const { 
     select,
-    currentBoard } = useShowTask()
+    handleSubtaskChange,
+    handleSubmitTaskPartialEdit,
+    hasChanged } = useShowTask(task)
 
   return (
     <>
-
-      <Wrapper>
+      <Wrapper onSubmit={ handleSubmitTaskPartialEdit }>
         <Heading>{ task.title }</Heading>
         <Description>{ task.description }</Description>
         { !isArrayEmpty(task.subtasks) && (
@@ -42,6 +47,7 @@ const Show = ({ task }: ShowProps) =>{
                   defaultChecked={ subtask.done }
                   id={ `subtask-${ index }` }
                   type="checkbox"
+                  onChange={ () => handleSubtaskChange(subtask) }
                   onKeyDown={ e => e.key==="Enter"? e.preventDefault() : null } />
                 <SubLabel htmlFor={ `subtask-${ index }` }>{ subtask.title }</SubLabel>
               </SubtaskWrapper>
@@ -56,8 +62,8 @@ const Show = ({ task }: ShowProps) =>{
                 store={ select }>Status</Ariakit.SelectLabel>
             </Label>
             <Ariakit.Select
-            store={ select }
-            className="select" />
+              store={ select }
+              className="select" />
             <Ariakit.SelectPopover
               store={ select }
               gutter={ 3 }
@@ -73,6 +79,9 @@ const Show = ({ task }: ShowProps) =>{
             </Ariakit.SelectPopover>
           </Select>
         </FieldWrapper>
+        <AnimatePresence>
+          { hasChanged && <MainFormButton type="submit">Save changes</MainFormButton> }
+        </AnimatePresence>
       </Wrapper>
     </>
   )

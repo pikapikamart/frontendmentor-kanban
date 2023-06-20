@@ -99,6 +99,7 @@ export const Select = styled.div`
     border-radius: ${ rem(8) };
     box-shadow: 0 10px 40px 0 rgba(54, 78, 126, .25);
     overflow: hidden;
+    z-index: 5;
 
     &:focus-visible {
       outline: none;

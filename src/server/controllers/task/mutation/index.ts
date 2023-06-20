@@ -1,7 +1,7 @@
 import { UserContext } from "@/server/middleware/token";
 import { 
   CreateTaskSchema, 
-  EditSubtasksWithStatus } from "./schema";
+  EditTaskPartial } from "./schema";
 import { customNanoid } from "@/server/utils/nanoid";
 import { Task } from "@/server/models/task";
 import { 
@@ -33,6 +33,7 @@ export const createTaskController = async({ user }: UserContext, input: CreateTa
     subtasks: input.subtasks.map(subtask => ({
       title: subtask.title,
       done: false,
+      id: customNanoid(10)
     }))
   }
   
@@ -62,13 +63,30 @@ export const createTaskController = async({ user }: UserContext, input: CreateTa
   return trpcSuccess(taskSchema.parse(createdTask), "Success")
 }
 
-export const editSubtasksWithStatusController = async({user}: UserContext, input: EditSubtasksWithStatus) =>{
+export const editTaskPartialController = async({user}: UserContext, input: EditTaskPartial) =>{
+  const foundTask = await findTaskService(
+    {
+      owner: user._id,
+      id: input.id
+    }
+  )
+
+  if ( !foundTask ) return trpcError("NOT_FOUND", "No task found")
+
+  const mappedSubtasks = foundTask.subtasks.map(subtask => input.subtasks.find(change => change.id===subtask.id)? {
+    ...subtask,
+    done: !subtask.done
+  } : subtask)
+
   const updatedTask = await updateTaskService(
     {
       owner: user._id,
       id: input.id
     },
-    { ...input }
+    {
+      status: input.status,
+      subtasks: mappedSubtasks
+    }
   )
 
   if ( !updatedTask ) return trpcError("NOT_FOUND", "No task found to update")
