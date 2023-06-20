@@ -17,7 +17,7 @@ import { isArrayEmpty } from "@/client/lib/utils"
 import * as Ariakit from "@ariakit/react"
 import { useShowTask } from "./show.hook"
 import { AnimatePresence } from "framer-motion"
-import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
+import Spinner from "../../../spinner/spinner"
 
 
 type ShowProps = {
@@ -25,16 +25,20 @@ type ShowProps = {
   exit: ExitCallback
 }
 
-const Show = ({ task }: ShowProps) =>{
-  const { currentBoard } = useCurrentBoard()
+const Show = ({ task, exit }: ShowProps) =>{
   const { 
     select,
+    currentBoard,
     handleSubtaskChange,
     handleSubmitTaskPartialEdit,
-    hasChanged } = useShowTask(task)
+    isLoading,
+    hasChanged } = useShowTask(task, exit)
 
   return (
     <>
+      <AnimatePresence>
+        { isLoading && <Spinner /> }
+      </AnimatePresence>
       <Wrapper onSubmit={ handleSubmitTaskPartialEdit }>
         <Heading>{ task.title }</Heading>
         <Description>{ task.description }</Description>

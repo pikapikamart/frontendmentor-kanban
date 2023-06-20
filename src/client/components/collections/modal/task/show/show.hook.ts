@@ -1,13 +1,15 @@
+import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 import { trpc } from "@/client/lib/trpc"
 import { isArrayEmpty } from "@/client/lib/utils"
 import { TaskSchema } from "@/server/controllers/task/query/schema"
-import { Subtask } from "@/store"
+import { Subtask, useDispatch } from "@/store"
 import { useSelectStore } from "@ariakit/react"
+import { ExitCallback } from "types/utils"
 import { useImmerReducer } from "use-immer"
 
 
 type TaskPartialChanges = {
-  newState: string,
+  newStatus: string,
   subtasks: Subtask[]
 }
 
@@ -15,35 +17,35 @@ type Action =
   { type: "SET_NEW_STATUS", payload: string } |
   { type: "ADD_SUBTASK_CHANGE", payload: Subtask }
 
-const reducer = ( state: TaskPartialChanges, action: Action ) =>{
+const reducer = ( draft: TaskPartialChanges, action: Action ) =>{
 
   switch(action.type) {
     case "SET_NEW_STATUS":
-      state.newState = action.payload
+      draft.newStatus = action.payload
 
-      return state
+      return draft
     case "ADD_SUBTASK_CHANGE":
       const { payload } = action
-      state.subtasks = state.subtasks.find(subtask => subtask.id===payload.id)? 
-        state.subtasks.filter(subtask => subtask.id!==payload.id) :
-        state.subtasks.concat(payload)
+      draft.subtasks = draft.subtasks.find(subtask => subtask.id===payload.id)? 
+        draft.subtasks.filter(subtask => subtask.id!==payload.id) :
+        draft.subtasks.concat(payload)
      
-      return state
+      return draft
     default:
-      return state
+      return draft
   }
 }
 
-const initialState: TaskPartialChanges = {
-  newState: "",
+const initialdraft: TaskPartialChanges = {
+  newStatus: "",
   subtasks: []
 }
 
-export const useShowTask = ( task: TaskSchema ) => {
-  const [ state, dispatch ] = useImmerReducer(reducer, initialState, ( s ) => {
+export const useShowTask = ( task: TaskSchema, exit: ExitCallback ) => {
+  const [ draft, dispatch ] = useImmerReducer(reducer, initialdraft, (s) =>{
 
     return {
-      newState: task.status,
+      newStatus: task.status,
       subtasks: []
     }
   })
@@ -55,9 +57,18 @@ export const useShowTask = ( task: TaskSchema ) => {
       })
     }
   })
-  const { mutate } = trpc.task.editPartial.useMutation({
+  const { currentBoard } = useCurrentBoard()
+  const storeDispatch = useDispatch()
+  const { mutate, isLoading } = trpc.task.editPartial.useMutation({
     onSuccess: data => {
-
+      storeDispatch({
+        type: "EDIT_TASK_PARTIAL",
+        payload: {
+          ...data.content,
+          linkPath: currentBoard?.linkPath?? ""
+        }
+      })
+      exit()
     }
   })
 
@@ -70,15 +81,18 @@ export const useShowTask = ( task: TaskSchema ) => {
     event.preventDefault()
     mutate({
       id: task.id,
-      status: state.newState,
-      subtasks: state.subtasks
+      status: draft.newStatus,
+      subtasks: draft.subtasks,
+      linkPath: currentBoard?.linkPath?? ""
     })
   }
 
   return {
     select,
+    currentBoard,
     handleSubtaskChange,
     handleSubmitTaskPartialEdit,
-    hasChanged: !isArrayEmpty(state.subtasks) || task.status!==state.newState
+    isLoading,
+    hasChanged: !isArrayEmpty(draft.subtasks) || task.status!==draft.newStatus
   }
 }

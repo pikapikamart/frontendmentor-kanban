@@ -64,6 +64,13 @@ export const createTaskController = async({ user }: UserContext, input: CreateTa
 }
 
 export const editTaskPartialController = async({user}: UserContext, input: EditTaskPartial) =>{
+  const foundBoard = await findBoardService({
+    owner: user._id,
+    linkPath: input.linkPath
+  })
+
+  if ( !foundBoard ) return trpcError("NOT_FOUND", "No board found")
+
   const foundTask = await findTaskService(
     {
       owner: user._id,

@@ -25,7 +25,8 @@ type Action = |
   { type: "DELETE_BOARD", payload: string } |
   { type: "EDIT_BOARD", payload: BoardWithTaskSchema } |
   { type: "SET_BOARD", payload: BoardWithTask } |
-  { type: "ADD_TASK", payload: TaskSchema & { boardPath: string } }
+  { type: "ADD_TASK", payload: TaskSchema & { boardPath: string } } |
+  { type: "EDIT_TASK_PARTIAL", payload: TaskSchema & { linkPath: string } }
 
 const reducer = ( draft: Draft, action: Action ) => {
   
@@ -72,6 +73,14 @@ const reducer = ( draft: Draft, action: Action ) => {
       })
 
       return
+    case "EDIT_TASK_PARTIAL":
+      const { payload: { linkPath, ...rest } } = action
+      const boardIndex = draft.boards.findIndex(board => board.linkPath===linkPath)
+      const collumnIndex = draft.boards[boardIndex].column.findIndex(column => column.title===rest.status)
+      const taskIndex = draft.boards[boardIndex].column[collumnIndex].tasks.findIndex(task => task.id===rest.id)
+      draft.boards[boardIndex].column[collumnIndex].tasks[taskIndex] = rest
+
+    return
     default:
       return draft
   }
