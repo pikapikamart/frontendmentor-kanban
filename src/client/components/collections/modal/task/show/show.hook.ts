@@ -55,7 +55,8 @@ export const useShowTask = ( task: TaskSchema, exit: ExitCallback ) => {
         type: "SET_NEW_STATUS",
         payload: data
       })
-    }
+    },
+    defaultValue: task.status
   })
   const { currentBoard } = useCurrentBoard()
   const storeDispatch = useDispatch()

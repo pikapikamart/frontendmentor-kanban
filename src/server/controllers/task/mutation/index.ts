@@ -80,6 +80,21 @@ export const editTaskPartialController = async({user}: UserContext, input: EditT
 
   if ( !foundTask ) return trpcError("NOT_FOUND", "No task found")
 
+  if ( input.status!==foundTask.status ) {
+    const findColumnIndex = ( title: string ) => foundBoard.column.findIndex(column => column.title===title)
+
+    await updateBoardService(
+      {
+        linkPath: input.linkPath,
+        owner: user._id
+      },
+      {
+        $pull: { [`column.${ findColumnIndex(foundTask.status) }.tasks`]: foundTask._id },
+        $push: { [`column.${ findColumnIndex(input.status) }.tasks`]: foundTask._id }
+      }
+    )
+  }
+
   const mappedSubtasks = foundTask.subtasks.map(subtask => input.subtasks.find(change => change.id===subtask.id)? {
     ...subtask,
     done: !subtask.done

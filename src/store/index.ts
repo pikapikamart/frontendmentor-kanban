@@ -74,11 +74,26 @@ const reducer = ( draft: Draft, action: Action ) => {
 
       return
     case "EDIT_TASK_PARTIAL":
-      const { payload: { linkPath, ...rest } } = action
-      const boardIndex = draft.boards.findIndex(board => board.linkPath===linkPath)
-      const collumnIndex = draft.boards[boardIndex].column.findIndex(column => column.title===rest.status)
-      const taskIndex = draft.boards[boardIndex].column[collumnIndex].tasks.findIndex(task => task.id===rest.id)
-      draft.boards[boardIndex].column[collumnIndex].tasks[taskIndex] = rest
+      const { boards } = draft
+      const { payload: { linkPath, ...updatedTask } } = action
+      const boardIndex = boards.findIndex(board => board.linkPath===linkPath)
+      const collumnIndex = boards[boardIndex].column.findIndex(column => !!column.tasks.find(task => task.id===updatedTask.id))
+      const taskIndex = boards[boardIndex].column[collumnIndex].tasks.findIndex(task => task.id===updatedTask.id)
+      const oldTask = { ...boards[boardIndex].column[collumnIndex].tasks[taskIndex] }
+      const statusChanged = updatedTask.status!==oldTask.status
+      
+      if ( statusChanged ) {
+        // remove first
+        boards[boardIndex].column[collumnIndex].tasks = boards[boardIndex].column[collumnIndex].tasks.filter(task => task.id!==updatedTask.id)
+        
+        // append to the new column
+        const newColumnIndex = boards[boardIndex].column.findIndex(column => column.title===updatedTask.status)
+        boards[boardIndex].column[newColumnIndex].tasks.push(updatedTask)
+        
+        return
+      }
+      
+      boards[boardIndex].column[collumnIndex].tasks[taskIndex] = updatedTask
 
     return
     default:
