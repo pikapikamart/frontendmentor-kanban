@@ -7,8 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { trpc } from "@/client/lib/trpc"
 import { ExitCallback } from "types/utils"
 import * as Ariakit from '@ariakit/react'
-import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
-import { useDispatch } from "@/store"
+import { useDispatch, useTrackedState } from "@/store"
 
 
 export const createTaskSchema = z.object({
@@ -37,7 +36,7 @@ export const createTaskSchema = z.object({
 export type CreateTaskSchema = z.infer<typeof createTaskSchema>
 
 export const useCreateTask = ( exit: ExitCallback ) => {
-  const { currentBoard } = useCurrentBoard()
+  const { currentBoard } = useTrackedState()
   const dispatch = useDispatch()
   const {
     register,

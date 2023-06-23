@@ -6,14 +6,12 @@ import { trpc } from "../trpc"
 import { useEffect } from "react"
 
 
-export const useCurrentBoard = () => {
-  const { boards } = useTrackedState()
+export const useSetupCurrentBoard = () => {
+  const { currentBoard } = useTrackedState()
   const { query } = useRouter()
   const dispatch = useDispatch()
-  const currentBoard = boards.find(board => board.linkPath===query.board)
   const { refetch, isLoading, isFetching } = trpc.board.get.useQuery({
-    title: currentBoard?.title?? "",
-    linkPath: currentBoard?.linkPath?? ""
+    linkPath: (query.board?? "") as string
   }, {
     refetchOnWindowFocus: false,
     enabled: false,
@@ -24,17 +22,13 @@ export const useCurrentBoard = () => {
       })
     }
   })
-
+  
   useEffect(() =>{
-    if ( currentBoard && !currentBoard.hasLoaded ) {
-
-      refetch()
-    }
-  }, [ currentBoard ])
+    if ( !currentBoard && query.board ) refetch()
+  }, [ currentBoard, query ])
 
   return {
-    currentBoard: currentBoard,
-    path: query.board?? "",
+    currentBoard,
     isLoading: isLoading && isFetching
   }
 }

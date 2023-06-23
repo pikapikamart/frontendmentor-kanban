@@ -9,15 +9,15 @@ import { DesktopNavbar } from "./navbar/desktop"
 import { useExpansion } from "@/client/lib/hooks"
 import Image from "next/image"
 import { NavHeading } from "./navbar/navbar.styled"
-import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 import { AddTaskOption } from "./options/task"
 import { BoardOption } from "./options/board"
+import { useTrackedState } from "@/store"
 
 
 const Header = () => {
   const { isMobile, hasDetected } = useDetectResponsiveness()
   const [ isExpanded, handleExpansion ] = useExpansion()
-  const { currentBoard } = useCurrentBoard()
+  const { currentBoard } = useTrackedState()
 
   if ( !hasDetected ) return (
     <Wrapper isExpanded={ isExpanded }>

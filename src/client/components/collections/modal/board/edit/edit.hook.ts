@@ -5,10 +5,12 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { trpc } from "@/client/lib/trpc"
 import { ExitCallback } from "types/utils"
-import { useDispatch } from "@/store"
-import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
+import { 
+  useDispatch, 
+  useTrackedState } from "@/store"
 import { createBoardSchema } from "../create/create.hook"
 import z from "zod"
+import { useRouter } from "next/router"
 
 
 const editBoardSchema = createBoardSchema.merge(z.object({
@@ -18,7 +20,8 @@ const editBoardSchema = createBoardSchema.merge(z.object({
 type EditBoardSchema = z.infer<typeof editBoardSchema>
 
 export const useEditBoard = ( exit: ExitCallback ) => {
-  const { currentBoard, path } = useCurrentBoard()
+  const { currentBoard } = useTrackedState()
+  const { query } = useRouter()
   const dispatch = useDispatch()
   const {
     register,
@@ -26,13 +29,11 @@ export const useEditBoard = ( exit: ExitCallback ) => {
     control,
     formState: { errors: formErrors }} = useForm<EditBoardSchema>({
     resolver: zodResolver(editBoardSchema),
-    defaultValues: currentBoard? 
-      {
-        title: currentBoard.title,
-        linkPath: path,
-        column: currentBoard.column.reduce((accu, curr) => accu.concat({ title: curr.title }), [] as { title: string }[])
-      } : 
-      {}
+    defaultValues:  {
+      title: currentBoard?.title?? "",
+      linkPath: query.board as string?? "",
+      column: currentBoard?.column.reduce((accu, curr) => accu.concat({ title: curr.title }), [] as { title: string }[])?? []
+    }
   })
   const { 
     fields, 

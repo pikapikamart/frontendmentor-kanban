@@ -23,7 +23,6 @@ type Draft = {
 type Action = |
   { type: "DARKMODE" } |
   { type: "SET_BOARDS", payload: BoardsWithTaskSchema } |
-  { type: "SET_CURRENT_BOARD", payload: BoardWithTask } |
   { type: "ADD_BOARD", payload: BoardWithTaskSchema } |
   { type: "DELETE_BOARD", payload: string } |
   { type: "EDIT_BOARD", payload: BoardWithTaskSchema } |
@@ -43,10 +42,6 @@ const reducer = ( draft: Draft, action: Action ) => {
     case "SET_BOARDS":
       draft.boards = action.payload
       draft.boardsLoaded = true
-
-      return
-    case "SET_CURRENT_BOARD":
-      draft.currentBoard = action.payload  
 
       return
     case "ADD_BOARD":
@@ -69,7 +64,8 @@ const reducer = ( draft: Draft, action: Action ) => {
         ...action.payload,
         boardsLoaded: true
       } : board)
-      
+      draft.currentBoard = action.payload
+
       return
     case "ADD_TASK":
       const { boardPath, ...newTask } = action.payload

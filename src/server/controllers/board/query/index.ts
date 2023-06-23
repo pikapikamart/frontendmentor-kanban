@@ -32,7 +32,6 @@ export const getBoardController = async({ user }: UserContext, input: GetBoardSc
     {
       owner: user._id,
       linkPath: input.linkPath,
-      title: input.title
     },
     "",
     {

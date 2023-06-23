@@ -1,4 +1,3 @@
-import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 import { 
   NewColumn, 
   Wrapper } from "./columns.styled"
@@ -8,10 +7,11 @@ import { useExpansion } from "@/client/lib/hooks"
 import { AnimatePresence } from "framer-motion"
 import { ModalDocument } from "../../collections/modal"
 import { CreateTaskModal } from "../../collections/modal/task/create"
+import { useTrackedState } from "@/store"
 
 
 export const Columns = () =>{
-  const { currentBoard } = useCurrentBoard()
+  const { currentBoard } = useTrackedState()
   const [ isExpanded, handleExpansion ] = useExpansion()
 
   return (

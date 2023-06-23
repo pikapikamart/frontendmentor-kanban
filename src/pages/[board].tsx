@@ -4,13 +4,13 @@ import { EmptyBoardSection } from "@/client/components/board/empty"
 import { FourOhFour } from "@/client/components/collections/404"
 import Spinner from "@/client/components/collections/spinner/spinner"
 import { useSetupBoards } from "@/client/components/layout/default/header/navbar/board/board.hook"
-import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
+import { useSetupCurrentBoard } from "@/client/lib/hooks/useSetupCurrentBoard"
 import { isArrayEmpty } from "@/client/lib/utils"
 
 
 const BoardPage = () =>{
   useSetupBoards()
-  const { currentBoard, isLoading } = useCurrentBoard()
+  const { currentBoard, isLoading } = useSetupCurrentBoard()
   
   if ( isLoading ) return <Spinner />
 

@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { trpc } from "@/client/lib/trpc"
 import { ExitCallback } from "types/utils"
 import * as Ariakit from '@ariakit/react'
-import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 import { 
   useDispatch, 
   useTrackedState } from "@/store"
@@ -16,8 +15,7 @@ import {
 
 
 export const useEditTask = ( exit: ExitCallback ) => {
-  const { currentTask } = useTrackedState()
-  const { currentBoard } = useCurrentBoard()
+  const { currentTask, currentBoard } = useTrackedState()
   const dispatch = useDispatch()
   const {
     register,

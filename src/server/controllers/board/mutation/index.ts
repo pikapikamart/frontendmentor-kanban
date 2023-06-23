@@ -20,18 +20,22 @@ import { customNanoid } from "@/server/utils/nanoid"
 
 
 export const createBoardController = async( { user }: UserContext, input: CreateBoardSchema ) => {
-  
-  if ( await findBoardService({ owner: user._id, title: input.title }, "_id") ) {
-    return trpcError("BAD_REQUEST", "Board already existed")
-  }
+  const linkPath = input.title
+    .split(" ")
+    .map(word => word.toLowerCase())
+    .join("")
+  const foundBoard = await findBoardService({
+    owner: user._id,
+    title: input.title,
+    linkPath 
+  })
+
+  if ( foundBoard ) return trpcError("BAD_REQUEST", "Board already existed")
 
   const boardData: Board = {
     owner: user._id,
     title: input.title,
-    linkPath: input.title
-      .split(" ")
-      .map(word => word.toLowerCase())
-      .join(""),
+    linkPath,
     column: input.column.map(column => ({
       title: column.title,
       id: customNanoid(10),

@@ -11,12 +11,10 @@ import { ModalDocument } from "@/client/components/collections/modal"
 import { useRef } from "react"
 import { CreateBoardModal } from "@/client/components/collections/modal/board/create"
 import { useTrackedState } from "@/store"
-import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 
 
 const Board = () => {
-  const { boards } = useTrackedState()
-  const { currentBoard } = useCurrentBoard()
+  const { boards, currentBoard } = useTrackedState()
   const [ isExpanded, handleExpansion ] = useExpansion()
   const focusBack = useRef<HTMLDivElement | null>(null)
 

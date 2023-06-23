@@ -23,14 +23,11 @@ import {
 import { LoadingSpinner } from "../../../spinner"
 import { ToastError } from "../../../toast/error"
 import * as Ariakit from "@ariakit/react"
-import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
+import { useTrackedState } from "@/store"
+import { ExitProps } from "types/utils"
 
 
-type CreateProps = {
-  exit: () => void
-}
-
-const Create = ({ exit }: CreateProps) => {
+const Create = ({ exit }: ExitProps) => {
   const {
     register,
     handleSubmit,
@@ -41,7 +38,7 @@ const Create = ({ exit }: CreateProps) => {
     isLoading,
     apiError,
     select } = useCreateTask(exit)
-  const { currentBoard } = useCurrentBoard()
+  const { currentBoard } = useTrackedState()
 
   return (
     <>

@@ -1,10 +1,10 @@
-import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 import { trpc } from "@/client/lib/trpc"
 import { isArrayEmpty } from "@/client/lib/utils"
 import { TaskSchema } from "@/server/controllers/task/query/schema"
 import { 
   Subtask, 
-  useDispatch } from "@/store"
+  useDispatch, 
+  useTrackedState} from "@/store"
 import { useSelectStore } from "@ariakit/react"
 import { useEffect } from "react"
 import { ExitCallback } from "types/utils"
@@ -61,7 +61,8 @@ export const useShowTask = ( task: TaskSchema, exit: ExitCallback ) => {
     },
     defaultValue: task.status
   })
-  const { currentBoard } = useCurrentBoard()
+
+  const { currentBoard } = useTrackedState()
   const storeDispatch = useDispatch()
   const { mutate, isLoading } = trpc.task.editPartial.useMutation({
     onSuccess: data => {
