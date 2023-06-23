@@ -7,7 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { trpc } from "@/client/lib/trpc"
 import { ExitCallback } from "types/utils"
 import * as Ariakit from '@ariakit/react'
-import { useDispatch, useTrackedState } from "@/store"
+import { useDispatch } from "@/store"
+import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 
 
 export const createTaskSchema = z.object({
@@ -17,8 +18,7 @@ export const createTaskSchema = z.object({
     .regex(/^(?! )[A-Za-z ]*$/, "A-Z only and no special characters"),
   description: z
     .string({ required_error: "Description is required" })
-    .min(1, "Description should not be empty")
-    .regex(/^(?! )[A-Za-z ]*$/, "A-Z only and no special characters"),
+    .min(1, "Description should not be empty"),
   subtasks: z.array(z.object({
     title: z
       .string({ required_error: "Column title is required" })
@@ -36,7 +36,7 @@ export const createTaskSchema = z.object({
 export type CreateTaskSchema = z.infer<typeof createTaskSchema>
 
 export const useCreateTask = ( exit: ExitCallback ) => {
-  const { currentBoard } = useTrackedState()
+  const { currentBoard } = useCurrentBoard()
   const dispatch = useDispatch()
   const {
     register,

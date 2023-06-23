@@ -9,6 +9,7 @@ import { useExpansion } from "@/client/lib/hooks"
 import { AnimatePresence } from "framer-motion"
 import { ModalDocument } from "@/client/components/collections/modal"
 import { ShowTaskModal } from "@/client/components/collections/modal/task/show"
+import { useDispatch } from "@/store"
 
 
 type TaskProps = {
@@ -16,7 +17,16 @@ type TaskProps = {
 }
 
 const Task = ({ task }: TaskProps) =>{
+  const dispatch = useDispatch()
   const [ isExpanded, handleExpansion ] = useExpansion()
+
+  const handleShowTask = () => {
+    dispatch({
+      type: "SET_CURRENT_TASK",
+      payload: task
+    })
+    handleExpansion()
+  }
 
   return (
     <>
@@ -24,15 +34,14 @@ const Task = ({ task }: TaskProps) =>{
         { isExpanded && (
           <ModalDocument exit={ handleExpansion }>
             <ShowTaskModal
-              exit={ handleExpansion }
-              task={ task } />
+              exit={ handleExpansion } />
           </ModalDocument>
         ) }
       </AnimatePresence>
       <Wrapper>
         <TaskTitle>
           <TaskButton
-            onClick={ handleExpansion }
+            onClick={ handleShowTask }
             aria-expanded={ isExpanded }>{ task.title }</TaskButton>
         </TaskTitle>
         <SubtasksCount>

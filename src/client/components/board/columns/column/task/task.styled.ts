@@ -9,6 +9,7 @@ export const SubtasksCount = styled.p`
 `
 
 export const TaskButton = styled.button`
+  text-align: left;
 
   &::after {
     content: "";

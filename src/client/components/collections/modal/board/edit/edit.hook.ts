@@ -5,12 +5,11 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { trpc } from "@/client/lib/trpc"
 import { ExitCallback } from "types/utils"
-import { 
-  useDispatch, 
-  useTrackedState } from "@/store"
+import { useDispatch } from "@/store"
 import { createBoardSchema } from "../create/create.hook"
 import z from "zod"
 import { useRouter } from "next/router"
+import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 
 
 const editBoardSchema = createBoardSchema.merge(z.object({
@@ -20,7 +19,7 @@ const editBoardSchema = createBoardSchema.merge(z.object({
 type EditBoardSchema = z.infer<typeof editBoardSchema>
 
 export const useEditBoard = ( exit: ExitCallback ) => {
-  const { currentBoard } = useTrackedState()
+  const { currentBoard } = useCurrentBoard()
   const { query } = useRouter()
   const dispatch = useDispatch()
   const {

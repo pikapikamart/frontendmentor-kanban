@@ -20,13 +20,10 @@ import {
   variantNaming } from "@/client/motion/variants"
 import { LoadingSpinner } from "../../../spinner"
 import { ToastError } from "../../../toast/error"
+import { ExitProps } from "types/utils"
 
 
-type CreateProps = {
-  exit: () => void
-}
-
-const Create = ({ exit }: CreateProps) => {
+const Create = ({ exit }: ExitProps) => {
   const {
     register,
     handleSubmit,

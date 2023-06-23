@@ -1,9 +1,11 @@
 import { 
   createTaskController, 
+  editTaskController, 
   editTaskPartialController } from "@/server/controllers/task/mutation";
 import { 
   createTaskSchema, 
-  editTaskPartial } from "@/server/controllers/task/mutation/schema";
+  editTaskPartial, 
+  editTaskSchema} from "@/server/controllers/task/mutation/schema";
 import { databaseMiddleware } from "@/server/middleware/database";
 import { userTokenMiddleware } from "@/server/middleware/token";
 import { 
@@ -19,6 +21,9 @@ export const taskRouter = router({
   create: taskProcedure
     .input(createTaskSchema)
     .mutation(({ ctx, input }) => createTaskController(ctx, input)),
+  edit: taskProcedure
+    .input(editTaskSchema)
+    .mutation(({ ctx, input }) => editTaskController(ctx, input)),
   editPartial: taskProcedure
     .input(editTaskPartial)
     .mutation(({ ctx, input }) => editTaskPartialController(ctx, input)) 

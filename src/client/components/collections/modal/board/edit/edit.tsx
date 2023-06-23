@@ -1,4 +1,4 @@
-import { ExitCallback } from "types/utils"
+import { ExitProps } from "types/utils"
 import { 
   Close,
   Error,
@@ -22,11 +22,7 @@ import removeIcon from "@/public/icons/remove.svg"
 import Spinner from "../../../spinner/spinner"
 
 
-type EditProps = {
-  exit: ExitCallback
-}
-
-const Edit = ({ exit }: EditProps) =>{
+const Edit = ({ exit }: ExitProps) =>{
   const {
     register,
     formErrors,

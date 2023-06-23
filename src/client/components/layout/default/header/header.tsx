@@ -11,13 +11,13 @@ import Image from "next/image"
 import { NavHeading } from "./navbar/navbar.styled"
 import { AddTaskOption } from "./options/task"
 import { BoardOption } from "./options/board"
-import { useTrackedState } from "@/store"
+import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 
 
 const Header = () => {
   const { isMobile, hasDetected } = useDetectResponsiveness()
   const [ isExpanded, handleExpansion ] = useExpansion()
-  const { currentBoard } = useTrackedState()
+  const { currentBoard } = useCurrentBoard()
 
   if ( !hasDetected ) return (
     <Wrapper isExpanded={ isExpanded }>

@@ -24,7 +24,7 @@ import { LoadingSpinner } from "../../../spinner"
 import { ToastError } from "../../../toast/error"
 import * as Ariakit from "@ariakit/react"
 import { ExitProps } from "types/utils"
-import { useTrackedState } from "@/store"
+import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 
 
 const Edit = ({ exit }: ExitProps) => {
@@ -38,7 +38,7 @@ const Edit = ({ exit }: ExitProps) => {
     isLoading,
     apiError,
     select } = useEditTask(exit)
-  const { currentBoard } = useTrackedState()
+  const { currentBoard } = useCurrentBoard()
 
   return (
     <>

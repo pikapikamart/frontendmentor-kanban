@@ -36,6 +36,10 @@ export const Dropdown = styled(motion.div)`
 
 export const Trigger = styled.button`
   padding: 0 ${ fluid(8, 1.7, 17) } 0 ${ fluid(8, 1.6, 16) };
+
+  img {
+    max-width: none;
+  }
 `
 
 export const Wrapper = styled.div`

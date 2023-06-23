@@ -1,7 +1,8 @@
 import { UserContext } from "@/server/middleware/token";
 import { 
   CreateTaskSchema, 
-  EditTaskPartial } from "./schema";
+  EditTaskPartial, 
+  EditTaskSchema} from "./schema";
 import { customNanoid } from "@/server/utils/nanoid";
 import { Task } from "@/server/models/task";
 import { 
@@ -28,6 +29,7 @@ export const createTaskController = async({ user }: UserContext, input: CreateTa
 
   const newTask: Task = {
     ...input,
+    description: input.description.trim(),
     owner: user._id,
     id: customNanoid(10),
     subtasks: input.subtasks.map(subtask => ({
@@ -61,6 +63,41 @@ export const createTaskController = async({ user }: UserContext, input: CreateTa
   )
 
   return trpcSuccess(taskSchema.parse(createdTask), "Success")
+}
+
+export const editTaskController = async({ user }: UserContext, input: EditTaskSchema) => {
+  const foundTask = await findTaskService({
+    owner: user._id,
+    id: input.id
+  })
+
+  if ( !foundTask ) return trpcError("NOT_FOUND", "No task found")
+
+  const mappedSubtasks = input.subtasks.map(subtask => {
+    const foundSubtask = foundTask.subtasks.find(subtaskInner => subtaskInner.id===subtask.id);
+
+    return foundSubtask? {
+      ...foundSubtask,
+      title: subtask.title
+    } : {
+      title: subtask.title,
+      id: customNanoid(10),
+      done: false
+    }
+  })
+
+  const updatedTask = await updateTaskService(
+    {
+      owner: user._id,
+      id: input.id
+    },
+    {
+      ...input,
+      subtasks: mappedSubtasks
+    }
+  )
+
+  return trpcSuccess(taskSchema.parse(updatedTask), "Success")
 }
 
 export const editTaskPartialController = async({user}: UserContext, input: EditTaskPartial) =>{

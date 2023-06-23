@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion"
-import { ExitCallback } from "types/utils"
+import { ExitProps } from "types/utils"
 import { 
   Description,
   RowOptionsWrapper,
@@ -9,14 +9,12 @@ import {
   Wrapper } from "../../base/base.styled"
 import { useDeleteBoard } from "./delete.hook"
 import { LoadingSpinner } from "../../../spinner"
+import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 
 
-type DeleteProps = {
-  exit: ExitCallback
-}
-
-const Delete = ({ exit }: DeleteProps) =>{
+const Delete = ({ exit }: ExitProps) =>{
   const { handleDeletion, isLoading } = useDeleteBoard()
+  const { currentBoard } = useCurrentBoard()
 
   return (
     <>
@@ -25,7 +23,7 @@ const Delete = ({ exit }: DeleteProps) =>{
       </AnimatePresence>
       <Wrapper onSubmit={ handleDeletion }>
         <WarningHeading>Delete this board?</WarningHeading>
-        <Description>Are you sure you want to delete the ‘Platform Launch’ board? This action will remove all columns and tasks and cannot be reversed.</Description>
+        <Description>Are you sure you want to delete the <span style={{ fontWeight: 700 }}>‘{ currentBoard?.title }’</span> board? This action will remove all columns and tasks and cannot be reversed.</Description>
         <RowOptionsWrapper>
           <WarningButton type="submit">Delete</WarningButton>
           <SecondaryButton

@@ -128,6 +128,7 @@ export const Textarea = styled(Input).attrs(() => ({
   as: "textarea",
   rows: 6
 }))`
+  line-height: 1.5;
   resize: none;
 `
 

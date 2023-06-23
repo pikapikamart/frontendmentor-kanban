@@ -10,21 +10,24 @@ import { isArrayEmpty } from "@/client/lib/utils"
 
 const BoardPage = () =>{
   useSetupBoards()
-  const { currentBoard, isLoading } = useSetupCurrentBoard()
-  
+  const { 
+    currentBoard, 
+    isLoading,
+    isSuccess } = useSetupCurrentBoard()
+
   if ( isLoading ) return <Spinner />
 
-  if ( !currentBoard ) {
+  if ( !currentBoard && !isSuccess ) {
     return (
       <FourOhFour>
         Make sure to check the url if correct
       </FourOhFour>
     )
   }
- 
+
   return (
     <MainWrapper>
-      { isArrayEmpty(currentBoard.column)? 
+      { isArrayEmpty(currentBoard?.column?? [])? 
       <EmptyBoardSection />
         :
       <BoardColumnsSection />

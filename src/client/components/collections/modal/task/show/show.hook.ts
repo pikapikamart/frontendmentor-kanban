@@ -1,6 +1,6 @@
+import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 import { trpc } from "@/client/lib/trpc"
 import { isArrayEmpty } from "@/client/lib/utils"
-import { TaskSchema } from "@/server/controllers/task/query/schema"
 import { 
   Subtask, 
   useDispatch, 
@@ -44,11 +44,12 @@ const initialdraft: TaskPartialChanges = {
   subtasks: []
 }
 
-export const useShowTask = ( task: TaskSchema, exit: ExitCallback ) => {
+export const useShowTask = ( exit: ExitCallback ) => {
+  const { currentTask } = useTrackedState()
   const [ draft, dispatch ] = useImmerReducer(reducer, initialdraft, (s) =>{
 
     return {
-      newStatus: task.status,
+      newStatus: currentTask?.status?? "",
       subtasks: []
     }
   })
@@ -58,16 +59,15 @@ export const useShowTask = ( task: TaskSchema, exit: ExitCallback ) => {
         type: "SET_NEW_STATUS",
         payload: data
       })
-    },
-    defaultValue: task.status
+    }
   })
 
-  const { currentBoard } = useTrackedState()
+  const { currentBoard } = useCurrentBoard()
   const storeDispatch = useDispatch()
   const { mutate, isLoading } = trpc.task.editPartial.useMutation({
     onSuccess: data => {
       storeDispatch({
-        type: "EDIT_TASK_PARTIAL",
+        type: "EDIT_TASK",
         payload: {
           ...data.content,
           linkPath: currentBoard?.linkPath?? ""
@@ -85,7 +85,7 @@ export const useShowTask = ( task: TaskSchema, exit: ExitCallback ) => {
   const handleSubmitTaskPartialEdit = ( event: React.FormEvent ) => {
     event.preventDefault()
     mutate({
-      id: task.id,
+      id: currentTask?.id?? "",
       status: draft.newStatus,
       subtasks: draft.subtasks,
       linkPath: currentBoard?.linkPath?? ""
@@ -93,11 +93,8 @@ export const useShowTask = ( task: TaskSchema, exit: ExitCallback ) => {
   }
 
   useEffect(() =>{
-    storeDispatch({
-      type: "SET_CURRENT_TASK",
-      payload: task
-    })
-  }, [])
+    select.setValue(currentTask?.status?? "")
+  }, [ currentTask ])
 
   return {
     select,
@@ -105,6 +102,6 @@ export const useShowTask = ( task: TaskSchema, exit: ExitCallback ) => {
     handleSubtaskChange,
     handleSubmitTaskPartialEdit,
     isLoading,
-    hasChanged: !isArrayEmpty(draft.subtasks) || task.status!==draft.newStatus
+    hasChanged: !isArrayEmpty(draft.subtasks) || currentTask?.status!==draft.newStatus
   }
 }

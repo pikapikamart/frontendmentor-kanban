@@ -24,6 +24,23 @@ export const createTaskSchema = z.object({
 
 export type CreateTaskSchema = z.infer<typeof createTaskSchema>
 
+export const editTaskSchema = createTaskSchema
+  .omit({ subtasks: true })
+  .merge(z.object({
+    id: z.string({ required_error: "Id is required" }),
+    subtasks: z.array(z.object({
+      title: z.string({ required_error: "Subtask title is required" }),
+      done: z
+        .boolean()
+        .optional(),
+      id: z
+        .string()
+        .optional()
+    }))
+  }))
+
+export type EditTaskSchema = z.infer<typeof editTaskSchema>
+
 export const editTaskPartial = baseTaskSchema.merge(z.object({
   status: z.string({ required_error: "Status is required" }),
   linkPath: z.string({ required_error: "Link path is required" })

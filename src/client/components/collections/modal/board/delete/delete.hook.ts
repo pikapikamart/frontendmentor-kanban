@@ -1,7 +1,6 @@
+import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 import { trpc } from "@/client/lib/trpc"
-import { 
-  useDispatch, 
-  useTrackedState } from "@/store"
+import { useDispatch } from "@/store"
 import { useRouter } from "next/router"
 
 
@@ -18,7 +17,7 @@ export const useDeleteBoard = () =>{
     }
   })
   const { query } = useRouter()
-  const { currentBoard } = useTrackedState()
+  const { currentBoard } = useCurrentBoard()
 
   const handleDeletion = (event: React.FormEvent) =>{
     event.preventDefault()

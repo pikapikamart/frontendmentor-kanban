@@ -12,18 +12,39 @@ import {
 import { 
   CreateTaskSchema, 
   createTaskSchema } from "../create/create.hook"
+import z from "zod"
+import { EditTaskSchema } from "@/server/controllers/task/mutation/schema"
+import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 
+
+const editTaskSchema = createTaskSchema
+  .omit({ subtasks: true })
+  .merge(z.object({
+    subtasks: z.array(z.object({
+      title: z
+        .string({ required_error: "Column title is required" })
+        .min(1, "Column title should not be empty")
+        .regex(/^(?! )[A-Za-z ]*$/, "A-Z only and no special characters"),
+      done: z
+        .boolean()
+        .optional(),
+      id: z
+        .string()
+        .optional()
+    }))
+  }))
 
 export const useEditTask = ( exit: ExitCallback ) => {
-  const { currentTask, currentBoard } = useTrackedState()
+  const { currentBoard } = useCurrentBoard()
+  const { currentTask } = useTrackedState()
   const dispatch = useDispatch()
   const {
     register,
     handleSubmit,
     control,
     setValue,
-    formState: { errors: formErrors }} = useForm<CreateTaskSchema>({
-    resolver: zodResolver(createTaskSchema),
+    formState: { errors: formErrors }} = useForm<EditTaskSchema>({
+    resolver: zodResolver(editTaskSchema),
     defaultValues: {
       ...currentTask,
       boardPath: currentBoard?.linkPath?? "",
@@ -39,14 +60,18 @@ export const useEditTask = ( exit: ExitCallback ) => {
   const { 
     isLoading, 
     mutate,
-    error: apiError } = trpc.task.create.useMutation({
+    error: apiError } = trpc.task.edit.useMutation({
     onSuccess: ( data ) => {
       dispatch({
-        type: "ADD_TASK",
+        type: "EDIT_TASK",
         payload: {
           ...data.content,
-          boardPath: currentBoard?.linkPath?? ""
+          linkPath: currentBoard?.linkPath?? ""
         }
+      })
+      dispatch({
+        type: "SET_CURRENT_TASK",
+        payload: data.content
       })
       exit()
     }
@@ -59,7 +84,11 @@ export const useEditTask = ( exit: ExitCallback ) => {
   })
   
   const onSubmit: SubmitHandler<CreateTaskSchema> = data => {
-    // mutate(data)
+    mutate({
+      ...data,
+      id: currentTask?.id?? "",
+      boardPath: currentBoard?.linkPath?? ""
+    })
   }
 
   const handleAddSubtask = () => append({ title: "" })

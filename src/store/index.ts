@@ -16,7 +16,6 @@ type Draft = {
   darkmode: boolean,
   boardsLoaded: boolean,
   boards: BoardWithTask[],
-  currentBoard?: BoardWithTask,
   currentTask?: TaskSchema
 }
 
@@ -28,7 +27,7 @@ type Action = |
   { type: "EDIT_BOARD", payload: BoardWithTaskSchema } |
   { type: "SET_BOARD", payload: BoardWithTask } |
   { type: "ADD_TASK", payload: TaskSchema & { boardPath: string } } |
-  { type: "EDIT_TASK_PARTIAL", payload: TaskSchema & { linkPath: string } } |
+  { type: "EDIT_TASK", payload: TaskSchema & { linkPath: string } } |
   { type: "SET_CURRENT_TASK", payload: TaskSchema }
 
  
@@ -64,7 +63,6 @@ const reducer = ( draft: Draft, action: Action ) => {
         ...action.payload,
         boardsLoaded: true
       } : board)
-      draft.currentBoard = action.payload
 
       return
     case "ADD_TASK":
@@ -78,7 +76,7 @@ const reducer = ( draft: Draft, action: Action ) => {
       })
 
       return
-    case "EDIT_TASK_PARTIAL":
+    case "EDIT_TASK":
       const { boards } = draft
       const { payload: { linkPath, ...updatedTask } } = action
       const boardIndex = boards.findIndex(board => board.linkPath===linkPath)

@@ -7,11 +7,11 @@ import { useExpansion } from "@/client/lib/hooks"
 import { AnimatePresence } from "framer-motion"
 import { ModalDocument } from "../../collections/modal"
 import { CreateTaskModal } from "../../collections/modal/task/create"
-import { useTrackedState } from "@/store"
+import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 
 
 export const Columns = () =>{
-  const { currentBoard } = useTrackedState()
+  const { currentBoard } = useCurrentBoard()
   const [ isExpanded, handleExpansion ] = useExpansion()
 
   return (
