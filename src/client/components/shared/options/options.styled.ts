@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 
-export const BoardItemTrigger = styled.button.attrs(() => ({
+export const OptionTrigger = styled.button.attrs(() => ({
   type: "button"
 }))`
   padding: ${ rem(10) } 0 ${ rem(12) };
@@ -13,7 +13,7 @@ export const BoardItemTrigger = styled.button.attrs(() => ({
   width: 100%;
 `
 
-export const BoardItem = styled.li`
+export const OptionItem = styled.li`
   color: ${ ({ theme }) => theme.colors.navlinks };
 
   &:last-of-type {
@@ -21,7 +21,7 @@ export const BoardItem = styled.li`
   }
 `
 
-export const Dropdown = styled(motion.form)`
+export const Dropdown = styled(motion.div)`
   background-color: ${ ({ theme }) => theme.colors.boardDropdown };
   border-radius: ${ rem(8) };
   box-shadow: 0 ${ rem(10) } ${ rem(40) } rgba(54, 78, 126, .25);
@@ -39,7 +39,6 @@ export const Trigger = styled.button`
 `
 
 export const Wrapper = styled.div`
-  margin: 0 ${ fluid(8, 1.7, 17) } 0 ${ rem(8) };
   position: relative;
 
   &:focus {

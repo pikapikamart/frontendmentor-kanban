@@ -147,7 +147,7 @@ export const Heading = styled.h2`
   color: ${ ({ theme }) => theme.colors.form.heading };
   font-size: ${ rem(18) };
   line-height: 1.2;
-  margin-bottom: ${ fluid(24, 3.2, 32) };
+  margin: 0 ${ rem(24) } ${ fluid(24, 3.2, 32) } 0;
 `
 
 export const WarningHeading = styled(Heading)`

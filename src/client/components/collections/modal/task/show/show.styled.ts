@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
-import { Label } from "../../base/base.styled";
+import { Heading, Label } from "../../base/base.styled";
 import { rem } from "@/client/styled/functions";
+import { RowJustifyCenter } from "@/client/styled/shared/shared";
 
 
 export const SubLabel = styled.label`
@@ -18,7 +19,14 @@ export const Checkbox = styled.input`
     opacity: .5;
     text-decoration: line-through;
   }
+`
 
+export const HeadingContainer = styled(RowJustifyCenter)`
+  margin-bottom: ${ rem(32) };
+
+  ${ Heading } {
+    margin-bottom: 0;
+  }
 `
 
 export const SubtaskWrapper = styled.div`
