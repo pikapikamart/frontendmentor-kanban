@@ -19,9 +19,7 @@ import * as Ariakit from "@ariakit/react"
 import { useShowTask } from "./show.hook"
 import { AnimatePresence } from "framer-motion"
 import Spinner from "../../../spinner/spinner"
-import { Options } from "@/client/components/shared/options"
-import { OptionItem, OptionTrigger } from "@/client/components/shared/options/options.styled"
-import { useExpansion } from "@/client/lib/hooks"
+import { TaskOptions } from "./options"
 
 
 type ShowProps = {
@@ -37,8 +35,6 @@ const Show = ({ task, exit }: ShowProps) =>{
     handleSubmitTaskPartialEdit,
     isLoading,
     hasChanged } = useShowTask(task, exit)
-  const [ editExpansion, handleEditExpansion ] = useExpansion()
-  const [ deleteExpansion, handleDeleteExpansion ] = useExpansion()
 
   return (
     <>
@@ -48,18 +44,7 @@ const Show = ({ task, exit }: ShowProps) =>{
       <Wrapper onSubmit={ handleSubmitTaskPartialEdit }>
         <HeadingContainer>
           <Heading>{ task.title }</Heading>
-          <Options>
-            <OptionItem>
-              <OptionTrigger 
-                onClick={ handleEditExpansion }
-                aria-expanded={ editExpansion }>Edit Task</OptionTrigger>
-            </OptionItem>
-            <OptionItem>
-              <OptionTrigger
-                onClick={ handleDeleteExpansion }
-                aria-expanded={ deleteExpansion }>Delete Task</OptionTrigger>
-            </OptionItem>
-          </Options>
+          <TaskOptions />
         </HeadingContainer>
         <Description>{ task.description }</Description>
         { !isArrayEmpty(task.subtasks) && (

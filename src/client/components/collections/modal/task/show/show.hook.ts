@@ -2,8 +2,11 @@ import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 import { trpc } from "@/client/lib/trpc"
 import { isArrayEmpty } from "@/client/lib/utils"
 import { TaskSchema } from "@/server/controllers/task/query/schema"
-import { Subtask, useDispatch } from "@/store"
+import { 
+  Subtask, 
+  useDispatch } from "@/store"
 import { useSelectStore } from "@ariakit/react"
+import { useEffect } from "react"
 import { ExitCallback } from "types/utils"
 import { useImmerReducer } from "use-immer"
 
@@ -87,6 +90,13 @@ export const useShowTask = ( task: TaskSchema, exit: ExitCallback ) => {
       linkPath: currentBoard?.linkPath?? ""
     })
   }
+
+  useEffect(() =>{
+    storeDispatch({
+      type: "SET_CURRENT_TASK",
+      payload: task
+    })
+  }, [])
 
   return {
     select,

@@ -17,11 +17,11 @@ export const Columns = () =>{
   return (
     <>
       <AnimatePresence>
-        { isExpanded && (
+        {/* { isExpanded && (
           <ModalDocument exit={ handleExpansion }>
             <CreateTaskModal exit={ handleExpansion } />
           </ModalDocument>
-        ) }
+        ) } */}
       </AnimatePresence>
       <Wrapper>
         { currentBoard?.column.map(column => (

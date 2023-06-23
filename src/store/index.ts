@@ -16,18 +16,23 @@ type Draft = {
   darkmode: boolean,
   boardsLoaded: boolean,
   boards: BoardWithTask[],
+  currentBoard?: BoardWithTask,
+  currentTask?: TaskSchema
 }
 
 type Action = |
   { type: "DARKMODE" } |
   { type: "SET_BOARDS", payload: BoardsWithTaskSchema } |
+  { type: "SET_CURRENT_BOARD", payload: BoardWithTask } |
   { type: "ADD_BOARD", payload: BoardWithTaskSchema } |
   { type: "DELETE_BOARD", payload: string } |
   { type: "EDIT_BOARD", payload: BoardWithTaskSchema } |
   { type: "SET_BOARD", payload: BoardWithTask } |
   { type: "ADD_TASK", payload: TaskSchema & { boardPath: string } } |
-  { type: "EDIT_TASK_PARTIAL", payload: TaskSchema & { linkPath: string } }
+  { type: "EDIT_TASK_PARTIAL", payload: TaskSchema & { linkPath: string } } |
+  { type: "SET_CURRENT_TASK", payload: TaskSchema }
 
+ 
 const reducer = ( draft: Draft, action: Action ) => {
   
   switch(action.type) {
@@ -38,6 +43,10 @@ const reducer = ( draft: Draft, action: Action ) => {
     case "SET_BOARDS":
       draft.boards = action.payload
       draft.boardsLoaded = true
+
+      return
+    case "SET_CURRENT_BOARD":
+      draft.currentBoard = action.payload  
 
       return
     case "ADD_BOARD":
@@ -83,10 +92,7 @@ const reducer = ( draft: Draft, action: Action ) => {
       const statusChanged = updatedTask.status!==oldTask.status
       
       if ( statusChanged ) {
-        // remove first
         boards[boardIndex].column[collumnIndex].tasks = boards[boardIndex].column[collumnIndex].tasks.filter(task => task.id!==updatedTask.id)
-        
-        // append to the new column
         const newColumnIndex = boards[boardIndex].column.findIndex(column => column.title===updatedTask.status)
         boards[boardIndex].column[newColumnIndex].tasks.push(updatedTask)
         
@@ -95,7 +101,11 @@ const reducer = ( draft: Draft, action: Action ) => {
       
       boards[boardIndex].column[collumnIndex].tasks[taskIndex] = updatedTask
 
-    return
+      return
+    case "SET_CURRENT_TASK":
+      draft.currentTask = JSON.parse(JSON.stringify(action.payload))
+      
+      return
     default:
       return draft
   }
