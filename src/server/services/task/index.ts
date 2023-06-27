@@ -32,3 +32,7 @@ export const updateTaskService = async(
 ) => (
   taskModel.findOneAndUpdate(query, update, options)
 )
+
+export const deleteTaskService = async( query: FilterQuery<TaskDocument> ) => (
+  taskModel.findOneAndDelete(query)
+)

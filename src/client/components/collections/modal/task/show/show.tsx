@@ -3,6 +3,7 @@ import {
   FieldWrapper, 
   Heading, 
   Label, 
+  Close,
   MainFormButton, 
   Select, 
   Wrapper } from "../../base/base.styled"
@@ -90,6 +91,9 @@ const Show = ({ exit }: ExitProps) =>{
           <AnimatePresence>
             { hasChanged && <MainFormButton type="submit">Save changes</MainFormButton> }
           </AnimatePresence>
+          <Close
+            type="button" 
+            onClick={ exit }>Close</Close>
         </form>
       </Wrapper>
     </>

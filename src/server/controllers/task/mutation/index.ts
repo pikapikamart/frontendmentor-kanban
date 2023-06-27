@@ -1,8 +1,10 @@
 import { UserContext } from "@/server/middleware/token";
 import { 
   CreateTaskSchema, 
+  DeleteTaskSchema, 
   EditTaskPartial, 
-  EditTaskSchema} from "./schema";
+  EditTaskSchema,
+  deleteTaskSchema} from "./schema";
 import { customNanoid } from "@/server/utils/nanoid";
 import { Task } from "@/server/models/task";
 import { 
@@ -13,6 +15,7 @@ import {
   trpcSuccess } from "@/server/utils/trpc";
 import { 
   createTaskService, 
+  deleteTaskService, 
   findTaskService, 
   updateTaskService} from "@/server/services/task";
 import { taskSchema } from "../query/schema";
@@ -151,4 +154,28 @@ export const editTaskPartialController = async({user}: UserContext, input: EditT
   if ( !updatedTask ) return trpcError("NOT_FOUND", "No task found to update")
 
   return trpcSuccess(taskSchema.parse(updatedTask), "Success")
+}
+
+export const deleteTaskController = async({ user }: UserContext, input: DeleteTaskSchema) =>{
+  const deletedTask = await deleteTaskService({
+    owner: user._id,
+    id: input.id
+  })
+
+  if ( !deletedTask ) return trpcError("NOT_FOUND", "No task found to delete")
+
+  const updatedBoard = await updateBoardService(
+    {
+      owner: user._id,
+      linkPath: input.boardPath,
+      "column.title": deletedTask.status
+    },
+    {
+      $pull: {
+        "column.$.tasks": deletedTask._id
+      }
+    }
+  )
+
+  return trpcSuccess("Success", "Success")
 }
