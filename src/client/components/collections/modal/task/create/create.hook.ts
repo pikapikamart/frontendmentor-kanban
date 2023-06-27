@@ -62,11 +62,14 @@ export const useCreateTask = ( exit: ExitCallback ) => {
     mutate,
     error: apiError } = trpc.task.create.useMutation({
     onSuccess: ( data ) => {
+
+      if ( !currentBoard ) return
+
       dispatch({
         type: "ADD_TASK",
         payload: {
           ...data.content,
-          boardPath: currentBoard?.linkPath?? ""
+          linkPath: currentBoard.linkPath
         }
       })
       exit()

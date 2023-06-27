@@ -164,10 +164,10 @@ export const deleteTaskController = async({ user }: UserContext, input: DeleteTa
 
   if ( !deletedTask ) return trpcError("NOT_FOUND", "No task found to delete")
 
-  const updatedBoard = await updateBoardService(
+  await updateBoardService(
     {
       owner: user._id,
-      linkPath: input.boardPath,
+      linkPath: input.linkPath,
       "column.title": deletedTask.status
     },
     {
@@ -177,5 +177,5 @@ export const deleteTaskController = async({ user }: UserContext, input: DeleteTa
     }
   )
 
-  return trpcSuccess("Success", "Success")
+  return trpcSuccess(taskSchema.parse(deletedTask), "Success")
 }

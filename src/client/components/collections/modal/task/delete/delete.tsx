@@ -7,14 +7,21 @@ import {
   WarningHeading, 
   Wrapper } from "../../base/base.styled"
 import { useTrackedState } from "@/store"
+import { useDeleteTask } from "./delete.hook"
+import { AnimatePresence } from "framer-motion"
+import Spinner from "../../../spinner/spinner"
 
 
 const Delete = ({ exit }: ExitProps) =>{
+  const { handleDeletion, isLoading } = useDeleteTask()
   const { currentTask } = useTrackedState()
 
   return (
     <>
-      <Wrapper>
+      <AnimatePresence>
+        { isLoading && <Spinner /> }
+      </AnimatePresence>
+      <Wrapper onSubmit={ handleDeletion }>
         <WarningHeading>Delete this task?</WarningHeading>
         <Description>Are you sure you want to delete the <span style={{ fontWeight: 700 }}>‘{ currentTask?.title }’</span> task and its subtasks? This action cannot be reversed</Description>
         <RowOptionsWrapper>

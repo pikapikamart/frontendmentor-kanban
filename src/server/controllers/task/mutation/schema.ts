@@ -50,7 +50,7 @@ export type EditTaskPartial = z.infer<typeof editTaskPartial>
 
 export const deleteTaskSchema = z.object({
   id: z.string({ required_error: "Id is required" }),
-  boardPath: z.string({ required_error: "Board path is required" })
+  linkPath: z.string({ required_error: "Link path is required" })
 })
 
 export type DeleteTaskSchema = z.infer<typeof deleteTaskSchema>

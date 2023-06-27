@@ -19,6 +19,8 @@ type Draft = {
   currentTask?: TaskSchema
 }
 
+type TaskWithLinkPath = TaskSchema & { linkPath: string }
+
 type Action = |
   { type: "DARKMODE" } |
   { type: "SET_BOARDS", payload: BoardsWithTaskSchema } |
@@ -26,9 +28,10 @@ type Action = |
   { type: "DELETE_BOARD", payload: string } |
   { type: "EDIT_BOARD", payload: BoardWithTaskSchema } |
   { type: "SET_BOARD", payload: BoardWithTask } |
-  { type: "ADD_TASK", payload: TaskSchema & { boardPath: string } } |
-  { type: "EDIT_TASK", payload: TaskSchema & { linkPath: string } } |
-  { type: "SET_CURRENT_TASK", payload: TaskSchema }
+  { type: "ADD_TASK", payload: TaskWithLinkPath } |
+  { type: "EDIT_TASK", payload: TaskWithLinkPath } |
+  { type: "SET_CURRENT_TASK", payload: TaskSchema } |
+  { type: "DELETE_TASK", payload: TaskWithLinkPath } 
 
  
 const reducer = ( draft: Draft, action: Action ) => {
@@ -65,9 +68,9 @@ const reducer = ( draft: Draft, action: Action ) => {
       } : board)
 
       return
-    case "ADD_TASK":
-      const { boardPath, ...newTask } = action.payload
-      draft.boards = draft.boards.map(board => board.linkPath!==boardPath? board : {
+    case "ADD_TASK": {
+      const { linkPath, ...newTask } = action.payload
+      draft.boards = draft.boards.map(board => board.linkPath!==linkPath? board : {
         ...board,
         column: board.column.map(column => column.title!==newTask.status? column : {
           ...column,
@@ -76,6 +79,7 @@ const reducer = ( draft: Draft, action: Action ) => {
       })
 
       return
+    }
     case "EDIT_TASK":
       const { boards } = draft
       const { payload: { linkPath, ...updatedTask } } = action
@@ -100,6 +104,15 @@ const reducer = ( draft: Draft, action: Action ) => {
       draft.currentTask = JSON.parse(JSON.stringify(action.payload))
       
       return
+    case "DELETE_TASK": {
+      const { boards } = draft
+      const { payload: { linkPath, ...deletedTask } } = action
+      const boardIndex = boards.findIndex(board => board.linkPath===linkPath)
+      const collumnIndex = boards[boardIndex].column.findIndex(column => !!column.tasks.find(task => task.id===deletedTask.id))
+      boards[boardIndex].column[collumnIndex].tasks = boards[boardIndex].column[collumnIndex].tasks.filter(task => task.id!==deletedTask.id)
+
+      return
+    }
     default:
       return draft
   }
