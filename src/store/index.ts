@@ -20,6 +20,11 @@ type Draft = {
 }
 
 type TaskWithLinkPath = TaskSchema & { linkPath: string }
+type CreateColumn = {
+  title: string,
+  id: string,
+  linkPath: string
+}
 
 type Action = |
   { type: "DARKMODE" } |
@@ -27,6 +32,7 @@ type Action = |
   { type: "ADD_BOARD", payload: BoardWithTaskSchema } |
   { type: "DELETE_BOARD", payload: string } |
   { type: "EDIT_BOARD", payload: BoardWithTaskSchema } |
+  { type: "CREATE_COLUMN", payload: CreateColumn } |
   { type: "SET_BOARD", payload: BoardWithTask } |
   { type: "ADD_TASK", payload: TaskWithLinkPath } |
   { type: "EDIT_TASK", payload: TaskWithLinkPath } |
@@ -61,6 +67,18 @@ const reducer = ( draft: Draft, action: Action ) => {
       } : board)
 
       return
+    case "CREATE_COLUMN": {
+      const { linkPath, ...column } = action.payload
+      draft.boards = draft.boards.map(board => board.linkPath===linkPath? {
+        ...board,
+        column: board.column.concat({
+          ...column,
+          tasks: []
+        })
+      }: board)
+      
+      return
+    }
     case "SET_BOARD":
       draft.boards = draft.boards.map(board => board.linkPath===action.payload.linkPath? {
         ...action.payload,
