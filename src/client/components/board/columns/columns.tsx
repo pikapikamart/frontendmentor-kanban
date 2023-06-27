@@ -6,22 +6,22 @@ import Column from "./column/column"
 import { useExpansion } from "@/client/lib/hooks"
 import { AnimatePresence } from "framer-motion"
 import { ModalDocument } from "../../collections/modal"
-import { CreateTaskModal } from "../../collections/modal/task/create"
 import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
+import { CreateColumnModal } from "../../collections/modal/column/create"
 
 
 export const Columns = () =>{
   const { currentBoard } = useCurrentBoard()
-  const [ isExpanded, handleExpansion ] = useExpansion()
+  const [ isColumnExpanded, handleColumnExpansion ] = useExpansion()
 
   return (
     <>
       <AnimatePresence>
-        {/* { isExpanded && (
-          <ModalDocument exit={ handleExpansion }>
-            <CreateTaskModal exit={ handleExpansion } />
+        { isColumnExpanded && (
+          <ModalDocument exit={ handleColumnExpansion }>
+            <CreateColumnModal exit={ handleColumnExpansion } />
           </ModalDocument>
-        ) } */}
+        ) }
       </AnimatePresence>
       <Wrapper>
         { currentBoard?.column.map(column => (
@@ -31,8 +31,8 @@ export const Columns = () =>{
         )) }
         <ColumnWrapper>
           <NewColumn
-            onClick={ handleExpansion }
-            aria-expanded={ isExpanded }>
+            onClick={ handleColumnExpansion }
+            aria-expanded={ isColumnExpanded }>
             + New Column
           </NewColumn>
         </ColumnWrapper>
