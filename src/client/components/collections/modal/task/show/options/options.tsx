@@ -6,6 +6,7 @@ import { useExpansion } from "@/client/lib/hooks"
 import { AnimatePresence } from "framer-motion"
 import { ModalDocument } from "../../.."
 import { EditTaskModal } from "../../edit"
+import { DeleteTaskModel } from "../../delete"
 
 
 const Options = () =>{
@@ -19,6 +20,11 @@ const Options = () =>{
           <ModalDocument
             exit={ handleEditExpansion }>
               <EditTaskModal exit={ handleEditExpansion } />
+          </ModalDocument>
+        ) }
+        { deleteExpansion && (
+          <ModalDocument exit={ handleDeleteExpansion }>
+            <DeleteTaskModel exit={ handleDeleteExpansion } />
           </ModalDocument>
         ) }
       </AnimatePresence>
