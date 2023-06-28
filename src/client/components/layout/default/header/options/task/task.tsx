@@ -30,9 +30,9 @@ const Board = () => {
             alt=""
             aria-hidden="true" />
           :
-          "+ Add Task"
+          "+ Add new Task"
          }
-        <span className="sr-only">Add task</span>
+        <span className="sr-only">Add new task</span>
       </Wrapper>
     </>
   )

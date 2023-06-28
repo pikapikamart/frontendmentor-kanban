@@ -5,6 +5,7 @@ import { taskSchema } from "../../task/query/schema"
 export const boardWithTasksSchema = z.object({
   title: z.string({ required_error: "Title is required" }),
   linkPath: z.string({ required_error: "Linkpath is required" }),
+  oldPath: z.string().optional(),
   column: z.array(z.object({
     title: z.string({ required_error: "Column title is required" }),
     id: z.string({ required_error: "Column id is required" }),

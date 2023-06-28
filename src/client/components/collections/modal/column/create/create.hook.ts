@@ -24,6 +24,7 @@ export const useCreateColumn = ( exit: ExitCallback ) => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors: formErrors }} = useForm<CreateColumnSchema>({ resolver: zodResolver(createColumnSchema)})
   const { 
     isLoading, 
@@ -43,10 +44,20 @@ export const useCreateColumn = ( exit: ExitCallback ) => {
     }
   })
   
-  const onSubmit: SubmitHandler<CreateColumnSchema> = data => currentBoard? mutate({
-    title: data.title,
-    linkPath: currentBoard.linkPath
-  }): null
+  const onSubmit: SubmitHandler<CreateColumnSchema> = data => {
+    
+    if ( !currentBoard ) return
+    if ( currentBoard.column.find(column => column.title===data.title) ) {
+      setError("title", { message: "Column already created" })
+
+      return
+    }
+
+    mutate({
+      title: data.title,
+      linkPath: currentBoard.linkPath
+    })
+  }
 
   return {
     handleSubmit: handleSubmit(onSubmit),

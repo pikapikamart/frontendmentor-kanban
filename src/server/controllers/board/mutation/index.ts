@@ -1,13 +1,12 @@
 import { 
   createBoardService, 
   deleteBoardService, 
-  findBoardService, 
+  findMultipleBoardService, 
   updateBoardService} from "@/server/services/board"
 import { 
   CreateBoardSchema, 
   DeleteBoardSchema, 
   EditBoardSchema } from "./schema"
-import { Board } from "@/server/models/board/board"
 import { boardWithTasksSchema } from "../query/schema"
 import { UserContext } from "@/server/middleware/token"
 import { 
@@ -17,33 +16,32 @@ import { updateUserService } from "@/server/services/user"
 import { ObjectId } from "mongoose"
 import { deleteMultipleTaskService } from "@/server/services/task"
 import { customNanoid } from "@/server/utils/nanoid"
+import { 
+  removeWhitespace, 
+  sanitizeString } from "@/server/utils/strings"
 
 
 export const createBoardController = async( { user }: UserContext, input: CreateBoardSchema ) => {
-  const linkPath = input.title
-    .split(" ")
-    .map(word => word.toLowerCase())
-    .join("")
-  const foundBoard = await findBoardService({
-    owner: user._id,
-    title: input.title,
-    linkPath 
-  })
+  const title = sanitizeString(input.title)
+  let linkPath = removeWhitespace(title).toLowerCase()
+  const foundBoards = await findMultipleBoardService({ owner: user._id }, "title linkPath")
+  
+  if ( foundBoards.some(board => board.title===title) ) return trpcError("BAD_REQUEST", "Board already existed")
 
-  if ( foundBoard ) return trpcError("BAD_REQUEST", "Board already existed")
+  if ( foundBoards.some(board => board.linkPath===linkPath) ) {
+    linkPath+= customNanoid(8)
+  }
 
-  const boardData: Board = {
+  const newBoard = await createBoardService({
     owner: user._id,
-    title: input.title,
+    title,
     linkPath,
     column: input.column.map(column => ({
-      title: column.title,
+      title: sanitizeString(column.title),
       id: customNanoid(10),
       tasks: []
     }))
-  }
-
-  const newBoard = await createBoardService(boardData)
+  })
 
   await updateUserService(
     { _id: user._id },
@@ -58,21 +56,29 @@ export const createBoardController = async( { user }: UserContext, input: Create
 }
 
 export const editBoardController = async({ user }: UserContext, input: EditBoardSchema ) =>{
-  const foundBoard = await findBoardService({
-    owner: user._id,
-    linkPath: input.linkPath
-  })
+  const title = sanitizeString(input.title)
+  let newLinkPath = removeWhitespace(title).toLowerCase()
+  const foundBoards = await findMultipleBoardService({ owner: user._id }, "title linkPath column")
 
-  if ( !foundBoard ) return trpcError("NOT_FOUND", "No board exists")
+  if ( foundBoards.some(board => board.linkPath!==input.linkPath && board.title===title) ) return trpcError("BAD_REQUEST", "Board title already existed")
+
+  const foundBoard = foundBoards.find(board => board.linkPath===input.linkPath)
+
+  if ( !foundBoard ) return trpcError("NOT_FOUND", "No board exists to update")
+
+  if ( foundBoards.some(board => board.title.toLowerCase()===title.toLowerCase() && board.linkPath!==input.linkPath) ) {
+    newLinkPath = input.linkPath.includes(newLinkPath)? input.linkPath : newLinkPath+customNanoid(9)
+  }
 
   const columnUpdate = input.column.map(column => {
     const foundColumn = foundBoard.column.find(docuColumn => docuColumn.id===column.id);
-
+    
     return foundColumn? {
-      ...column,
+      id: foundColumn.id,
+      title: sanitizeString(column.title),
       tasks: foundColumn.tasks
     } : {
-      title: column.title,
+      title: sanitizeString(column.title),
       id: customNanoid(10),
       tasks: []
     }
@@ -84,17 +90,17 @@ export const editBoardController = async({ user }: UserContext, input: EditBoard
       linkPath: input.linkPath
     },
     {
-      title: input.title,
-      linkPath: input.title
-        .split(" ")
-        .map(word => word.toLowerCase())
-        .join(""),
+      title,
+      linkPath: newLinkPath,
       column: columnUpdate
     },
-    { new: true}
+    {
+      new: true,
+      lean: true
+    }
   )
-
-  return trpcSuccess(boardWithTasksSchema.parse(updatedBoard), "Board successfully edited")
+  
+  return trpcSuccess(boardWithTasksSchema.parse(Object.assign({},updatedBoard, input.linkPath!==foundBoard.linkPath? { oldPath: input.linkPath }: null)), "Board successfully edited")
 }
 
 export const deleteBoardController = async({ user }: UserContext, input: DeleteBoardSchema) =>{
@@ -105,7 +111,7 @@ export const deleteBoardController = async({ user }: UserContext, input: DeleteB
   
   if ( !deletedBoard ) return trpcError("NOT_FOUND", "No board exists")
   
-  // @ts-ignore
+  //@ts-ignore
   const boardTasks = deletedBoard.column.reduce((accu, curr) => accu.concat(curr.tasks), [] as ObjectId[])
   
   await deleteMultipleTaskService({ _id: { $in: boardTasks } })

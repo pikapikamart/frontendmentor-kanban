@@ -19,6 +19,14 @@ export const findBoardService = async(
   populate? boardModel.findOne(query, projection).populate(populate) : boardModel.findOne(query, projection, { lean: true })
 )
 
+export const findMultipleBoardService = async( 
+  query: FilterQuery<BoardDocument>, 
+  projection: ProjectionType<Board> = "",
+  populate?: PopulateOptions
+  ) => (
+  populate? boardModel.find(query, projection).populate(populate) : boardModel.find(query, projection, { lean: true })
+)
+
 export const createBoardService = async( document: DocumentDefinition<Board> ) =>(
   boardModel.create(document)
 )

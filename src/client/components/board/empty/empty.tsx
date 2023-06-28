@@ -5,27 +5,27 @@ import {
 import { useExpansion } from "@/client/lib/hooks"
 import { AnimatePresence } from "framer-motion"
 import { ModalDocument } from "../../collections/modal"
-import { CreateTaskModal } from "../../collections/modal/task/create"
+import { CreateColumnModal } from "../../collections/modal/column/create"
 
 
 const Empty = () =>{
-  const [ isExpanded, handleExpansion ] = useExpansion()
+  const [ isColumnExpanded, handleColumnExpansion ] = useExpansion()
 
   return (
     <>
       <AnimatePresence>
-        { isExpanded && (
+        { isColumnExpanded && (
           <ModalDocument
-            exit={ handleExpansion }>
-              <CreateTaskModal exit={ handleExpansion } />
+            exit={ handleColumnExpansion }>
+              <CreateColumnModal exit={ handleColumnExpansion } />
           </ModalDocument>
         ) }
       </AnimatePresence>
       <Wrapper>
         <SubHeading>This board is empty. Create a new column to get started</SubHeading>
         <MainButton 
-          aria-expanded={ isExpanded }
-          onClick={ handleExpansion } >
+          aria-expanded={ isColumnExpanded }
+          onClick={ handleColumnExpansion } >
           + Add New Column
         </MainButton>
       </Wrapper>

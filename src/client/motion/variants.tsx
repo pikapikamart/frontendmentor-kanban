@@ -34,7 +34,7 @@ export const swipeRightVariant: Variants = {
   },
   animate: {
     opacity: 1,
-    x: "0%"
+    x: "0%",
   },
   exit: {
     opacity: 0,
