@@ -100,7 +100,7 @@ export const editBoardController = async({ user }: UserContext, input: EditBoard
     }
   )
   
-  return trpcSuccess(boardWithTasksSchema.parse(Object.assign({},updatedBoard, input.linkPath!==foundBoard.linkPath? { oldPath: input.linkPath }: null)), "Board successfully edited")
+  return trpcSuccess(boardWithTasksSchema.parse(Object.assign({},updatedBoard, input.linkPath!==newLinkPath? { oldPath: input.linkPath }: null)), "Board successfully edited")
 }
 
 export const deleteBoardController = async({ user }: UserContext, input: DeleteBoardSchema) =>{

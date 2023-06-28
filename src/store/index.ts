@@ -31,7 +31,7 @@ type Action = |
   { type: "SET_BOARDS", payload: BoardsWithTaskSchema } |
   { type: "ADD_BOARD", payload: BoardWithTaskSchema } |
   { type: "DELETE_BOARD", payload: string } |
-  { type: "EDIT_BOARD", payload: BoardWithTaskSchema } |
+  { type: "EDIT_BOARD", payload: BoardWithTaskSchema & { oldPath?: string } } |
   { type: "CREATE_COLUMN", payload: CreateColumn } |
   { type: "SET_BOARD", payload: BoardWithTask } |
   { type: "ADD_TASK", payload: TaskWithLinkPath } |
@@ -61,9 +61,10 @@ const reducer = ( draft: Draft, action: Action ) => {
 
       return
     case "EDIT_BOARD":
-      draft.boards = draft.boards.map(board => board.linkPath===action.payload.linkPath? {
-        ...action.payload,
-        boardsLoaded: true
+      const { oldPath, ...editedBoard } = action.payload
+      draft.boards = draft.boards.map(board => board.linkPath===editedBoard.linkPath || board.linkPath===oldPath? {
+        ...editedBoard,
+        hasLoaded: true
       } : board)
 
       return
@@ -82,7 +83,7 @@ const reducer = ( draft: Draft, action: Action ) => {
     case "SET_BOARD":
       draft.boards = draft.boards.map(board => board.linkPath===action.payload.linkPath? {
         ...action.payload,
-        boardsLoaded: true
+        hasLoaded: true
       } : board)
 
       return

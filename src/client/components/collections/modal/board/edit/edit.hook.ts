@@ -20,7 +20,7 @@ type EditBoardSchema = z.infer<typeof editBoardSchema>
 
 export const useEditBoard = ( exit: ExitCallback ) => {
   const { currentBoard } = useCurrentBoard()
-  const { query } = useRouter()
+  const { query, replace } = useRouter()
   const dispatch = useDispatch()
   const {
     register,
@@ -50,6 +50,9 @@ export const useEditBoard = ( exit: ExitCallback ) => {
         type: "EDIT_BOARD",
         payload: data.content
       })
+      
+      data.content.oldPath? replace(data.content.linkPath) : null
+
       exit()
     }
   })
