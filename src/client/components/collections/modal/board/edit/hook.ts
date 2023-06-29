@@ -5,16 +5,18 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { trpc } from "@/client/lib/trpc"
 import { ExitCallback } from "types/utils"
-import { useDispatch } from "@/store"
+import { 
+  useDispatch, 
+  useTrackedState } from "@/store"
 import { 
   editBoardSchema,
   EditBoardSchema } from "./schema"
-import z from "zod"
 import { useRouter } from "next/router"
 import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 
 
 export const useEditBoard = ( exit: ExitCallback ) => {
+  const { boards } = useTrackedState()
   const { currentBoard } = useCurrentBoard()
   const { query, replace } = useRouter()
   const dispatch = useDispatch()
@@ -22,6 +24,7 @@ export const useEditBoard = ( exit: ExitCallback ) => {
     register,
     handleSubmit,
     control,
+    setError,
     formState: { errors: formErrors }} = useForm<EditBoardSchema>({
     resolver: zodResolver(editBoardSchema),
     defaultValues:  {
@@ -53,18 +56,17 @@ export const useEditBoard = ( exit: ExitCallback ) => {
     }
   })
   const onSubmit: SubmitHandler<EditBoardSchema> = data => {
-    mutate(data)
+
+    if ( !currentBoard ) return
+
+    boards.some(board => board.linkPath!==currentBoard.linkPath && board.title===data.title)? 
+      setError("title", { message: "Board title already exist" }) :
+      mutate(data)
   }
 
-  const handleAddColumn = (index: number) =>{
-    append({
-      title: ""
-    })
-  }
+  const handleAddColumn = () => append({ title: "" })
 
-  const removeColumn = ( index: number ) => {
-    remove(index)
-  }
+  const removeColumn = ( index: number ) => remove(index)
 
   return {
     handleSubmit: handleSubmit(onSubmit),

@@ -7,7 +7,7 @@ import {
   WarningButton,
   WarningHeading, 
   Wrapper } from "../../base/base.styled"
-import { useDeleteBoard } from "./delete.hook"
+import { useDeleteBoard } from "./hook"
 import { LoadingSpinner } from "../../../spinner"
 import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 

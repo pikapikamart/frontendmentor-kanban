@@ -5,18 +5,20 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { trpc } from "@/client/lib/trpc"
 import { ExitCallback } from "types/utils"
-import { useDispatch } from "@/store"
+import { useDispatch, useTrackedState } from "@/store"
 import { 
   createBoardSchema,
   CreateBoardSchema } from "./schema"
 
 
 export const useCreateBoard = ( exit: ExitCallback ) => {
+  const { boards } = useTrackedState()
   const dispatch = useDispatch()
   const {
     register,
     handleSubmit,
     control,
+    setError,
     formState: { errors: formErrors }} = useForm<CreateBoardSchema>({ resolver: zodResolver(createBoardSchema) })
   const { 
     fields, 
@@ -39,7 +41,7 @@ export const useCreateBoard = ( exit: ExitCallback ) => {
   })
 
   const onSubmit: SubmitHandler<CreateBoardSchema> = data => {
-    mutate(data)
+    boards.some(board => board.title===data.title)? setError("title", { message: "Board title already exist" }) : mutate(data)
   }
 
   const handleAddColumn = () => append({ title: "" })

@@ -52,7 +52,7 @@ const Edit = ({ exit }: ExitProps) =>{
           { formErrors.title && <Error id="titleError">{ formErrors.title.message }</Error> }
         </FieldWrapper>
         <FieldWrapper as="fieldset">
-          <Label as="legend">Columns</Label>
+          <Label as="legend">Columns { formErrors.column && <Error id="columnsError">*{ formErrors.column.message }</Error> }</Label>
           <AnimatePresence initial={ false }>       
             { fields.map((field, index) => (
               <RowFieldWrapper
@@ -81,7 +81,7 @@ const Edit = ({ exit }: ExitProps) =>{
           </AnimatePresence>
           <SecondaryButton
             type="button" 
-            onClick={ () => handleAddColumn(fields.length+1) }>+ Add New Column</SecondaryButton>
+            onClick={ handleAddColumn }>+ Add New Column</SecondaryButton>
         </FieldWrapper>
         <MainFormButton type="submit">Save changes</MainFormButton>
         <Close
