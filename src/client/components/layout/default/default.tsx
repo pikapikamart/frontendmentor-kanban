@@ -1,6 +1,6 @@
 import { GlobalStyle } from "@/client/styled/base"
 import { HTMLLayoutHead } from "../head"
-import { DefaultHeader } from "./header"
+import { Header } from "../header"
 
 
 const Default = ( page: React.ReactElement ) =>{
@@ -9,7 +9,7 @@ const Default = ( page: React.ReactElement ) =>{
     <>
       <HTMLLayoutHead />
       <GlobalStyle />
-      <DefaultHeader />
+      <Header />
       { page }
     </>
   )

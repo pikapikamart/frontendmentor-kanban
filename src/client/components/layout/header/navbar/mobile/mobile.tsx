@@ -10,7 +10,9 @@ import {
 import Image from "next/image"
 import chevron from "@/public/icons/icon-chevron-down.svg"
 import { AnimatePresence } from "framer-motion"
-import { fadeVariant, variantNaming } from "@/client/motion/variants"
+import { 
+  fadeVariant, 
+  variantNaming } from "@/client/motion/variants"
 
 
 const Mobile = () => {

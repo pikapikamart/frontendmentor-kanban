@@ -1,6 +1,6 @@
 import { 
   LogoWrapper, 
-  Wrapper } from "./header.styled"
+  Wrapper } from "./styled"
 import mobileLogo from "@/public/icons/logo-mobile.svg"
 import darkDesktopLogo from "@/public/icons/logo-dark.svg"
 import { useDetectResponsiveness } from "@/client/lib/hooks/useDetectResponsiveness"
@@ -8,10 +8,8 @@ import { MobileNavbar } from "./navbar/mobile"
 import { DesktopNavbar } from "./navbar/desktop"
 import { useExpansion } from "@/client/lib/hooks"
 import Image from "next/image"
-import { NavHeading } from "./navbar/navbar.styled"
-import { AddTaskOption } from "./options/task"
-import { BoardOption } from "./options/board"
 import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
+import { HeaderOptions } from "./options"
 
 
 const Header = () => {
@@ -19,11 +17,14 @@ const Header = () => {
   const [ isExpanded, handleExpansion ] = useExpansion()
   const { currentBoard } = useCurrentBoard()
 
-  if ( !hasDetected ) return (
-    <Wrapper isExpanded={ isExpanded }>
-      <LogoWrapper />
-    </Wrapper>
-  )
+  if ( !hasDetected ) {
+
+    return (
+      <Wrapper isExpanded={ isExpanded }>
+        <LogoWrapper />
+      </Wrapper>
+    )
+  }
 
   return (
     <Wrapper isExpanded={ isExpanded }>
@@ -42,19 +43,11 @@ const Header = () => {
       </LogoWrapper>
       { isMobile?
         <MobileNavbar /> :
-        <>
-          <DesktopNavbar
-            isExpanded={ isExpanded }
-            handleExpansion={ handleExpansion } />
-          <NavHeading>{ currentBoard?.title?? "" }</NavHeading>
-        </>
+        <DesktopNavbar
+          isExpanded={ isExpanded }
+          handleExpansion={ handleExpansion } />
       }
-      { !!currentBoard && (
-        <>
-          <AddTaskOption />
-          <BoardOption />
-        </>
-      ) }
+      { currentBoard && <HeaderOptions /> }
     </Wrapper>
   )
 }

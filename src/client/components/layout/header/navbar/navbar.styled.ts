@@ -3,12 +3,12 @@ import {
   fluid, 
   rem } from "@/client/styled/functions"
 import styled from "styled-components"
-import { Wrapper as IslandWrapper } from "@/client/components/layout/default/header/navbar/island/island.styled"
+import { Wrapper as IslandWrapper } from "./island/island.styled"
 import { motion } from "framer-motion"
 import { CreateBoardButton } from "./board/board.styled"
 
 
-export const ShowSidebar = styled(motion.button)`
+export const ShowSidebarButton = styled(motion.button)`
   background-color: ${ ({ theme }) => theme.colors.button.main };
   border-radius: 0 ${ rem(32) } ${ rem(32) } 0;
   display: grid;

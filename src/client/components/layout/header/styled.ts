@@ -2,7 +2,7 @@ import {
   breakpoint, 
   fluid, 
   rem } from "@/client/styled/functions"
-import styled, { css } from "styled-components"
+import styled from "styled-components"
 
 
 export const LogoWrapper = styled.div`
@@ -17,10 +17,6 @@ export const LogoWrapper = styled.div`
     position: relative;
     transition: flex-basis .3s ease;
   `) }
-
-  ${ breakpoint("desktop", `
-    
-  `) }
 `
 
 type WrapperProps = {
@@ -33,7 +29,7 @@ export const Wrapper = styled.header<WrapperProps>`
   border-bottom: 1px solid #E4EBFA;
   display: flex;
   min-height: ${ fluid(64, 10.5, 98) };
-  padding: 0 0 0 ${ fluid(16, 3.4, 34) };
+  padding: 0 ${ rem(8) } 0 ${ fluid(16, 3.4, 34) };
 
   ${ breakpoint("tablet", `
     position: relative;

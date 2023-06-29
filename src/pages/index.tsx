@@ -1,4 +1,4 @@
-import { useSetupBoards } from "@/client/components/layout/default/header/navbar/board/board.hook"
+import { useSetupBoards } from "@/client/lib/hooks/useSetupBoards"
 
 
 const Homepage = () => {

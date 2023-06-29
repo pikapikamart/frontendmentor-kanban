@@ -44,8 +44,4 @@ export const Trigger = styled.button`
 
 export const Wrapper = styled.div`
   position: relative;
-
-  &:focus {
-    outline: none;
-  }
 `

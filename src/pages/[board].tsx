@@ -3,9 +3,9 @@ import { BoardColumnsSection } from "@/client/components/board/columns"
 import { EmptyBoardSection } from "@/client/components/board/empty"
 import { FourOhFour } from "@/client/components/shared/404"
 import Spinner from "@/client/components/collections/spinner/spinner"
-import { useSetupBoards } from "@/client/components/layout/default/header/navbar/board/board.hook"
 import { useSetupCurrentBoard } from "@/client/lib/hooks/useSetupCurrentBoard"
 import { isArrayEmpty } from "@/client/lib/utils"
+import { useSetupBoards } from "@/client/lib/hooks/useSetupBoards"
 
 
 const BoardPage = () =>{
