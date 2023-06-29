@@ -6,17 +6,13 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { trpc } from "@/client/lib/trpc"
 import { ExitCallback } from "types/utils"
 import { useDispatch } from "@/store"
-import { createBoardSchema } from "../create/create.hook"
+import { 
+  editBoardSchema,
+  EditBoardSchema } from "./schema"
 import z from "zod"
 import { useRouter } from "next/router"
 import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 
-
-const editBoardSchema = createBoardSchema.merge(z.object({
-  linkPath: z.string({required_error: "Linkpath is required"})
-}))
-
-type EditBoardSchema = z.infer<typeof editBoardSchema>
 
 export const useEditBoard = ( exit: ExitCallback ) => {
   const { currentBoard } = useCurrentBoard()

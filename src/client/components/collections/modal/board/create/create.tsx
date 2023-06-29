@@ -12,7 +12,7 @@ import {
   RemoveInput,
   SecondaryButton,
   RowFieldInner} from "../../base/base.styled"
-import { useCreateBoard } from "./create.hook"
+import { useCreateBoard } from "./hook"
 import removeIcon from "@/public/icons/remove.svg"
 import { AnimatePresence } from "framer-motion"
 import { 
@@ -54,7 +54,7 @@ const Create = ({ exit }: ExitProps) => {
           { formErrors.title && <Error id="titleError">{ formErrors.title.message }</Error> }
         </FieldWrapper>
         <FieldWrapper as="fieldset">
-          <Label as="legend">Columns</Label>
+          <Label as="legend">Columns { formErrors.column && <Error id="columnsError">*{ formErrors.column.message }</Error> }</Label>
           <AnimatePresence initial={ false }>       
             { fields.map((field, index) => (
               <RowFieldWrapper
@@ -83,7 +83,7 @@ const Create = ({ exit }: ExitProps) => {
           </AnimatePresence>
           <SecondaryButton
             type="button" 
-            onClick={ () => handleAddColumn(fields.length+1) }>+ Add New Column</SecondaryButton>
+            onClick={ handleAddColumn }>+ Add New Column</SecondaryButton>
         </FieldWrapper>
         <MainFormButton type="submit">Create New Board</MainFormButton>
         <Close

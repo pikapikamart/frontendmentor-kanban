@@ -138,6 +138,10 @@ export const Label = styled.label`
   font-size: ${ rem(12) };
   font-weight: 700;
   margin-bottom: ${ rem(8) };
+
+  ${ Error } {
+    display: inline;
+  }
 `
 
 export const FieldWrapper = styled.div`

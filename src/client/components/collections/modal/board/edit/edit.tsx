@@ -12,7 +12,7 @@ import {
   RowFieldWrapper, 
   SecondaryButton, 
   Wrapper } from "../../base/base.styled"
-import { useEditBoard } from "./edit.hook"
+import { useEditBoard } from "./hook"
 import { AnimatePresence } from "framer-motion"
 import { 
   swipeRightVariant, 

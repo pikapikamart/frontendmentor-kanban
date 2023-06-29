@@ -1,7 +1,7 @@
 import { MainWrapper } from "@/client/components/board/board.styled"
 import { BoardColumnsSection } from "@/client/components/board/columns"
 import { EmptyBoardSection } from "@/client/components/board/empty"
-import { FourOhFour } from "@/client/components/collections/404"
+import { FourOhFour } from "@/client/components/shared/404"
 import Spinner from "@/client/components/collections/spinner/spinner"
 import { useSetupBoards } from "@/client/components/layout/default/header/navbar/board/board.hook"
 import { useSetupCurrentBoard } from "@/client/lib/hooks/useSetupCurrentBoard"
