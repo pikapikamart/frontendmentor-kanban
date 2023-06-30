@@ -3,9 +3,9 @@ import {
   fluid, 
   rem } from "@/client/styled/functions"
 import styled from "styled-components"
-import { Wrapper as IslandWrapper } from "./island/island.styled"
+import { Wrapper as IslandWrapper } from "./island/styled"
 import { motion } from "framer-motion"
-import { CreateBoardButton } from "./board/board.styled"
+import { CreateBoardButton } from "./board/styled"
 
 
 export const ShowSidebarButton = styled(motion.button)`
@@ -29,7 +29,7 @@ export const HideSidebar = styled(CreateBoardButton)`
   }
 `
 
-export const InnerWrapper = styled(motion.div)`
+export const DropdownWrapper = styled(motion.div)`
   background-color: ${({ theme }) => theme.colors.navboard};
   border-radius: ${ rem(8) };
   inset: ${ rem(80) } 0 auto 0;

@@ -44,7 +44,7 @@ const reducer = ( draft: Draft, action: Action ) => {
   
   switch(action.type) {
     case "DARKMODE":
-      draft.darkmode = true
+      draft.darkmode = !draft.darkmode
 
       return
     case "SET_BOARDS":

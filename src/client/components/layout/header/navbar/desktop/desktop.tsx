@@ -3,11 +3,11 @@ import { Board } from "../board"
 import { Island } from "../island"
 import { 
   Wrapper,
-  InnerWrapper,
-  NavHeading, } from "../navbar.styled"
+  DropdownWrapper,
+  NavHeading, } from "../styled"
 import { 
   HideSidebar, 
-  ShowSidebarButton } from "../navbar.styled"
+  ShowSidebarButton } from "../styled"
 import { 
   fadeLeftToRightVariant, 
   fadeVariant, 
@@ -48,7 +48,7 @@ const Desktop = ({ isExpanded, handleExpansion }: Desktop) => {
             key="sidebar" 
             { ...variantNaming }
             variants={ fadeLeftToRightVariant }>
-            <InnerWrapper>
+            <DropdownWrapper>
               <Board />
               <FullWidth>
                 <Island />
@@ -63,7 +63,7 @@ const Desktop = ({ isExpanded, handleExpansion }: Desktop) => {
                   Hide Sidebar
                 </HideSidebar>
               </FullWidth>
-            </InnerWrapper>
+            </DropdownWrapper>
           </Wrapper>
         }
       </AnimatePresence>

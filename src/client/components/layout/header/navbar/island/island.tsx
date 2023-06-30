@@ -1,12 +1,18 @@
 import { 
   Input, 
-  Wrapper } from "./island.styled"
+  Wrapper } from "./styled"
 import lightMode from "@/public/icons/light.svg"
 import darkMode from "@/public/icons/dark.svg"
 import Image from "next/image"
+import { useDispatch } from "@/store"
 
 
 const Island = () =>{
+  const dispatch = useDispatch()
+
+  const handleDarkmode = ( event: React.ChangeEvent<HTMLInputElement> ) => {
+    dispatch({ type: "DARKMODE" })
+  }
 
   return (
     <Wrapper>
@@ -14,9 +20,11 @@ const Island = () =>{
       <Input
         type="radio"
         id="light"
-        name="darkmode"
+        name="theme"
+        value="light"
         defaultChecked
-        className="sr-only" />
+        className="sr-only"
+        onChange={ handleDarkmode } />
       <label htmlFor="light">
         <Image 
           src={ lightMode } 
@@ -26,8 +34,10 @@ const Island = () =>{
       <Input
         type="radio"
         id="dark"
-        name="darkmode"
-        className="sr-only" />
+        name="theme"
+        value="dark"
+        className="sr-only"
+        onChange={ handleDarkmode } />
       <label htmlFor="dark">
         <Image 
           src={ darkMode } 

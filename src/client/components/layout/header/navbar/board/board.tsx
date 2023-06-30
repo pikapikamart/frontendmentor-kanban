@@ -3,7 +3,7 @@ import {
   BoardCounter, 
   BoardList,
   BoardLink,
-  CreateBoardButton } from "./board.styled"
+  CreateBoardButton } from "./styled"
 import { FullWidth } from "@/client/styled/shared/shared"
 import { useExpansion } from "@/client/lib/hooks"
 import { AnimatePresence } from "framer-motion"
