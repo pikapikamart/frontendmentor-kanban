@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import { Heading, Label } from "../../base/base.styled";
+import styled from "styled-components";
+import { Heading, Label } from "../../base/styled";
 import { rem } from "@/client/styled/functions";
 import { RowJustifyCenter } from "@/client/styled/shared/shared";
 

@@ -5,7 +5,7 @@ import {
   SecondaryButton,
   WarningButton,
   WarningHeading, 
-  Wrapper } from "../../base/base.styled"
+  Wrapper } from "../../base/styled"
 import { useTrackedState } from "@/store"
 import { useDeleteTask } from "./delete.hook"
 import { AnimatePresence } from "framer-motion"

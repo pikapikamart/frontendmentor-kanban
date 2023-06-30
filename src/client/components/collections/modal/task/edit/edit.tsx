@@ -13,8 +13,8 @@ import {
   SecondaryButton,
   RowFieldInner,
   Textarea, 
-  Select} from "../../base/base.styled"
-import { useEditTask } from "./edit.hook"
+  Select} from "../../base/styled"
+import { useEditTask } from "./hook"
 import removeIcon from "@/public/icons/remove.svg"
 import { AnimatePresence } from "framer-motion"
 import { 

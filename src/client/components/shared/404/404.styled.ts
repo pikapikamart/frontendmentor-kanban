@@ -5,7 +5,7 @@ import styled from "styled-components"
 
 
 export const Four04Information = styled.p`
-  color: ${ ({ theme }) => theme.colors.boardHeading };
+  color: ${ ({ theme }) => theme.colors.heading.default };
   font-size: ${ fluid(14, 2, 18) };
   line-height: 1.4;
   margin-top: ${ fluid(16, 2.5, 32) };
@@ -38,13 +38,13 @@ export const Four04Heading = styled.h1`
   }
 
   ${ ({ theme: { colors } }) => `
-    color: ${ colors.boardHeading };
+    color: ${ colors.heading.default };
 
     > span {
-      color: ${ colors.boardHeading };
+      color: ${ colors.heading.default };
 
       &::after {
-        background-color: ${ colors.boardHeading };
+        background-color: ${ colors.heading.default };
       }
     }
   ` }

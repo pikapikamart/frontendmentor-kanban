@@ -67,7 +67,7 @@ export const Close = styled(SecondaryButton)`
 `
 
 export const Error = styled.span`
-  color: rgb(255, 0, 0);
+  color: ${ ({ theme }) => theme.colors.warning };
   display: block;
   font-size: ${ rem(12) };
   margin-top: ${ rem(4) };
@@ -76,13 +76,14 @@ export const Error = styled.span`
 const inputCss = css`
   border-radius: ${ rem(4) };
   border: 1px solid rgba(130, 143, 163, .25);
+  color: ${ ({ theme }) => theme.colors.form.input };
   display: block;
   font-size: ${ rem(13) };
   padding: ${ rem(12) } ${ rem(16) };
   width: 100%;
 
   &[aria-invalid="true"] {
-    border-color: rgb(255, 0, 0);
+    border-color: ${ ({ theme }) => theme.colors.warning };
   }
 `
 
@@ -117,6 +118,13 @@ export const Select = styled.div`
       background-color: ${ ({ theme }) => theme.colors.button.main };
       color: #FFFFFF;
     }
+
+    ${ breakpoint("desktop", `
+      
+      &:hover {
+        cursor: pointer;
+      }
+    `) }
   }
 `
 
@@ -149,14 +157,14 @@ export const FieldWrapper = styled.div`
 `
 
 export const Heading = styled.h2`
-  color: ${ ({ theme }) => theme.colors.form.heading };
+  color: ${ ({ theme }) => theme.colors.heading.default };
   font-size: ${ rem(18) };
   line-height: 1.2;
   margin: 0 ${ rem(24) } ${ fluid(24, 3.2, 32) } 0;
 `
 
 export const WarningHeading = styled(Heading)`
-  color: ${ ({ theme }) => theme.colors.button.warning };
+  color: ${ ({ theme }) => theme.colors.warning };
 `
 
 export const Wrapper = styled.form`

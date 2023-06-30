@@ -2,7 +2,6 @@ import {
   LogoWrapper, 
   Wrapper } from "./styled"
 import mobileLogo from "@/public/icons/logo-mobile.svg"
-import darkDesktopLogo from "@/public/icons/logo-dark.svg"
 import { useDetectResponsiveness } from "@/client/lib/hooks/useDetectResponsiveness"
 import { MobileNavbar } from "./navbar/mobile"
 import { DesktopNavbar } from "./navbar/desktop"
@@ -10,6 +9,7 @@ import { useExpansion } from "@/client/lib/hooks"
 import Image from "next/image"
 import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 import { HeaderOptions } from "./options"
+import { DesktopLogo } from "./logo/desktop"
 
 
 const Header = () => {
@@ -35,10 +35,7 @@ const Header = () => {
             src={ mobileLogo }
             alt="Frontendmentor Kanban Task" /> 
           :
-          <Image
-            priority={ true }
-            src={ darkDesktopLogo }
-            alt="Frontendmentor Kanban Task" /> 
+          <DesktopLogo />
         }
       </LogoWrapper>
       { isMobile?

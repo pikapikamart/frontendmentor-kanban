@@ -11,7 +11,7 @@ import {
   RowFieldInner, 
   RowFieldWrapper, 
   SecondaryButton, 
-  Wrapper } from "../../base/base.styled"
+  Wrapper } from "../../base/styled"
 import { useEditBoard } from "./hook"
 import { AnimatePresence } from "framer-motion"
 import { 

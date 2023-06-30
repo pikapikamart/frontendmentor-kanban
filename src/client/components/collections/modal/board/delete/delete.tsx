@@ -6,7 +6,7 @@ import {
   SecondaryButton,
   WarningButton,
   WarningHeading, 
-  Wrapper } from "../../base/base.styled"
+  Wrapper } from "../../base/styled"
 import { useDeleteBoard } from "./hook"
 import { LoadingSpinner } from "../../../spinner"
 import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"

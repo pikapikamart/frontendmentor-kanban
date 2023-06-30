@@ -7,31 +7,25 @@ declare module "styled-components" {
       body: string,
       header: string,
       warning: string,
-      warningHover: string,
+      outline: string,
+      heading: {
+        default: string
+      },
       button: {
         main: string,
         mainHover: string,
         secondary: string,
         secondaryHover: string,
         warning: string,
-        warningHover: string
       },
       form: {
         background: string,
-        heading: string,
         label: string,
         input: string
       },
-      boardHeading: string,
+      border: string,
       navlinks: string,
-      taskTitle: string,
-      subtask: string,
-      subtaskDone: string,
-      status: string,
-      navboard: string,
-      boardCurrent: string,
       boardDropdown: string,
-      colorSchemeInput: string,
       columnAddition: string,
       default: string
     },

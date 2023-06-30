@@ -10,9 +10,7 @@ import { useDispatch } from "@/store"
 const Island = () =>{
   const dispatch = useDispatch()
 
-  const handleDarkmode = ( event: React.ChangeEvent<HTMLInputElement> ) => {
-    dispatch({ type: "DARKMODE" })
-  }
+  const handleDarkmode = ( event: React.ChangeEvent<HTMLInputElement> ) => dispatch({ type: "DARKMODE" })
 
   return (
     <Wrapper>

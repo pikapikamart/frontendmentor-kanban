@@ -11,7 +11,7 @@ import {
   RowFieldWrapper,
   RemoveInput,
   SecondaryButton,
-  RowFieldInner} from "../../base/base.styled"
+  RowFieldInner} from "../../base/styled"
 import { useCreateBoard } from "./hook"
 import removeIcon from "@/public/icons/remove.svg"
 import { AnimatePresence } from "framer-motion"

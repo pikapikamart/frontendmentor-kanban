@@ -6,7 +6,7 @@ import {
   FieldWrapper,
   MainFormButton,
   Close, 
-  Error} from "../../base/base.styled"
+  Error} from "../../base/styled"
 import { ExitProps } from "types/utils"
 import { useCreateColumn } from "./create.hook"
 import { AnimatePresence } from "framer-motion"

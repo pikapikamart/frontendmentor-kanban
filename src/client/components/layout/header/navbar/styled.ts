@@ -30,7 +30,7 @@ export const HideSidebar = styled(CreateBoardButton)`
 `
 
 export const DropdownWrapper = styled(motion.div)`
-  background-color: ${({ theme }) => theme.colors.navboard};
+  background-color: ${({ theme }) => theme.colors.header};
   border-radius: ${ rem(8) };
   inset: ${ rem(80) } 0 auto 0;
   margin: 0 auto;
@@ -72,33 +72,28 @@ export const DropdownOverlay = styled(motion.div)`
 
 export const Wrapper = styled(motion.nav)`
 
-  ${ ({ theme }) => `
-  
-    ${ breakpoint("tablet", `
-      background-color: ${ theme.colors.header };
-      border-right: 1px solid #E4EBFA;
-      inset: 100% auto auto 0;
-      min-height: calc(100vh - ${ fluid(64, 10.5, 98) });
+  ${ ({ theme }) => breakpoint("tablet", `
+    border-right: 1px solid ${ theme.colors.border };
+    inset: 100% auto auto 0;
+    min-height: calc(100vh - ${ fluid(64, 10.5, 98) });
+    position: absolute;
+    width:${ fluid(260, 30, 300) };
+
+    &::before {
+      content: "";
+      background-color: ${ theme.colors.border };
+      height: ${ fluid(64, 10.5, 98) };
+      inset: 0 -1px auto auto;
       position: absolute;
-      width:${ fluid(260, 30, 300) };
-
-      &::before {
-        content: "";
-        background-color: #E4EBFA;
-        height: ${ fluid(64, 10.5, 98) };
-        inset: 0 -1px auto auto;
-        position: absolute;
-        transform: translateY(-100%);
-        width: 1px;
-        z-index: 10;
-      }
-    `) }
-  ` }
-
+      transform: translateY(-100%);
+      width: 1px;
+      z-index: 10;
+    }
+  `) }
 `
 
 export const NavHeading = styled.h1`
-  color: ${ ({ theme }) => theme.colors.boardHeading };
+  color: ${ ({ theme }) => theme.colors.heading.default };
   font-size: ${ fluid(18, 2.6, 24) };
 `
 

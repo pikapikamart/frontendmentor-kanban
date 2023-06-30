@@ -1,5 +1,5 @@
-import { rem } from "@/client/styled/functions";
-import styled from "styled-components";
+import { breakpoint, rem } from "@/client/styled/functions";
+import styled, { css } from "styled-components";
 
 
 export const Input = styled.input`
@@ -15,7 +15,7 @@ export const Input = styled.input`
 
       &::before {
         content: "";
-        background-color: ${ ({ theme }) => theme.colors.colorSchemeInput };
+        background-color: ${ ({ theme }) => theme.colors.button.main };
         border-radius: ${ rem(12) };
         height: ${ rem(20) };
         position: absolute;
@@ -59,7 +59,7 @@ export const Input = styled.input`
 
 export const Wrapper = styled.fieldset`
   align-items: center;
-  background-color: #F4F7FD;
+  background-color: ${ ({ theme }) => theme.colors.body };
   border-radius: ${ rem(8) };
   display: flex;
   height: ${ rem(48) };
@@ -68,16 +68,25 @@ export const Wrapper = styled.fieldset`
   position: relative;
 
   &:focus-within {
+    ${ ({ theme }) => css`
+      ${ Input } {
 
-    ${ Input } {
+        &:first-of-type {
 
-      &:first-of-type {
-
-        + label::before {
-          outline: 2px dashed rgb(0, 36, 58);
-          outline-offset: 1px;
+          + label::before {
+            outline: 2px dashed ${ theme.colors.outline };
+            outline-offset: 1px;
+          }
         }
       }
-    }
+    ` }
+
   }
+
+  ${ breakpoint("desktop", `
+
+    label:hover {
+      cursor: pointer;
+    }
+  `) }
 `

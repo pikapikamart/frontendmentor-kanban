@@ -6,17 +6,17 @@ import {
   Close,
   MainFormButton, 
   Select, 
-  Wrapper } from "../../base/base.styled"
+  Wrapper } from "../../base/styled"
 import { ExitProps } from "types/utils"
 import { 
   Checkbox, 
   HeadingContainer, 
   Legend, 
   SubLabel, 
-  SubtaskWrapper } from "./show.styled"
+  SubtaskWrapper } from "./styled"
 import { isArrayEmpty } from "@/client/lib/utils"
 import * as Ariakit from "@ariakit/react"
-import { useShowTask } from "./show.hook"
+import { useShowTask } from "./hook"
 import { AnimatePresence } from "framer-motion"
 import Spinner from "../../../spinner/spinner"
 import { TaskOptions } from "./options"
@@ -68,7 +68,7 @@ const Show = ({ exit }: ExitProps) =>{
               <Label>
                 <Ariakit.SelectLabel
                   className="select-label" 
-                  store={ select }>Status</Ariakit.SelectLabel>
+                  store={ select }>Current Status</Ariakit.SelectLabel>
               </Label>
               <Ariakit.Select
                 store={ select }

@@ -27,10 +27,10 @@ export const BoardLink = styled.a`
 
   &[aria-current=page] {
     background-color: ${({ theme }) => theme.colors.button.main};
-    color: ${({ theme }) => theme.colors.boardCurrent};
+    color: #FFFFFF;
 
     svg path {
-      fill: ${({ theme }) => theme.colors.boardCurrent};
+      fill: #FFFFFF;
     }
   }
 

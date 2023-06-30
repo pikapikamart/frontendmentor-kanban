@@ -2,15 +2,15 @@ import {
   breakpoint, 
   fluid, 
   rem } from "@/client/styled/functions"
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 
 
 export const LogoWrapper = styled.div`
-  margin-right: ${ rem(16) };
+  margin-right: ${ fluid(16, 3, 32) };
 
-  ${ breakpoint("tablet", `
+  ${ ({ theme }) => breakpoint("tablet", `
     align-items: center;
-    border-right: 1px solid #E4EBFA;
+    border-right: 1px solid ${ theme.colors.border };
     display: flex;
     flex-basis: calc(${ fluid(260, 30, 300) } - ${ fluid(16, 3.4, 34) });
     min-height: inherit;
@@ -25,11 +25,14 @@ type WrapperProps = {
 
 export const Wrapper = styled.header<WrapperProps>`
   align-items: center;
-  background-color: ${ ({ theme }) => theme.colors.header };
-  border-bottom: 1px solid #E4EBFA;
   display: flex;
   min-height: ${ fluid(64, 10.5, 98) };
   padding: 0 ${ rem(8) } 0 ${ fluid(16, 3.4, 34) };
+  
+  ${ ({ theme }) => css`
+    background-color: ${ theme.colors.header };
+    border-bottom: 1px solid ${ theme.colors.border };
+  ` }
 
   ${ breakpoint("tablet", `
     position: relative;
@@ -47,8 +50,7 @@ export const Wrapper = styled.header<WrapperProps>`
     `) }
     ${ breakpoint("desktop", `
       ${ LogoWrapper } {
-        border-right: none;
-        flex-basis: calc(${ fluid(260, 30, 300) } - ${ fluid(16, 3.4, 34) });
+        flex-basis: calc(${ rem(244) } - ${ fluid(16, 3.4, 34) });
       }
     `) }
   ` }

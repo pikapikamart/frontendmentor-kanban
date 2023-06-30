@@ -11,8 +11,12 @@ export const useBaseModalFocus = ( focusBackRef?: UseBaseModalFocusProps ) =>{
   
   useEffect(() =>{
     modalRef.current?.focus()
+    document.body.classList.add('no-scroll')
 
-    return () => focusBackRef?.focus()
+    return () => {
+      focusBackRef?.focus()
+      document.body.classList.remove("no-scroll")
+    }
   }, [])
 
   return {

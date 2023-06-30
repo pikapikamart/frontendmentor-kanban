@@ -2,8 +2,8 @@ import { createPortal } from "react-dom"
 import { 
   BaseModalOnClickExit, 
   BaseModalWrapper, 
-  ModalDocument} from "./modal.styled"
-import { useBaseModalFocus } from "./modal.hook"
+  ModalDocument} from "./styled"
+import { useBaseModalFocus } from "./hook"
 import { 
   fadeVariant, 
   variantNaming } from "@/client/motion/variants"

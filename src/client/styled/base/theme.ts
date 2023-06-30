@@ -6,30 +6,24 @@ export const theme: DefaultTheme = {
     body: "#F4F7FD",
     header: "#FFFFFF",
     warning: "#EA5555",
-    warningHover: "#FF9898",
+    outline: "#635FC7",
+    heading: {
+      default: "#000112"
+    },
     button: {
       main: "#635FC7",
       mainHover: "#A8A4FF",
-      secondary: "rgba(99, 95, 199, .1)",
+      secondary: "#635FC710",
       secondaryHover: "rgba(99, 95, 109, .25)",
       warning: "#EA5555",
-      warningHover: "#FF9898", 
     },
     form: {
       background: "#FFFFFF",
-      heading: "#000112",
       label: "#828FA3",
       input: "#000112"
     },
-    boardHeading: "#000112",
+    border: "#E4EBFA",
     navlinks: "#828FA3",
-    taskTitle: "#000112",
-    subtask: "#000112",
-    subtaskDone: "rgba(0, 1, 18, .5)",
-    status: "#000112",
-    navboard: "#FFFFFF",
-    boardCurrent: "#FFFFFF",
-    colorSchemeInput: "#635FC7",
     boardDropdown: "#FFFFFF",
     columnAddition: "#E9EFFA",
     default: "#828FA3"
@@ -52,6 +46,10 @@ export const darkTheme: DefaultTheme = {
     ...theme.colors,
     body: "#20212C",
     header: "#2B2C37",
+    outline: "#FFFFFF",
+    heading: {
+      default: "#FFFFFF"
+    },
     button: {
       ...theme.colors.button,
       secondary: "#FFFFFF",
@@ -59,12 +57,11 @@ export const darkTheme: DefaultTheme = {
     },
     form: {
       background: "#2B2C37",
-      heading: "#FFFFFF",
       label: "#FFFFFF",
       input: "#FFFFFF"
     },
-    boardHeading: "#FFFFFF",
+    border: "#3E3F4E",
     boardDropdown: "#20212C",
-    columnAddition: "rgba(43, 44, 55, .25)"
+    columnAddition: "#2B2C3725"
   }
 }
