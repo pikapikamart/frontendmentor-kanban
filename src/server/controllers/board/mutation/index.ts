@@ -78,7 +78,6 @@ export const editBoardController = async({ user }: UserContext, input: EditBoard
     return foundColumn? {
       ...foundColumn,
       title: sanitizeString(column.title),
-      tasks: foundColumn.tasks
     } : {
       title: sanitizeString(column.title),
       backgroundColor: randomColor({ luminosity: "light" }),

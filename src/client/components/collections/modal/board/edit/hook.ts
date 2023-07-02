@@ -30,7 +30,10 @@ export const useEditBoard = ( exit: ExitCallback ) => {
     defaultValues:  {
       title: currentBoard?.title?? "",
       linkPath: query.board as string?? "",
-      column: currentBoard?.column.reduce((accu, curr) => accu.concat({ title: curr.title }), [] as { title: string }[])?? []
+      column: currentBoard?.column.reduce((accu, curr) => accu.concat({
+        title: curr.title,
+        id: curr.id
+      }), [] as { title: string, id?: string }[])?? []
     }
   })
   const { 

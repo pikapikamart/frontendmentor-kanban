@@ -3,7 +3,7 @@ import {
   SubtasksCount,
   TaskButton,
   TaskTitle, 
-  Wrapper } from "./task.styled"
+  Wrapper } from "./styled"
 import { isArrayEmpty } from "@/client/lib/utils"
 import { useExpansion } from "@/client/lib/hooks"
 import { AnimatePresence } from "framer-motion"

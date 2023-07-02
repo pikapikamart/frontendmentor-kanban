@@ -23,6 +23,8 @@ type TaskWithLinkPath = TaskSchema & { linkPath: string }
 type CreateColumn = {
   title: string,
   id: string,
+  backgroundColor: string,
+  tasks: TaskSchema[],
   linkPath: string
 }
 
@@ -72,10 +74,7 @@ const reducer = ( draft: Draft, action: Action ) => {
       const { linkPath, ...column } = action.payload
       draft.boards = draft.boards.map(board => board.linkPath===linkPath? {
         ...board,
-        column: board.column.concat({
-          ...column,
-          tasks: []
-        })
+        column: board.column.concat({ ...column })
       }: board)
       
       return

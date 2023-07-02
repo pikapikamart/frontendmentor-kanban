@@ -1,4 +1,4 @@
-import { MainWrapper } from "@/client/components/board/board.styled"
+import { MainWrapper } from "@/client/components/board/styled"
 import { BoardColumnsSection } from "@/client/components/board/columns"
 import { EmptyBoardSection } from "@/client/components/board/empty"
 import { FourOhFour } from "@/client/components/shared/404"

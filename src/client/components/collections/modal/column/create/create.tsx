@@ -8,7 +8,7 @@ import {
   Close, 
   Error} from "../../base/styled"
 import { ExitProps } from "types/utils"
-import { useCreateColumn } from "./create.hook"
+import { useCreateColumn } from "./hook"
 import { AnimatePresence } from "framer-motion"
 import Spinner from "../../../spinner/spinner"
 

@@ -1,7 +1,7 @@
 import { MainButton } from "@/client/styled/shared/button"
 import { 
   SubHeading, 
-  Wrapper } from "./empty.styled"
+  Wrapper } from "./styled"
 import { useExpansion } from "@/client/lib/hooks"
 import { AnimatePresence } from "framer-motion"
 import { ModalDocument } from "../../collections/modal"
