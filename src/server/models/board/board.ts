@@ -10,6 +10,7 @@ export type Board = {
   linkPath: string,
   column: {
     title: string,
+    backgroundColor: string,
     id: string,
     tasks: TaskDocument["_id"][]
   }[]
@@ -26,6 +27,7 @@ const boardSchema: mongoose.Schema<BoardDocument> = new mongoose.Schema({
   linkPath: String,
   column: [{
     title: String,
+    backgroundColor: String,
     id: String,
     tasks: [{
       ref: "Task",

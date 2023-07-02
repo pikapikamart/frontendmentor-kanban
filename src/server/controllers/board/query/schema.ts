@@ -8,6 +8,7 @@ export const boardWithTasksSchema = z.object({
   oldPath: z.string().optional(),
   column: z.array(z.object({
     title: z.string({ required_error: "Column title is required" }),
+    backgroundColor: z.string({ required_error: "Background color is required" }),
     id: z.string({ required_error: "Column id is required" }),
     tasks: z.array(taskSchema)
   }))

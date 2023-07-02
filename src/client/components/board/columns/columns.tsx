@@ -1,7 +1,7 @@
 import { 
   NewColumn, 
-  Wrapper } from "./columns.styled"
-import { Wrapper as ColumnWrapper } from "./column/column.styled"
+  Wrapper } from "./styled"
+import { Wrapper as ColumnWrapper } from "./column/styled"
 import Column from "./column/column"
 import { useExpansion } from "@/client/lib/hooks"
 import { AnimatePresence } from "framer-motion"

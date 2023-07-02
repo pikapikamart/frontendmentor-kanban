@@ -5,6 +5,7 @@ import { customNanoid } from "@/server/utils/nanoid";
 import { 
   trpcError, 
   trpcSuccess } from "@/server/utils/trpc";
+import randomColor from "randomcolor";
 
 
 export const createColumnController = async({ user }: UserContext, input: CreateColumnSchema) =>{
@@ -18,6 +19,7 @@ export const createColumnController = async({ user }: UserContext, input: Create
       $push: {
         column: {
           title: input.title,
+          backgroundColor: randomColor({ luminosity: "light" }),
           id: columnId,
           tasks:[]
         }

@@ -1,8 +1,7 @@
 import { BoardColumn } from "@/store"
 import { 
-  TasksList,
   Title, 
-  Wrapper } from "./column.styled"
+  Wrapper } from "./styled"
 import { ColumnTask } from "./task"
 
 
@@ -14,18 +13,18 @@ const Column = ({ column }: ColumnProps) => {
 
   return (
     <Wrapper>
-      <Title>
+      <Title backgroundColor={ column.backgroundColor }>
         { column.title }
         <br />
         <span>({ column.tasks.length })</span>
       </Title>
-      <TasksList>
+      <ul>
         { column.tasks.map(task => (
           <ColumnTask
             key={ task.id }
             task={ task } />
         )) }
-      </TasksList>
+      </ul>
     </Wrapper>
   )
 }

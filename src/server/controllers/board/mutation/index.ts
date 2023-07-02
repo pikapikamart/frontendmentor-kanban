@@ -19,6 +19,7 @@ import { customNanoid } from "@/server/utils/nanoid"
 import { 
   removeWhitespace, 
   sanitizeString } from "@/server/utils/strings"
+import randomColor from "randomcolor"
 
 
 export const createBoardController = async( { user }: UserContext, input: CreateBoardSchema ) => {
@@ -38,6 +39,7 @@ export const createBoardController = async( { user }: UserContext, input: Create
     linkPath,
     column: input.column.map(column => ({
       title: sanitizeString(column.title),
+      backgroundColor: randomColor({ luminosity: "light" }),
       id: customNanoid(10),
       tasks: []
     }))
@@ -74,11 +76,12 @@ export const editBoardController = async({ user }: UserContext, input: EditBoard
     const foundColumn = foundBoard.column.find(docuColumn => docuColumn.id===column.id);
     
     return foundColumn? {
-      id: foundColumn.id,
+      ...foundColumn,
       title: sanitizeString(column.title),
       tasks: foundColumn.tasks
     } : {
       title: sanitizeString(column.title),
+      backgroundColor: randomColor({ luminosity: "light" }),
       id: customNanoid(10),
       tasks: []
     }
