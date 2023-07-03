@@ -13,7 +13,7 @@ const FourohFour = ({ children }: FourOhFourProps) =>{
     <Four04Wrapper>
       <Four04Heading>
         404
-        <span>Sorry! Page not found!</span>
+        <span>Sorry! Board not found!</span>
       </Four04Heading>
       <Four04Information>{ children }</Four04Information>
     </Four04Wrapper>

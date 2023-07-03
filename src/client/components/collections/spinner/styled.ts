@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components"
+import styled, { css, keyframes } from "styled-components"
 import { motion } from "framer-motion"
 
 
@@ -29,16 +29,11 @@ const anim3 = keyframes`
   }
 `
 
-export const SpinnerWrapper = styled(motion.div)`
-  background-color: rgba(0, 0, 0, .7);
-  display: grid;
-  inset: 0;
-  place-content: center;
-  position: fixed;
-  z-index: 100;
-`
+type SpinnerInnerProps = {
+  circleColor?: string
+}
 
-export const SpinnerInner = styled.div`
+export const SpinnerInner = styled.div<SpinnerInnerProps>`
   display: inline-block;
   position: relative;
   width: 80px;
@@ -50,7 +45,7 @@ export const SpinnerInner = styled.div`
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: #fff;
+    background: ${ ({ circleColor }) => circleColor?? "#fff" };
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   
     :nth-child(1) {
@@ -73,4 +68,21 @@ export const SpinnerInner = styled.div`
       animation: ${ anim3 } 0.6s infinite;
     }
   }
+`
+
+type SpinnerWrapperProps = { 
+  position?: "absolute",
+  $backgroundColor?: "none"
+}
+
+export const SpinnerWrapper = styled(motion.div)<SpinnerWrapperProps>`
+  display: grid;
+  inset: 0;
+  place-content: center;
+  z-index: 100;
+
+  ${ ({ position, $backgroundColor }) => css`
+    background-color: ${ $backgroundColor?? "rgba(0, 0, 0, .7)" };
+    position: ${ position?? "fixed" };
+  ` }
 `

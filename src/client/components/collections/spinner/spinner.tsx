@@ -1,18 +1,26 @@
 import { useEffect } from "react"
 import { 
   SpinnerInner, 
-  SpinnerWrapper } from "./spinner.styled"
+  SpinnerWrapper } from "./styled"
 import { 
   fadeVariant, 
   variantNaming } from "@/client/motion/variants"
 
 
-const Spinner = () =>{
+type SpinnerProps = {
+  backgroundColor?: "none",
+  position?: "absolute",
+  circleColor?: string,
+}
+
+const Spinner = ({ 
+  position, 
+  circleColor,
+  backgroundColor 
+}: SpinnerProps) =>{
 
   useEffect(() =>{
-    const cancelKeyboard = ( event: KeyboardEvent ) => {
-      event.preventDefault()
-    }
+    const cancelKeyboard = ( event: KeyboardEvent ) => event.preventDefault()
 
     document.body.addEventListener("keydown", cancelKeyboard)
 
@@ -21,9 +29,11 @@ const Spinner = () =>{
 
   return (
     <SpinnerWrapper
+      position={ position }
+      $backgroundColor={ backgroundColor }
       { ...variantNaming }
       variants={ fadeVariant }>
-      <SpinnerInner>
+      <SpinnerInner circleColor={ circleColor }>
         <div></div>
         <div></div>
         <div></div>

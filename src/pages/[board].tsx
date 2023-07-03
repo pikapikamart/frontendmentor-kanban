@@ -6,6 +6,8 @@ import Spinner from "@/client/components/collections/spinner/spinner"
 import { useSetupCurrentBoard } from "@/client/lib/hooks/useSetupCurrentBoard"
 import { isArrayEmpty } from "@/client/lib/utils"
 import { useSetupBoards } from "@/client/lib/hooks/useSetupBoards"
+import { AnimatePresence } from "framer-motion"
+import { HomeLoading } from "@/client/components/home/loading"
 
 
 const BoardPage = () =>{
@@ -13,25 +15,20 @@ const BoardPage = () =>{
   const { 
     currentBoard, 
     isLoading,
-    isSuccess } = useSetupCurrentBoard()
+    isSuccess,
+    isFetched } = useSetupCurrentBoard()
 
-  if ( isLoading ) return <Spinner />
-
-  if ( !currentBoard && !isSuccess ) {
-    return (
-      <FourOhFour>
-        Make sure to check the url if correct
-      </FourOhFour>
-    )
-  }
-
+  if ( isFetched && !isSuccess ) return <FourOhFour>Make sure to check the url if correct</FourOhFour>
+ 
   return (
     <MainWrapper>
-      { isArrayEmpty(currentBoard?.column?? [])? 
-      <EmptyBoardSection />
-        :
-      <BoardColumnsSection />
-    }
+      <AnimatePresence>
+        { isLoading && <HomeLoading key={ `board-page-spinner` } /> }
+        { currentBoard && currentBoard?.hasLoaded && <>
+          { isArrayEmpty(currentBoard?.column?? [])? <EmptyBoardSection key={ `board-${ currentBoard.title }-page` } /> : <BoardColumnsSection key={ `board-${ currentBoard.title }-column` } /> }
+        </> }
+      </AnimatePresence>
+      {  }
     </MainWrapper>
   )
 }

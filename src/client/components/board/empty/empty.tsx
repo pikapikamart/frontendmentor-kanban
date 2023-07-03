@@ -16,6 +16,7 @@ const Empty = () =>{
       <AnimatePresence>
         { isColumnExpanded && (
           <ModalDocument
+            key="create-column"
             exit={ handleColumnExpansion }>
               <CreateColumnModal exit={ handleColumnExpansion } />
           </ModalDocument>

@@ -8,7 +8,10 @@ import { useEffect } from "react"
 export const useSetupBoards = () =>{
   const { boardsLoaded } = useTrackedState()
   const dispatch = useDispatch()
-  const { refetch } = trpc.board.getAll.useQuery(undefined, {
+  const { 
+    refetch,
+    isLoading,
+    isFetching } = trpc.board.getAll.useQuery(undefined, {
     refetchOnWindowFocus: false,
     enabled: false,
     onSuccess: (data) => {
@@ -22,4 +25,8 @@ export const useSetupBoards = () =>{
   useEffect(() => {
     if ( !boardsLoaded ) refetch()
   }, [])
+
+  return {
+    isLoading: isLoading && isFetching
+  }
 }

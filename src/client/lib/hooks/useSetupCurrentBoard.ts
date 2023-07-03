@@ -13,6 +13,7 @@ export const useSetupCurrentBoard = () => {
     refetch, 
     isLoading,
     isFetching,
+    isFetched,
     isSuccess } = trpc.board.get.useQuery({
     linkPath: (query.board?? "") as string
   }, {
@@ -27,14 +28,15 @@ export const useSetupCurrentBoard = () => {
   })
  
   useEffect(() =>{
-    if ( currentBoard && !currentBoard?.hasLoaded && query.board ) {
-      refetch()
-    }
+    if ( currentBoard && currentBoard.hasLoaded ) return
+    
+    if ( query.board ) refetch()
   }, [ currentBoard, query ])
 
   return {
     currentBoard,
     isLoading: isLoading && isFetching,
-    isSuccess
+    isSuccess,
+    isFetched
   }
 }

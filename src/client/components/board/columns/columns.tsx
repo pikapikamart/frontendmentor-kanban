@@ -14,6 +14,8 @@ export const Columns = () =>{
   const { currentBoard } = useCurrentBoard()
   const [ isColumnExpanded, handleColumnExpansion ] = useExpansion()
 
+  if ( !currentBoard ) return <></>
+
   return (
     <>
       <AnimatePresence>
@@ -24,18 +26,20 @@ export const Columns = () =>{
         ) }
       </AnimatePresence>
       <Wrapper>
-        { currentBoard?.column.map(column => (
+        { currentBoard.column.map(column => (
           <Column 
             key={ column.id }
             column={ column } />
         )) }
-        <ColumnWrapper>
-          <NewColumn
-            onClick={ handleColumnExpansion }
-            aria-expanded={ isColumnExpanded }>
-            + New Column
-          </NewColumn>
-        </ColumnWrapper>
+        { currentBoard.column.length > 1 && (
+          <ColumnWrapper>
+            <NewColumn
+              onClick={ handleColumnExpansion }
+              aria-expanded={ isColumnExpanded }>
+              + New Column
+            </NewColumn>
+          </ColumnWrapper>
+        ) }
       </Wrapper>
     </>
   )
