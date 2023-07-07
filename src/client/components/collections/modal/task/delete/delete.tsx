@@ -7,7 +7,7 @@ import {
   WarningHeading, 
   Wrapper } from "../../base/styled"
 import { useTrackedState } from "@/store"
-import { useDeleteTask } from "./delete.hook"
+import { useDeleteTask } from "./hook"
 import { AnimatePresence } from "framer-motion"
 import Spinner from "../../../spinner/spinner"
 

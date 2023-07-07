@@ -9,30 +9,11 @@ import * as Ariakit from '@ariakit/react'
 import { 
   useDispatch, 
   useTrackedState } from "@/store"
-import { 
-  CreateTaskSchema, 
-  createTaskSchema } from "../create/create.hook"
-import z from "zod"
-import { EditTaskSchema } from "@/server/controllers/task/mutation/schema"
 import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
+import { 
+  editTaskSchema,
+  EditTaskSchema } from "./schema"
 
-
-const editTaskSchema = createTaskSchema
-  .omit({ subtasks: true })
-  .merge(z.object({
-    subtasks: z.array(z.object({
-      title: z
-        .string({ required_error: "Column title is required" })
-        .min(1, "Column title should not be empty")
-        .regex(/^(?! )[A-Za-z ]*$/, "A-Z only and no special characters"),
-      done: z
-        .boolean()
-        .optional(),
-      id: z
-        .string()
-        .optional()
-    }))
-  }))
 
 export const useEditTask = ( exit: ExitCallback ) => {
   const { currentBoard } = useCurrentBoard()
@@ -43,6 +24,7 @@ export const useEditTask = ( exit: ExitCallback ) => {
     handleSubmit,
     control,
     setValue,
+    setError,
     formState: { errors: formErrors }} = useForm<EditTaskSchema>({
     resolver: zodResolver(editTaskSchema),
     defaultValues: {
@@ -83,7 +65,14 @@ export const useEditTask = ( exit: ExitCallback ) => {
     }
   })
   
-  const onSubmit: SubmitHandler<CreateTaskSchema> = data => {
+  const onSubmit: SubmitHandler<EditTaskSchema> = data => {
+
+    if ( currentBoard?.column.some(column => column.tasks.some(task => task.title===data.title)) ) {
+      setError("title", { message: "Task title already exist" })
+
+      return
+    }
+
     mutate({
       ...data,
       id: currentTask?.id?? "",

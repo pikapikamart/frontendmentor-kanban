@@ -2,38 +2,16 @@ import {
   useFieldArray, 
   useForm,
   SubmitHandler } from "react-hook-form"
-import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { trpc } from "@/client/lib/trpc"
 import { ExitCallback } from "types/utils"
 import * as Ariakit from '@ariakit/react'
 import { useDispatch } from "@/store"
 import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
+import { 
+  CreateTaskSchema, 
+  createTaskSchema } from "./schema"
 
-
-export const createTaskSchema = z.object({
-  title: z
-    .string({ required_error: "Title is required" })
-    .min(1, "Title should not be empty")
-    .regex(/^(?! )[A-Za-z ]*$/, "A-Z only and no special characters"),
-  description: z
-    .string({ required_error: "Description is required" })
-    .min(1, "Description should not be empty"),
-  subtasks: z.array(z.object({
-    title: z
-      .string({ required_error: "Column title is required" })
-      .min(1, "Column title should not be empty")
-      .regex(/^(?! )[A-Za-z ]*$/, "A-Z only and no special characters"),
-  })),
-  status: z
-    .string({ required_error: "Status is required" })
-    .min(1, "Status should not be empty"),
-  boardPath: z
-    .string({ required_error: "Boardpath is required" })
-    .min(1, "Boardpath should not be empty"),
-})
-
-export type CreateTaskSchema = z.infer<typeof createTaskSchema>
 
 export const useCreateTask = ( exit: ExitCallback ) => {
   const { currentBoard } = useCurrentBoard()
@@ -43,6 +21,7 @@ export const useCreateTask = ( exit: ExitCallback ) => {
     handleSubmit,
     control,
     setValue,
+    setError,
     formState: { errors: formErrors }} = useForm<CreateTaskSchema>({
     resolver: zodResolver(createTaskSchema),
     defaultValues: {
@@ -82,7 +61,16 @@ export const useCreateTask = ( exit: ExitCallback ) => {
     }
   })
   
-  const onSubmit: SubmitHandler<CreateTaskSchema> = data => mutate(data)
+  const onSubmit: SubmitHandler<CreateTaskSchema> = data => {
+
+    if ( currentBoard?.column.some(column => column.tasks.some(task => task.title===data.title)) ) {
+      setError("title", { message: "Task title already exist" })
+
+      return
+    }
+
+    mutate(data)
+  }
 
   const handleAddSubtask = () => append({ title: "" })
 
