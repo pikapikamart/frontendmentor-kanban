@@ -61,7 +61,6 @@ export const useShowTask = ( exit: ExitCallback ) => {
       })
     }
   })
-
   const { currentBoard } = useCurrentBoard()
   const storeDispatch = useDispatch()
   const { mutate, isLoading } = trpc.task.editPartial.useMutation({
@@ -76,6 +75,7 @@ export const useShowTask = ( exit: ExitCallback ) => {
       exit()
     }
   })
+  const appDispatch = useDispatch()
 
   const handleSubtaskChange = ( subtask: Subtask ) => dispatch({
     type: "ADD_SUBTASK_CHANGE",
@@ -94,7 +94,10 @@ export const useShowTask = ( exit: ExitCallback ) => {
 
   useEffect(() =>{
     select.setValue(currentTask?.status?? "")
+
   }, [ currentTask ])
+  
+  useEffect(() => () => appDispatch({ type: "SET_CURRENT_TASK" }), [])
 
   return {
     select,

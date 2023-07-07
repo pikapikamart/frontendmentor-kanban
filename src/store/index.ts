@@ -38,7 +38,7 @@ type Action = |
   { type: "SET_BOARD", payload: BoardWithTask } |
   { type: "ADD_TASK", payload: TaskWithLinkPath } |
   { type: "EDIT_TASK", payload: TaskWithLinkPath } |
-  { type: "SET_CURRENT_TASK", payload: TaskSchema } |
+  { type: "SET_CURRENT_TASK", payload?: TaskSchema } |
   { type: "DELETE_TASK", payload: TaskWithLinkPath } 
 
  
@@ -116,10 +116,10 @@ const reducer = ( draft: Draft, action: Action ) => {
       }
       
       boards[boardIndex].column[collumnIndex].tasks[taskIndex] = updatedTask
-
+      
       return
     case "SET_CURRENT_TASK":
-      draft.currentTask = JSON.parse(JSON.stringify(action.payload))
+      draft.currentTask = action.payload? JSON.parse(JSON.stringify(action.payload)) : undefined
       
       return
     case "DELETE_TASK": {

@@ -31,7 +31,7 @@ export const Columns = () =>{
             key={ column.id }
             column={ column } />
         )) }
-        { currentBoard.column.length > 1 && (
+        { currentBoard.column.length && (
           <ColumnWrapper>
             <NewColumn
               onClick={ handleColumnExpansion }

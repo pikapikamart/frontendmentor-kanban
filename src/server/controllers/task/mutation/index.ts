@@ -3,8 +3,7 @@ import {
   CreateTaskSchema, 
   DeleteTaskSchema, 
   EditTaskPartial, 
-  EditTaskSchema,
-  deleteTaskSchema} from "./schema";
+  EditTaskSchema } from "./schema";
 import { customNanoid } from "@/server/utils/nanoid";
 import { Task } from "@/server/models/task";
 import { 
