@@ -54,6 +54,7 @@ const Board = () => {
             focusBackRef={ focusBack.current } 
             exit={ handleExpansion }>
             <CreateBoardModal exit={ handleExpansion } />
+            <button></button>
           </ModalDocument>
         ) }
       </AnimatePresence>

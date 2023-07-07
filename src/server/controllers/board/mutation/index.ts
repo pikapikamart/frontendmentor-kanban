@@ -20,6 +20,7 @@ import {
   removeWhitespace, 
   sanitizeString } from "@/server/utils/strings"
 import randomColor from "randomcolor"
+import { taskModel } from "@/server/models/task"
 
 
 export const createBoardController = async( { user }: UserContext, input: CreateBoardSchema ) => {
@@ -61,7 +62,7 @@ export const editBoardController = async({ user }: UserContext, input: EditBoard
   const title = sanitizeString(input.title)
   let newLinkPath = removeWhitespace(title).toLowerCase()
   const foundBoards = await findMultipleBoardService({ owner: user._id }, "title linkPath column")
-
+    
   if ( foundBoards.some(board => board.linkPath!==input.linkPath && board.title===title) ) return trpcError("BAD_REQUEST", "Board title already existed")
 
   const foundBoard = foundBoards.find(board => board.linkPath===input.linkPath)
@@ -74,10 +75,12 @@ export const editBoardController = async({ user }: UserContext, input: EditBoard
 
   const columnUpdate = input.column.map(column => {
     const foundColumn = foundBoard.column.find(docuColumn => docuColumn.id===column.id);
-    
+
     return foundColumn? {
-      ...foundColumn,
+      id: foundColumn.id,
+      backgroundColor: foundColumn.backgroundColor,
       title: sanitizeString(column.title),
+      tasks: foundColumn.tasks
     } : {
       title: sanitizeString(column.title),
       backgroundColor: randomColor({ luminosity: "light" }),
@@ -85,7 +88,7 @@ export const editBoardController = async({ user }: UserContext, input: EditBoard
       tasks: []
     }
   })
-  
+
   const updatedBoard = await updateBoardService(
     {
       owner: user._id,
@@ -98,11 +101,17 @@ export const editBoardController = async({ user }: UserContext, input: EditBoard
     },
     {
       new: true,
-      lean: true
     }
   )
-  
-  return trpcSuccess(boardWithTasksSchema.parse(Object.assign({},updatedBoard, input.linkPath!==newLinkPath? { oldPath: input.linkPath }: null)), "Board successfully edited")
+
+  if ( !updatedBoard ) return trpcError("BAD_REQUEST", "Error")
+
+  await updatedBoard.populate({
+    path: "column.tasks",
+    model: taskModel
+  })
+
+  return trpcSuccess(boardWithTasksSchema.parse(Object.assign(updatedBoard, input.linkPath!==newLinkPath? { oldPath: input.linkPath }: null)), "Board successfully edited")
 }
 
 export const deleteBoardController = async({ user }: UserContext, input: DeleteBoardSchema) =>{

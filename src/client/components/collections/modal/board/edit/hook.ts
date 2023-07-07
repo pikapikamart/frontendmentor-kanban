@@ -61,7 +61,7 @@ export const useEditBoard = ( exit: ExitCallback ) => {
   const onSubmit: SubmitHandler<EditBoardSchema> = data => {
 
     if ( !currentBoard ) return
-
+    
     boards.some(board => board.linkPath!==currentBoard.linkPath && board.title===data.title)? 
       setError("title", { message: "Board title already exist" }) :
       mutate(data)
