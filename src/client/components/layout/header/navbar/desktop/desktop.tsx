@@ -17,6 +17,8 @@ import hideSidebar from "@/public/icons/hide-sidebar.svg"
 import showSidebar from "@/public/icons/show-sidebar.svg"
 import { AnimatePresence } from "framer-motion"
 import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
+import { useEffect, useState } from "react"
+import { useDesktopNavbar } from "./hook"
 
 
 type Desktop = {
@@ -26,14 +28,15 @@ type Desktop = {
 
 const Desktop = ({ isExpanded, handleExpansion }: Desktop) => {
   const { currentBoard } = useCurrentBoard()
+  const { initialLoad } = useDesktopNavbar(isExpanded)
 
   return (
     <>
       <AnimatePresence initial={false} >
-        { isExpanded?
+        { !isExpanded?
           <ShowSidebarButton 
             onClick={ handleExpansion }
-            aria-expanded={ isExpanded }
+            aria-expanded={ !isExpanded }
             key="show-sidebar"
             { ...variantNaming }
             variants={ fadeVariant }>
@@ -47,6 +50,7 @@ const Desktop = ({ isExpanded, handleExpansion }: Desktop) => {
           <Wrapper
             key="sidebar" 
             { ...variantNaming }
+            animate={ !initialLoad? "initial" : "animate" }
             variants={ fadeLeftToRightVariant }>
             <DropdownWrapper>
               <Board />
@@ -54,7 +58,7 @@ const Desktop = ({ isExpanded, handleExpansion }: Desktop) => {
                 <Island />
                 <HideSidebar 
                   onClick={ handleExpansion }
-                  aria-expanded={ isExpanded }>
+                  aria-expanded={ !isExpanded }>
                     <span className="sr-only">hide sidebar</span>
                   <Image
                     alt=""

@@ -15,15 +15,22 @@ export const fadeVariant: Variants = {
 
 export const fadeLeftToRightVariant: Variants = {
   initial: {
-    opacity: 0
+    opacity: 1,
+    x: [ "0%", "0%" ],
   },  
   animate: {
     opacity: 1,
-    x: [ "3%", "0%" ]
+    x: [ "-100%", "0%" ],
+    transition: {
+      duration: .3
+    }
   },
   exit: {
     opacity: 0,
-    x: [ "0%", "-50%" ]
+    x: [ "0%", "-100%" ],
+    transition: {
+      duration: .3
+    }
   }
 }
 

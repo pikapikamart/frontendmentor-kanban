@@ -41,7 +41,7 @@ const Header = () => {
       { isMobile?
         <MobileNavbar /> :
         <DesktopNavbar
-          isExpanded={ isExpanded }
+          isExpanded={ !isExpanded }
           handleExpansion={ handleExpansion } />
       }
       { currentBoard && <HeaderOptions /> }
