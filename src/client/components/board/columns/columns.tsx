@@ -8,6 +8,10 @@ import { AnimatePresence } from "framer-motion"
 import { ModalDocument } from "../../collections/modal"
 import { useCurrentBoard } from "@/client/lib/hooks/useCurrentBoard"
 import { CreateColumnModal } from "../../collections/modal/column/create"
+import { 
+  fadeVariant, 
+  variantNaming } from "@/client/motion/variants"
+import { isArrayEmpty } from "@/client/lib/utils"
 
 
 export const Columns = () =>{
@@ -25,13 +29,15 @@ export const Columns = () =>{
           </ModalDocument>
         ) }
       </AnimatePresence>
-      <Wrapper>
+      <Wrapper
+        { ...variantNaming } 
+        variants={ fadeVariant }>
         { currentBoard.column.map(column => (
           <Column 
             key={ column.id }
             column={ column } />
         )) }
-        { currentBoard.column.length && (
+        { !isArrayEmpty(currentBoard.column) && (
           <ColumnWrapper>
             <NewColumn
               onClick={ handleColumnExpansion }

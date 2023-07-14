@@ -24,7 +24,11 @@ const BoardPage = () =>{
       <AnimatePresence>
         { isLoading && <HomeLoading key={ `board-page-spinner` } /> }
         { currentBoard && currentBoard?.hasLoaded && <>
-          { isArrayEmpty(currentBoard.column)? <EmptyBoardSection key={ `board-${ currentBoard.title }-page` } /> : <BoardColumnsSection key={ `board-${ currentBoard.title }-column` } /> }
+          { isArrayEmpty(currentBoard.column)? 
+            <EmptyBoardSection key={ `board-${ currentBoard.title }-page` } /> 
+            : 
+            <BoardColumnsSection key={ `board-${ currentBoard.title }-column` } /> 
+          }
         </> }
       </AnimatePresence>
       {  }

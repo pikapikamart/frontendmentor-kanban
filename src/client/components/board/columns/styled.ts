@@ -1,6 +1,7 @@
 import { 
   fluid, 
   rem } from "@/client/styled/functions";
+import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 
 
@@ -21,7 +22,7 @@ export const NewColumn = styled.button`
   ` }
 `
 
-export const Wrapper = styled.ul`
+export const Wrapper = styled(motion.ul)`
   align-items: flex-start;
   display: flex;
   min-height: calc(100vh - ${ fluid(64, 10.5, 98) });

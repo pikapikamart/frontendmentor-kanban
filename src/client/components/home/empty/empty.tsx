@@ -7,6 +7,7 @@ import { AnimatePresence } from "framer-motion"
 import { ModalDocument } from "../../collections/modal"
 import { CreateBoardModal } from "../../collections/modal/board/create"
 import { useRef } from "react"
+import { fadeVariant, variantNaming } from "@/client/motion/variants"
 
 
 const Empty = () =>{
@@ -24,7 +25,10 @@ const Empty = () =>{
           </ModalDocument>
         ) }
       </AnimatePresence>
-      <Wrapper ref={ focusBackRef }>
+      <Wrapper
+        { ...variantNaming }
+        variants={ fadeVariant } 
+        ref={ focusBackRef }>
         <SubHeading as="h1">Seems you don't have a board. Create now to start creating your tasks.</SubHeading>
         <MainButton 
           aria-expanded={ createExpanded }

@@ -6,6 +6,9 @@ import { useExpansion } from "@/client/lib/hooks"
 import { AnimatePresence } from "framer-motion"
 import { ModalDocument } from "../../collections/modal"
 import { CreateColumnModal } from "../../collections/modal/column/create"
+import { 
+  fadeVariant, 
+  variantNaming } from "@/client/motion/variants"
 
 
 const Empty = () =>{
@@ -21,7 +24,9 @@ const Empty = () =>{
           </ModalDocument>
         ) }
       </AnimatePresence>
-      <Wrapper>
+      <Wrapper
+        { ...variantNaming }
+        variants={ fadeVariant }>
         <SubHeading>This board is empty. Create a new column to get started</SubHeading>
         <MainButton 
           aria-expanded={ isColumnExpanded }

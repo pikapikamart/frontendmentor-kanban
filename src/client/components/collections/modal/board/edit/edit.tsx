@@ -7,6 +7,7 @@ import {
   Input, 
   Label, 
   MainFormButton, 
+  Note, 
   RemoveInput, 
   RowFieldInner, 
   RowFieldWrapper, 
@@ -20,6 +21,7 @@ import {
 import Image from "next/image"
 import removeIcon from "@/public/icons/remove.svg"
 import Spinner from "../../../spinner/spinner"
+import { isArrayEmpty } from "@/client/lib/utils"
 
 
 const Edit = ({ exit }: ExitProps) =>{
@@ -83,6 +85,11 @@ const Edit = ({ exit }: ExitProps) =>{
             type="button" 
             onClick={ handleAddColumn }>+ Add New Column</SecondaryButton>
         </FieldWrapper>
+        { !isArrayEmpty(fields) && (
+          <Note as="div">
+            <p>Note: Removing a column that contains tasks will also delete all the tasks.</p>
+          </Note>
+        ) }
         <MainFormButton type="submit">Save changes</MainFormButton>
         <Close
           type="button" 

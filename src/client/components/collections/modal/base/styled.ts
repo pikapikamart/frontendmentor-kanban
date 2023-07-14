@@ -15,6 +15,13 @@ export const Description = styled.p`
   margin-bottom: ${ rem(26) };
 `
 
+export const Note = styled(Description)`
+  background-color: #E4EBFA;
+  border-radius: ${ rem(4) };
+  color: #3E3F4E;
+  padding: ${ rem(8) } ${ rem(16) };
+`
+
 export const RowOptionsWrapper = styled.div`
   display: grid;
   gap: ${ rem(16) } 0;

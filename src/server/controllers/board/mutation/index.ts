@@ -13,7 +13,7 @@ import {
   trpcError, 
   trpcSuccess } from "@/server/utils/trpc"
 import { updateUserService } from "@/server/services/user"
-import { ObjectId } from "mongoose"
+import { Types } from "mongoose"
 import { deleteMultipleTaskService } from "@/server/services/task"
 import { customNanoid } from "@/server/utils/nanoid"
 import { 
@@ -89,6 +89,10 @@ export const editBoardController = async({ user }: UserContext, input: EditBoard
     }
   })
 
+  const removedTasks = foundBoard.column
+    .filter(column => !columnUpdate.some(update => update.id===column.id))
+    .flatMap(column => column.tasks)
+  
   const updatedBoard = await updateBoardService(
     {
       owner: user._id,
@@ -103,6 +107,7 @@ export const editBoardController = async({ user }: UserContext, input: EditBoard
       new: true,
     }
   )
+  await deleteMultipleTaskService({ _id: { $in: removedTasks } })
 
   if ( !updatedBoard ) return trpcError("BAD_REQUEST", "Error")
 
@@ -122,8 +127,7 @@ export const deleteBoardController = async({ user }: UserContext, input: DeleteB
   
   if ( !deletedBoard ) return trpcError("NOT_FOUND", "No board exists")
   
-  //@ts-ignore
-  const boardTasks = deletedBoard.column.reduce((accu, curr) => accu.concat(curr.tasks), [] as ObjectId[])
+  const boardTasks = deletedBoard.column.reduce((accu, curr) => accu.concat(curr.tasks), [] as Types.ObjectId[])
   
   await deleteMultipleTaskService({ _id: { $in: boardTasks } })
   await updateUserService(

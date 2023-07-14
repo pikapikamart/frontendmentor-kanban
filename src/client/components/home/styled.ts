@@ -1,4 +1,5 @@
 import { rem } from "@/client/styled/functions";
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 
@@ -9,7 +10,7 @@ export const SubHeading = styled.h2`
   margin-bottom: ${ rem(32) };
 `
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(motion.div)`
   display: grid;
   justify-items: center;
   min-height: inherit;

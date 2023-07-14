@@ -16,15 +16,19 @@ const Homepage = () => {
 
   return (
     <MainWrapper>
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         { isLoading && <HomeLoading key="home-loading" /> }
         { boardsLoaded && (
           <Wrapper key="home-main">
-            { isArrayEmpty(boards)?
-              <HomeEmpty />
-              :
-              <SubHeading as="h1">Head over to one of your board now to start creating your tasks.</SubHeading> 
-            }
+            <AnimatePresence mode="wait">
+              { isArrayEmpty(boards)?
+                <HomeEmpty key="home-empty" />
+                :
+                <SubHeading 
+                  key="home-heading" 
+                  as="h1">Head over to one of your board now to start creating your tasks.</SubHeading> 
+              }
+            </AnimatePresence>
           </Wrapper>
         ) }
       </AnimatePresence>
