@@ -39,6 +39,19 @@ export const RemoveInput = styled.button`
   margin-left: ${ rem(16) };
   place-content: center;
   width: ${ rem(15) };
+
+  ${ ({ theme }) => breakpoint("desktop", `
+    svg rect {
+      transition: .3s ease;
+    }
+    
+    &:hover {
+
+      svg rect {
+        fill: ${ theme.colors.warning };
+      }
+    }
+  `) }
 `
 
 export const RowFieldInner = styled.div`
@@ -58,6 +71,12 @@ export const MainFormButton = styled(MainButton)`
 
 export const WarningButton = styled(MainFormButton)`
   background-color: ${ ({ theme }) => theme.colors.button.warning };
+
+  ${ ({ theme }) => breakpoint("desktop", `
+    &:hover {
+      background-color: ${ theme.colors.button.warningHover };
+    }
+  `) }
 `
 
 export const SecondaryButton = styled(MainFormButton)`
@@ -66,6 +85,13 @@ export const SecondaryButton = styled(MainFormButton)`
   ${ ({ theme }) => css`
     background-color: ${  theme.colors.button.secondary };
     color: ${ theme.colors.button.main };
+
+    ${ breakpoint("desktop", `
+      
+      &:hover {
+        background-color: ${ theme.colors.button.secondaryHover };
+      }
+    `) }
   ` }
 `
 

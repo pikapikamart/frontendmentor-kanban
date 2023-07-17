@@ -18,11 +18,11 @@ const BoardPage = () =>{
     isFetched } = useSetupCurrentBoard()
 
   if ( isFetched && !isSuccess ) return <FourOhFour>Make sure to check the url if correct</FourOhFour>
- 
+  
   return (
     <MainWrapper key="board-page">
+      { isLoading && <HomeLoading /> }
       <AnimatePresence>
-        { isLoading && <HomeLoading key={ `board-page-spinner` } /> }
         { currentBoard && currentBoard?.hasLoaded && <>
           { isArrayEmpty(currentBoard.column)? 
             <EmptyBoardSection key={ `board-${ currentBoard.title }-page` } /> 

@@ -5,7 +5,6 @@ import { MainButton } from "@/client/styled/shared/button";
 import styled from "styled-components";
 
 
-
 export const TaskButton = styled(MainButton)`
   height: ${ fluid(32, 6, 48) }; 
   margin: 0 ${ rem(8) } 0 auto;

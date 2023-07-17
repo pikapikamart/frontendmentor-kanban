@@ -1,4 +1,3 @@
-import Image from "next/image"
 import { 
   Wrapper,
   Heading, 
@@ -13,7 +12,6 @@ import {
   SecondaryButton,
   RowFieldInner} from "../../base/styled"
 import { useCreateBoard } from "./hook"
-import removeIcon from "@/public/icons/remove.svg"
 import { AnimatePresence } from "framer-motion"
 import { 
   swipeRightVariant, 
@@ -70,11 +68,13 @@ const Create = ({ exit }: ExitProps) => {
                   <RemoveInput
                     type="button" 
                     onClick={ () => removeColumn(index) }>
-                    <Image
-                      src={ removeIcon }
-                      alt=""
-                      aria-hidden="true" />
-                      <span className="sr-only">Remove field</span>
+                    <svg aria-hidden={ true } xmlns="http://www.w3.org/2000/svg" width="14.849" height="14.849" viewBox="0 0 14.849 14.849">
+                      <g id="remove" transform="translate(-401 -13)">
+                        <rect id="Rectangle" width="3" height="18" transform="translate(413.728 13) rotate(45)" fill="#828fa3"/>
+                        <rect id="Rectangle_Copy" data-name="Rectangle Copy" width="3" height="18" transform="translate(401 15.121) rotate(-45)" fill="#828fa3"/>
+                      </g>
+                    </svg>
+                    <span className="sr-only">Remove field</span>
                   </RemoveInput>
                 </RowFieldInner>
                 { formErrors.column?.[index] && <Error id={ `columnError${ index }` }>{ formErrors.column?.[index]?.title?.message }</Error> }

@@ -5,7 +5,9 @@ import { useExpansion } from "@/client/lib/hooks"
 import { AnimatePresence } from "framer-motion"
 import { useRef } from "react"
 import { Options as SharedOptions } from "@/client/components/shared/options"
-import { OptionItem, OptionTrigger } from "@/client/components/shared/options/options.styled"
+import { 
+  OptionItem, 
+  OptionTrigger } from "@/client/components/shared/options/options.styled"
 import { useDetectResponsiveness } from "@/client/lib/hooks/useDetectResponsiveness"
 import { CreateTaskModal } from "@/client/components/collections/modal/task/create"
 import { TaskButton } from "./styled"

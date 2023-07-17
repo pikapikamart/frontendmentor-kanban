@@ -1,4 +1,5 @@
 import { 
+  breakpoint,
   fluid, 
   rem } from "@/client/styled/functions";
 import { motion } from "framer-motion";
@@ -19,6 +20,14 @@ export const NewColumn = styled.button`
   ${ ({ theme }) => css`
     background-color: ${ theme.colors.columnAddition };
     color: ${ theme.colors.default };
+
+    ${ breakpoint("desktop", `
+      transition: color .3s ease;
+      
+      &:hover {
+        color: ${ theme.colors.columnAdditionHover };
+      }
+    `) }
   ` }
 `
 
@@ -27,5 +36,5 @@ export const Wrapper = styled(motion.ul)`
   display: flex;
   min-height: calc(100vh - ${ fluid(64, 10.5, 98) });
   overflow-x: auto;
-  padding: ${ rem(24) } ${ fluid(16, 2.4, 24) }
+  padding: ${ rem(24) } ${ fluid(16, 2.4, 24) };
 `

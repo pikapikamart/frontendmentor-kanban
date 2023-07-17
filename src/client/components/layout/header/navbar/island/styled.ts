@@ -21,6 +21,10 @@ export const Input = styled.input`
         position: absolute;
         right: -${ rem(40) };
         width: ${ rem(40) };
+
+        ${ breakpoint("desktop", `
+        transition: background-color .3s ease;
+      `) }
       }
 
       &::after {
@@ -55,6 +59,19 @@ export const Input = styled.input`
       z-index: 2;
     }
   }
+  
+  ${ ({ theme }) => breakpoint("desktop", `
+
+    &:hover {
+
+      + label {
+
+        &::before {
+          background-color: ${ theme.colors.button.mainHover };
+        }
+      }
+    }
+  `) }
 `
 
 export const Wrapper = styled.fieldset`

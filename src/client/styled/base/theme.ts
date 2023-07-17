@@ -16,6 +16,7 @@ export const theme: DefaultTheme = {
       secondary: "#635FC710",
       secondaryHover: "rgba(99, 95, 109, .25)",
       warning: "#EA5555",
+      warningHover: "#FF9898"
     },
     form: {
       background: "#FFFFFF",
@@ -24,8 +25,10 @@ export const theme: DefaultTheme = {
     },
     border: "#E4EBFA",
     navlinks: "#828FA3",
+    navlinksHover: "#635FC710",
     boardDropdown: "#FFFFFF",
     columnAddition: "#E9EFFA",
+    columnAdditionHover: "#635FC7",
     default: "#828FA3"
   },
   fontSize: {
@@ -61,6 +64,7 @@ export const darkTheme: DefaultTheme = {
       input: "#FFFFFF"
     },
     border: "#3E3F4E",
+    navlinksHover: "#FFFFFF",
     boardDropdown: "#20212C",
     columnAddition: "#2B2C3725"
   }

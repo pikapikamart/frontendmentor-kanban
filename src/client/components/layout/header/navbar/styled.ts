@@ -5,24 +5,21 @@ import {
 import styled from "styled-components"
 import { Wrapper as IslandWrapper } from "./island/styled"
 import { motion } from "framer-motion"
-import { CreateBoardButton } from "./board/styled"
+import { BoardLink } from "./board/styled"
+import { MainButton } from "@/client/styled/shared/button"
 
 
-export const ShowSidebarButton = styled(motion.button)`
-  background-color: ${ ({ theme }) => theme.colors.button.main };
+export const ShowSidebarButton = styled(MainButton)`
   border-radius: 0 ${ rem(32) } ${ rem(32) } 0;
-  display: grid;
-  height: ${ rem(48) };
   inset: auto auto ${ rem(32) } 0; 
-  place-content: center;
   position: fixed;
   width: ${ rem(56) };
   z-index: 5;
 `
 
-export const HideSidebar = styled(CreateBoardButton)`
-  color: ${ ({ theme }) => theme.colors.navlinks };
+export const HideSidebar = styled(BoardLink)`
   margin-bottom: ${ rem(32) };
+  width: 100%;
 
   img {
     margin-right: ${ rem(10) };

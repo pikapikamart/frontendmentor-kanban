@@ -13,7 +13,7 @@ const Island = () =>{
   const dispatch = useDispatch()
   const { darkmode } = useTrackedState()
 
-  const handledarkModeIcon = ( event: React.ChangeEvent<HTMLInputElement> ) => dispatch({ type: "DARKMODE" })
+  const handledarkModeIcon = () => dispatch({ type: "DARKMODE" })
 
   return (
     <Wrapper>

@@ -17,6 +17,7 @@ declare module "styled-components" {
         secondary: string,
         secondaryHover: string,
         warning: string,
+        warningHover: string
       },
       form: {
         background: string,
@@ -25,8 +26,10 @@ declare module "styled-components" {
       },
       border: string,
       navlinks: string,
+      navlinksHover: string,
       boardDropdown: string,
       columnAddition: string,
+      columnAdditionHover: string,
       default: string
     },
     fontSize: {

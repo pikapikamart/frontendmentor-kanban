@@ -1,5 +1,5 @@
-import { rem } from "@/client/styled/functions";
-import styled, { css } from "styled-components";
+import { breakpoint, rem } from "@/client/styled/functions";
+import styled from "styled-components";
 
 
 export const SubtasksCount = styled.p`
@@ -11,10 +11,29 @@ export const SubtasksCount = styled.p`
 export const TaskButton = styled.button`
   text-align: left;
 
+  &:focus-visible {
+    outline: none;
+
+    &::after {
+      outline: 2px dashed ${ ({ theme }) => theme.colors.outline };
+      outline-offset: 1px;
+    }
+  }
+
   &::after {
     content: "";
+    border-radius: ${ rem(8) };
+    inset: 0;
     position: absolute;
   }
+
+  ${ ({ theme }) => breakpoint("desktop", `
+    transition: color .3s ease;
+    
+    &:hover {
+      color: ${ theme.colors.button.main };
+    }
+  `) }
 `
 
 export const TaskTitle = styled.h4`
