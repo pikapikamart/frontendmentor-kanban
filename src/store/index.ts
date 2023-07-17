@@ -29,7 +29,7 @@ type CreateColumn = {
 }
 
 type Action = |
-  { type: "DARKMODE" } |
+  { type: "DARKMODE", payload?: boolean } |
   { type: "SET_BOARDS", payload: BoardsWithTaskSchema } |
   { type: "ADD_BOARD", payload: BoardWithTaskSchema } |
   { type: "DELETE_BOARD", payload: string } |
@@ -46,7 +46,9 @@ const reducer = ( draft: Draft, action: Action ) => {
   
   switch(action.type) {
     case "DARKMODE":
-      draft.darkmode = !draft.darkmode
+      draft.darkmode = action.payload?? !draft.darkmode
+
+      window.localStorage.setItem("darkmode", `${ draft.darkmode }`)
 
       return
     case "SET_BOARDS":
@@ -144,7 +146,7 @@ const initialState: Draft = {
 
 const useValue = (): [ Draft, Dispatch<Action> ] => {
   const [ state, dispatch ] = useImmerReducer(reducer, initialState)
-
+ 
   return [ state, dispatch ]
 }
 

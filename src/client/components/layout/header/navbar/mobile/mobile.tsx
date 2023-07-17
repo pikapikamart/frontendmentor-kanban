@@ -26,7 +26,7 @@ const Mobile = () => {
       <NavHeading>
         <NavExpansion 
           onClick={handleExpansion}
-          aria-expanded={isExpanded}>{ currentBoard?.title?? "" }
+          aria-expanded={isExpanded}>{ currentBoard?.title?? "Frontendmentor" }
           <Image 
             src={chevron} 
             alt="" 

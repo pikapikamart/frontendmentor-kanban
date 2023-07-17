@@ -8,7 +8,9 @@ import { NextPage } from "next"
 import { DefaultLayout } from "@/client/components/layout/default"
 import { 
   Provider, 
+  useDispatch, 
   useTrackedState } from "@/store"
+import { useEffect } from "react"
 
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -38,6 +40,20 @@ type ThemedAppProps = {
 
 const ThemedApp = ({ children }: ThemedAppProps) => {
   const { darkmode } = useTrackedState()
+  const dispatch = useDispatch()
+
+  useEffect(() =>{
+    if ( typeof window !=="undefined" ) {
+      const darkmode = window.localStorage.getItem("darkmode") || ""
+
+      if ( darkmode ) {
+        dispatch({
+          type: "DARKMODE",
+          payload: JSON.parse(darkmode)
+        })
+      }
+    }
+  },[])
 
   return (
     <ThemeProvider theme={ darkmode? DarkTheme : Theme  }>

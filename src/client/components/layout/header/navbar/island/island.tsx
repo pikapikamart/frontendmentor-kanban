@@ -1,16 +1,19 @@
 import { 
   Input, 
   Wrapper } from "./styled"
-import lightMode from "@/public/icons/light.svg"
-import darkMode from "@/public/icons/dark.svg"
+import lightModeIcon from "@/public/icons/light.svg"
+import darkModeIcon from "@/public/icons/dark.svg"
 import Image from "next/image"
-import { useDispatch } from "@/store"
+import { 
+  useDispatch, 
+  useTrackedState } from "@/store"
 
 
 const Island = () =>{
   const dispatch = useDispatch()
+  const { darkmode } = useTrackedState()
 
-  const handleDarkmode = ( event: React.ChangeEvent<HTMLInputElement> ) => dispatch({ type: "DARKMODE" })
+  const handledarkModeIcon = ( event: React.ChangeEvent<HTMLInputElement> ) => dispatch({ type: "DARKMODE" })
 
   return (
     <Wrapper>
@@ -20,12 +23,12 @@ const Island = () =>{
         id="light"
         name="theme"
         value="light"
-        defaultChecked
+        checked={ !darkmode }
         className="sr-only"
-        onChange={ handleDarkmode } />
+        onChange={ handledarkModeIcon } />
       <label htmlFor="light">
         <Image 
-          src={ lightMode } 
+          src={ lightModeIcon } 
           alt=""
           aria-hidden="true" />
       </label>
@@ -33,12 +36,13 @@ const Island = () =>{
         type="radio"
         id="dark"
         name="theme"
+        checked={ darkmode }
         value="dark"
         className="sr-only"
-        onChange={ handleDarkmode } />
+        onChange={ handledarkModeIcon } />
       <label htmlFor="dark">
         <Image 
-          src={ darkMode } 
+          src={ darkModeIcon } 
           alt=""
           aria-hidden="true" />
       </label>
