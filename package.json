@@ -6,13 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "test": "jest",
-    "test-watch": "jest --watch",
-    "storybook": "start-storybook -p 6006 -s ./public",
-    "build-storybook": "build-storybook -s ./public",
-    "test-storybook": "test-storybook --watch",
-    "story-dev": "concurrently \"npm run dev\" \"npm run storybook\""
+    "lint": "next lint"
   },
   "dependencies": {
     "@ariakit/react": "^0.2.6",
