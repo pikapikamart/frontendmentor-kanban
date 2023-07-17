@@ -70,10 +70,7 @@ const Edit = ({ exit }: ExitProps) => {
           <Label as="legend">Subtasks</Label>
           <AnimatePresence initial={ false }>       
             { fields.map((field, index) => (
-              <RowFieldWrapper
-                { ...variantNaming }
-                variants={ swipeRightVariant }
-                key={ field.id }>
+              <RowFieldWrapper key={ field.id }>
                 <RowFieldInner>
                   <Input
                     id={ `subtasks${ index }` }

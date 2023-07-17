@@ -22,7 +22,8 @@ const Column = ({ column }: ColumnProps) => {
         { column.tasks.map(task => (
           <ColumnTask
             key={ task.id }
-            task={ task } />
+            task={ task }
+            status={ column.title } />
         )) }
       </ul>
     </Wrapper>

@@ -13,17 +13,21 @@ import { useDispatch } from "@/store"
 
 
 type TaskProps = {
-  task: TaskSchema
+  task: TaskSchema,
+  status: string
 }
 
-const Task = ({ task }: TaskProps) =>{
+const Task = ({ task, status }: TaskProps) =>{
   const dispatch = useDispatch()
   const [ isExpanded, handleExpansion ] = useExpansion()
 
   const handleShowTask = () => {
     dispatch({
       type: "SET_CURRENT_TASK",
-      payload: task
+      payload: {
+        ...task,
+        status
+      }
     })
     handleExpansion()
   }

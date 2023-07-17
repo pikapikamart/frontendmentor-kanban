@@ -7,7 +7,6 @@ import Document, {
 import { ServerStyleSheet } from "styled-components";
 
 
-//@ts-ignore
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet();

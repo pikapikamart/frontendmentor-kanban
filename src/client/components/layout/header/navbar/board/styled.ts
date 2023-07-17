@@ -30,7 +30,9 @@ const NavBoardButton = styled.button`
   }
 
   ${ breakpoint("desktop", `
-    transition: .3s ease;
+    transition: 
+      background-color .3s ease,
+      color .3s ease;
 
     svg path {
       transition: .3s ease

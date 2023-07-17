@@ -59,7 +59,7 @@ export const RowFieldInner = styled.div`
   display: flex;
 `
 
-export const RowFieldWrapper = styled(motion.div)`
+export const RowFieldWrapper = styled.div`
   margin-bottom: ${ rem(12) };
 `
 

@@ -57,10 +57,7 @@ const Edit = ({ exit }: ExitProps) =>{
           <Label as="legend">Columns { formErrors.column && <Error id="columnsError">*{ formErrors.column.message }</Error> }</Label>
           <AnimatePresence initial={ false }>       
             { fields.map((field, index) => (
-              <RowFieldWrapper
-                { ...variantNaming }
-                variants={ swipeRightVariant }
-                key={ field.id }>
+              <RowFieldWrapper key={ field.id }>
                 <RowFieldInner>
                   <Input
                     id={ `column${ index }` }
@@ -81,6 +78,9 @@ const Edit = ({ exit }: ExitProps) =>{
                 </RowFieldInner>
                 { formErrors.column?.[index] && <Error id={ `columnError${ index }` }>{ formErrors.column?.[index]?.title?.message }</Error> }
               </RowFieldWrapper>
+              // <RowFieldWrapper key={ field.id }>
+              //   <RowFieldInner></RowFieldInner>
+              // </RowFieldWrapper>
             )) }
           </AnimatePresence>
           <SecondaryButton

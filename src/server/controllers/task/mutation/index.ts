@@ -102,7 +102,7 @@ export const editTaskController = async({ user }: UserContext, input: EditTaskSc
   return trpcSuccess(taskSchema.parse(updatedTask), "Success")
 }
 
-export const editTaskPartialController = async({user}: UserContext, input: EditTaskPartial) =>{
+export const editTaskPartialController = async({ user }: UserContext, input: EditTaskPartial) =>{
   const foundBoard = await findBoardService({
     owner: user._id,
     linkPath: input.linkPath
@@ -133,7 +133,7 @@ export const editTaskPartialController = async({user}: UserContext, input: EditT
       }
     )
   }
-
+  
   const mappedSubtasks = foundTask.subtasks.map(subtask => input.subtasks.find(change => change.id===subtask.id)? {
     ...subtask,
     done: !subtask.done
