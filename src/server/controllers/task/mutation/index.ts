@@ -3,7 +3,8 @@ import {
   CreateTaskSchema, 
   DeleteTaskSchema, 
   EditTaskPartial, 
-  EditTaskSchema } from "./schema";
+  EditTaskSchema, 
+  deleteTaskSchema} from "./schema";
 import { customNanoid } from "@/server/utils/nanoid";
 import { Task } from "@/server/models/task";
 import { 
@@ -21,16 +22,17 @@ import { taskSchema } from "../query/schema";
 
 
 export const createTaskController = async({ user }: UserContext, input: CreateTaskSchema) =>{
+  const { status, ...taskData } = input
   const foundBoard = await findBoardService({
     owner: user.id,
     linkPath: input.boardPath,
-    "column.title": input.status
+    "column.title": status
   })
 
   if ( !foundBoard ) return trpcError("NOT_FOUND", "No board exists")
 
   const newTask: Task = {
-    ...input,
+    ...taskData,
     description: input.description.trim(),
     owner: user._id,
     id: customNanoid(10),
@@ -41,12 +43,10 @@ export const createTaskController = async({ user }: UserContext, input: CreateTa
     }))
   }
   
-  const foundTask = await findTaskService(
-    {
-      owner: user._id,
-      title: input.title
-    }
-  )
+  const foundTask = await findTaskService({
+    owner: user._id,
+    title: input.title
+  })
 
   if ( foundTask ) return trpcError("CONFLICT", "Task already created")
     
@@ -63,8 +63,8 @@ export const createTaskController = async({ user }: UserContext, input: CreateTa
       }
     }
   )
-
-  return trpcSuccess(taskSchema.parse(createdTask), "Success")
+  
+  return trpcSuccess(taskSchema.parse(Object.assign(createdTask, { status })), "Success")
 }
 
 export const editTaskController = async({ user }: UserContext, input: EditTaskSchema) => {
@@ -110,26 +110,25 @@ export const editTaskPartialController = async({ user }: UserContext, input: Edi
 
   if ( !foundBoard ) return trpcError("NOT_FOUND", "No board found")
 
-  const foundTask = await findTaskService(
-    {
-      owner: user._id,
-      id: input.id
-    }
-  )
+  const foundTask = await findTaskService({
+    owner: user._id,
+    id: input.id
+  })
 
   if ( !foundTask ) return trpcError("NOT_FOUND", "No task found")
 
-  if ( input.status!==foundTask.status ) {
-    const findColumnIndex = ( title: string ) => foundBoard.column.findIndex(column => column.title===title)
-
+  if ( input.status ) {
+    const columnHasTaskIndex = foundBoard.column.findIndex(column => column.tasks.some(task => task.equals(foundTask._id)))
+    const newTaskColumnIndex = foundBoard.column.findIndex(column => column.title===input.status)
+    
     await updateBoardService(
       {
         linkPath: input.linkPath,
         owner: user._id
       },
       {
-        $pull: { [`column.${ findColumnIndex(foundTask.status) }.tasks`]: foundTask._id },
-        $push: { [`column.${ findColumnIndex(input.status) }.tasks`]: foundTask._id }
+        $pull: { [`column.${ columnHasTaskIndex }.tasks`]: foundTask._id },
+        $push: { [`column.${ newTaskColumnIndex }.tasks`]: foundTask._id }
       }
     )
   }
@@ -144,15 +143,17 @@ export const editTaskPartialController = async({ user }: UserContext, input: Edi
       owner: user._id,
       id: input.id
     },
-    {
-      status: input.status,
-      subtasks: mappedSubtasks
-    }
+    { subtasks: mappedSubtasks }
   )
 
   if ( !updatedTask ) return trpcError("NOT_FOUND", "No task found to update")
 
-  return trpcSuccess(taskSchema.parse(updatedTask), "Success")
+  const taskColumn = foundBoard.column.find(column => column.tasks.some(task => task.equals(foundTask._id)))
+
+  return trpcSuccess(taskSchema.parse({
+    ...updatedTask,
+    status: input.status?? taskColumn?.title
+  }), "Success")
 }
 
 export const deleteTaskController = async({ user }: UserContext, input: DeleteTaskSchema) =>{
@@ -163,18 +164,19 @@ export const deleteTaskController = async({ user }: UserContext, input: DeleteTa
 
   if ( !deletedTask ) return trpcError("NOT_FOUND", "No task found to delete")
 
-  await updateBoardService(
+  const updatedBoard = await updateBoardService(
     {
       owner: user._id,
       linkPath: input.linkPath,
-      "column.title": deletedTask.status
+      "column.tasks": deletedTask._id
     },
     {
-      $pull: {
-        "column.$.tasks": deletedTask._id
-      }
+      $pull: { "column.$.tasks": deletedTask._id }
     }
   )
 
-  return trpcSuccess(taskSchema.parse(deletedTask), "Success")
+  return trpcSuccess(deleteTaskSchema.parse({
+    id: deletedTask.id,
+    linkPath: updatedBoard?.linkPath
+  }), "Successfully deleted task")
 }

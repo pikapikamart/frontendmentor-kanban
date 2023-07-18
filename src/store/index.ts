@@ -6,6 +6,7 @@ import { Dispatch } from "react"
 import { createContainer } from "react-tracked"
 import { ArrayElement } from "@/types/utils"
 import { useImmerReducer } from "use-immer"
+import { DeleteTaskSchema } from "@/server/controllers/task/mutation/schema"
 
 
 type BoardWithTask = BoardWithTaskSchema & { hasLoaded?: boolean }
@@ -39,7 +40,7 @@ type Action = |
   { type: "ADD_TASK", payload: TaskWithLinkPath } |
   { type: "EDIT_TASK", payload: TaskWithLinkPath } |
   { type: "SET_CURRENT_TASK", payload?: TaskSchema } |
-  { type: "DELETE_TASK", payload: TaskWithLinkPath } 
+  { type: "DELETE_TASK", payload: DeleteTaskSchema } 
 
  
 const reducer = ( draft: Draft, action: Action ) => {
@@ -126,10 +127,10 @@ const reducer = ( draft: Draft, action: Action ) => {
       return
     case "DELETE_TASK": {
       const { boards } = draft
-      const { payload: { linkPath, ...deletedTask } } = action
+      const { payload: { linkPath, id } } = action
       const boardIndex = boards.findIndex(board => board.linkPath===linkPath)
-      const collumnIndex = boards[boardIndex].column.findIndex(column => !!column.tasks.find(task => task.id===deletedTask.id))
-      boards[boardIndex].column[collumnIndex].tasks = boards[boardIndex].column[collumnIndex].tasks.filter(task => task.id!==deletedTask.id)
+      const collumnIndex = boards[boardIndex].column.findIndex(column => !!column.tasks.find(task => task.id===id))
+      boards[boardIndex].column[collumnIndex].tasks = boards[boardIndex].column[collumnIndex].tasks.filter(task => task.id!==id)
 
       return
     }

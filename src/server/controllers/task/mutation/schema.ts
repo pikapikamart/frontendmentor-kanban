@@ -42,7 +42,9 @@ export const editTaskSchema = createTaskSchema
 export type EditTaskSchema = z.infer<typeof editTaskSchema>
 
 export const editTaskPartial = baseTaskSchema.merge(z.object({
-  status: z.string({ required_error: "Status is required" }),
+  status: z
+    .string()
+    .optional(),
   linkPath: z.string({ required_error: "Link path is required" })
 }))
 

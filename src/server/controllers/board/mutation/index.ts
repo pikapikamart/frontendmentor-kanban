@@ -107,6 +107,7 @@ export const editBoardController = async({ user }: UserContext, input: EditBoard
       new: true,
     }
   )
+
   await deleteMultipleTaskService({ _id: { $in: removedTasks } })
 
   if ( !updatedBoard ) return trpcError("BAD_REQUEST", "Error")
@@ -116,7 +117,17 @@ export const editBoardController = async({ user }: UserContext, input: EditBoard
     model: taskModel
   })
 
-  return trpcSuccess(boardWithTasksSchema.parse(Object.assign(updatedBoard, input.linkPath!==newLinkPath? { oldPath: input.linkPath }: null)), "Board successfully edited")
+  return trpcSuccess(boardWithTasksSchema.parse(Object.assign(updatedBoard, 
+    {
+      column: updatedBoard.column.map(column => ({
+        ...column,
+        tasks: column.tasks.map(task => {
+          
+          return Object.assign(task, { status: column.title })
+        })
+      }))
+    },
+    input.linkPath!==newLinkPath? { oldPath: input.linkPath }: null)), "Board successfully edited")
 }
 
 export const deleteBoardController = async({ user }: UserContext, input: DeleteBoardSchema) =>{

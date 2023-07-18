@@ -11,15 +11,12 @@ export const useDeleteTask = () =>{
   const dispatch = useDispatch()
   const { mutate, isLoading } = trpc.task.delete.useMutation({
     onSuccess: (data) => {
-
+      
       if ( !currentBoard ) return
 
       dispatch({
         type: "DELETE_TASK",
-        payload: {
-          ...data.content,
-          linkPath: currentBoard.linkPath
-        }
+        payload: data.content
       })
     }
   })

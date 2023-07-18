@@ -16,7 +16,7 @@ export const findBoardService = async(
   projection: ProjectionType<Board> = "",
   populate?: PopulateOptions
   ) => (
-  populate? boardModel.findOne(query, projection).populate(populate) : boardModel.findOne(query, projection, { lean: true })
+  populate? boardModel.findOne(query, projection).populate(populate).lean() : boardModel.findOne(query, projection, { lean: true })
 )
 
 export const findMultipleBoardService = async( 

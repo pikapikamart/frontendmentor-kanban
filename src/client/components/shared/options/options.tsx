@@ -47,5 +47,6 @@ const Options = forwardRef<HTMLButtonElement, OptionsProps>(({ children }, ref) 
   )
 })
 
+Options.displayName = "Options"
 
 export default Options

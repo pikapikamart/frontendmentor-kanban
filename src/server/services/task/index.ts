@@ -28,7 +28,7 @@ export const findTaskService = async(
 export const updateTaskService = async(
   query: FilterQuery<TaskDocument>,
   update: UpdateQuery<TaskDocument>,
-  options: QueryOptions = { new: true }
+  options: QueryOptions = { new: true, lean: true }
 ) => (
   taskModel.findOneAndUpdate(query, update, options)
 )

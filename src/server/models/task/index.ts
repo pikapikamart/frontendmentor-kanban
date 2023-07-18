@@ -13,7 +13,6 @@ export type Task = {
     done: boolean,
     id: string
   }[],
-  status: string
 } 
 
 export type TaskDocument = Task & MongooseDocument
@@ -37,8 +36,7 @@ const taskSchema: mongoose.Schema<TaskDocument> = new mongoose.Schema({
       default: false
     },
     id: String
-  }],
-  status: String
+  }]
 })
 
 const taskModel: mongoose.Model<TaskDocument> = mongoose.models.Task || mongoose.model<TaskDocument>("Task", taskSchema)

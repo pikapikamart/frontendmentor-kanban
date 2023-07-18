@@ -84,12 +84,15 @@ export const useShowTask = ( exit: ExitCallback ) => {
 
   const handleSubmitTaskPartialEdit = ( event: React.FormEvent ) => {
     event.preventDefault()
-    mutate({
-      id: currentTask?.id?? "",
+
+    if ( !currentTask || !currentBoard ) return
+
+    mutate(Object.assign({
+      id: currentTask.id,
       status: draft.newStatus,
       subtasks: draft.subtasks,
-      linkPath: currentBoard?.linkPath?? ""
-    })
+      linkPath: currentBoard.linkPath
+    }, currentTask.status!==draft.newStatus? { status: draft.newStatus } : null))
   }
 
   useEffect(() =>{
