@@ -70,7 +70,7 @@ const Desktop = ({ isExpanded, handleExpansion }: Desktop) => {
           </Wrapper>
         }
       </AnimatePresence>
-      <NavHeading>{ currentBoard?.title?? "" }</NavHeading>
+      <NavHeading>{ currentBoard?.title?? "Frontendmentor" }</NavHeading>
     </>
   )
 }
