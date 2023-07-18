@@ -67,7 +67,7 @@ export const useEditTask = ( exit: ExitCallback ) => {
   
   const onSubmit: SubmitHandler<EditTaskSchema> = data => {
 
-    if ( currentBoard?.column.some(column => column.tasks.some(task => task.title===data.title)) ) {
+    if ( currentBoard?.column.some(column => column.tasks.some(task => task.id!==currentTask?.id && task.title===data.title)) ) {
       setError("title", { message: "Task title already exist" })
 
       return

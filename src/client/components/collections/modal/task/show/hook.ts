@@ -89,7 +89,6 @@ export const useShowTask = ( exit: ExitCallback ) => {
 
     mutate(Object.assign({
       id: currentTask.id,
-      status: draft.newStatus,
       subtasks: draft.subtasks,
       linkPath: currentBoard.linkPath
     }, currentTask.status!==draft.newStatus? { status: draft.newStatus } : null))
@@ -98,7 +97,7 @@ export const useShowTask = ( exit: ExitCallback ) => {
   useEffect(() =>{
     select.setValue(currentTask?.status?? "")
 
-  }, [ currentTask ])
+  }, [ currentTask, select ])
   
   useEffect(() => () => appDispatch({ type: "SET_CURRENT_TASK" }), [])
 

@@ -7,9 +7,14 @@ import { AnimatePresence } from "framer-motion"
 import { ModalDocument } from "../../.."
 import { EditTaskModal } from "../../edit"
 import { DeleteTaskModel } from "../../delete"
+import { ExitCallback } from "@/types/utils"
 
 
-const Options = () =>{
+type OptionsProps = {
+  exit: ExitCallback
+}
+
+const Options = ({ exit }: OptionsProps) =>{
   const [ editExpansion, handleEditExpansion ] = useExpansion()
   const [ deleteExpansion, handleDeleteExpansion ] = useExpansion()
 
@@ -19,7 +24,10 @@ const Options = () =>{
         { editExpansion && (
           <ModalDocument
             exit={ handleEditExpansion }>
-              <EditTaskModal exit={ handleEditExpansion } />
+              <EditTaskModal exit={ () => {
+                handleEditExpansion()
+                exit()
+              } } />
           </ModalDocument>
         ) }
         { deleteExpansion && (

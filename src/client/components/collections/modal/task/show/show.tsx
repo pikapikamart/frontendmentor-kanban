@@ -34,7 +34,7 @@ const Show = ({ exit }: ExitProps) =>{
     hasChanged } = useShowTask(exit)
   
   if ( !currentTask ) return <><button>s</button></>
-  
+
   return (
     <>
       <AnimatePresence>
@@ -43,7 +43,7 @@ const Show = ({ exit }: ExitProps) =>{
       <Wrapper as="div">
         <HeadingContainer>
           <Heading>{ currentTask.title }</Heading>
-          <TaskOptions />
+          <TaskOptions exit={ exit } />
         </HeadingContainer>
         <form onSubmit={ handleSubmitTaskPartialEdit }>
           <Description>{ currentTask.description }</Description>

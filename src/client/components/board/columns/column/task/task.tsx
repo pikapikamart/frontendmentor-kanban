@@ -10,6 +10,7 @@ import { AnimatePresence } from "framer-motion"
 import { ModalDocument } from "@/client/components/collections/modal"
 import { ShowTaskModal } from "@/client/components/collections/modal/task/show"
 import { useDispatch } from "@/store"
+import { useRef } from "react"
 
 
 type TaskProps = {
@@ -20,6 +21,7 @@ type TaskProps = {
 const Task = ({ task, status }: TaskProps) =>{
   const dispatch = useDispatch()
   const [ isExpanded, handleExpansion ] = useExpansion()
+  const focusBackRef = useRef<HTMLLIElement | null>(null)
 
   const handleShowTask = () => {
     dispatch({
@@ -36,13 +38,15 @@ const Task = ({ task, status }: TaskProps) =>{
     <>
       <AnimatePresence>
         { isExpanded && (
-          <ModalDocument exit={ handleExpansion }>
+          <ModalDocument 
+            focusBackRef={ focusBackRef.current }
+            exit={ handleExpansion }>
             <ShowTaskModal
               exit={ handleExpansion } />
           </ModalDocument>
         ) }
       </AnimatePresence>
-      <Wrapper>
+      <Wrapper ref={ focusBackRef }>
         <TaskTitle>
           <TaskButton
             onClick={ handleShowTask }
