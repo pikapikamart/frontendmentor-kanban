@@ -71,9 +71,9 @@ export const Wrapper = styled(motion.nav)`
 
   ${ ({ theme }) => breakpoint("tablet", `
     border-right: 1px solid ${ theme.colors.border };
-    inset: 100% auto auto 0;
+    inset: ${ fluid(64, 10.5, 98) } auto auto 0;
     min-height: calc(100vh - ${ fluid(64, 10.5, 98) });
-    position: absolute;
+    position: fixed;
     width:${ fluid(260, 30, 300) };
 
     &::before {

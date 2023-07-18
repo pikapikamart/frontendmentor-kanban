@@ -28,15 +28,14 @@ export const Wrapper = styled.header<WrapperProps>`
   display: flex;
   min-height: ${ fluid(64, 10.5, 98) };
   padding: 0 ${ rem(8) } 0 ${ fluid(16, 3.4, 34) };
-  
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
   ${ ({ theme }) => css`
     background-color: ${ theme.colors.header };
     border-bottom: 1px solid ${ theme.colors.border };
   ` }
-
-  ${ breakpoint("tablet", `
-    position: relative;
-  `) }
 
   ${ ({ isExpanded }) => `
     ${ isExpanded && breakpoint("tablet", `

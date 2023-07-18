@@ -40,12 +40,14 @@ export const createTaskController = async({ user }: UserContext, input: CreateTa
       title: subtask.title,
       done: false,
       id: customNanoid(10)
-    }))
+    })),
+    board: input.boardPath
   }
   
   const foundTask = await findTaskService({
     owner: user._id,
-    title: input.title
+    title: input.title,
+    board: input.boardPath
   })
 
   if ( foundTask ) return trpcError("CONFLICT", "Task already created")

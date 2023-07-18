@@ -17,6 +17,8 @@ const BoardPage = () =>{
     isSuccess,
     isFetched } = useSetupCurrentBoard()
 
+  if ( !currentBoard ) return <FourOhFour>Make sure to check the url if correct</FourOhFour>
+
   if ( isFetched && !isSuccess ) return <FourOhFour>Make sure to check the url if correct</FourOhFour>
   
   return (
