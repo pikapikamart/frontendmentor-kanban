@@ -73,11 +73,16 @@ export const useEditTask = ( exit: ExitCallback ) => {
       return
     }
 
-    mutate({
-      ...data,
-      id: currentTask?.id?? "",
-      boardPath: currentBoard?.linkPath?? ""
-    })
+    if ( !currentTask ) return
+
+    mutate(Object.assign(
+      {
+        ...data,
+        id: currentTask?.id?? "",
+        boardPath: currentBoard?.linkPath?? "",
+      },
+      currentTask.status!==data.status? { oldStatus: currentTask.status } : null
+    ))
   }
 
   const handleAddSubtask = () => append({ title: "" })

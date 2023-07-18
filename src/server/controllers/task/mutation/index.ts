@@ -70,6 +70,13 @@ export const createTaskController = async({ user }: UserContext, input: CreateTa
 }
 
 export const editTaskController = async({ user }: UserContext, input: EditTaskSchema) => {
+  const foundBoard = await findBoardService({
+    owner: user._id,
+    linkPath: input.boardPath
+  })
+
+  if ( !foundBoard ) return trpcError("NOT_FOUND", "No board found")
+
   const foundTask = await findTaskService({
     owner: user._id,
     id: input.id
@@ -90,6 +97,22 @@ export const editTaskController = async({ user }: UserContext, input: EditTaskSc
     }
   })
 
+  if ( input.oldStatus ) {
+    const columnHasTaskIndex = foundBoard.column.findIndex(column => column.tasks.some(task => task.equals(foundTask._id)))
+    const newTaskColumnIndex = foundBoard.column.findIndex(column => column.title===input.status)
+    
+    await updateBoardService(
+      {
+        linkPath: input.boardPath,
+        owner: user._id
+      },
+      {
+        $pull: { [`column.${ columnHasTaskIndex }.tasks`]: foundTask._id },
+        $push: { [`column.${ newTaskColumnIndex }.tasks`]: foundTask._id }
+      }
+    )
+  }
+
   const updatedTask = await updateTaskService(
     {
       owner: user._id,
@@ -98,10 +121,12 @@ export const editTaskController = async({ user }: UserContext, input: EditTaskSc
     {
       ...input,
       subtasks: mappedSubtasks
-    }
+    },
   )
 
-  return trpcSuccess(taskSchema.parse(updatedTask), "Success")
+  if ( !updatedTask ) return trpcError("INTERNAL_SERVER_ERROR", "Please try again later")
+
+  return trpcSuccess(taskSchema.parse(Object.assign(updatedTask, { status: input.status })), "Success")
 }
 
 export const editTaskPartialController = async({ user }: UserContext, input: EditTaskPartial) =>{

@@ -36,7 +36,10 @@ export const editTaskSchema = createTaskSchema
       id: z
         .string()
         .optional()
-    }))
+    })),
+    oldStatus: z
+      .string()
+      .optional()
   }))
 
 export type EditTaskSchema = z.infer<typeof editTaskSchema>

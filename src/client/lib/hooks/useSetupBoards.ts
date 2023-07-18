@@ -27,6 +27,6 @@ export const useSetupBoards = () =>{
   }, [])
 
   return {
-    isLoading: isLoading && isFetching
+    isLoading: isLoading && isFetching,
   }
 }

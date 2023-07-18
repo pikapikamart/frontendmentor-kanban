@@ -1,4 +1,4 @@
-import { useDispatch, useTrackedState } from "@/store"
+import { useDispatch } from "@/store"
 import { useRouter } from "next/router"
 import { trpc } from "../trpc"
 import { useEffect } from "react"
@@ -7,7 +7,6 @@ import { useCurrentBoard } from "./useCurrentBoard"
 
 export const useSetupCurrentBoard = () => {
   const { currentBoard } = useCurrentBoard()
-  const { boards } = useTrackedState()
   const { query } = useRouter()
   const dispatch = useDispatch()
   const { 
@@ -15,7 +14,7 @@ export const useSetupCurrentBoard = () => {
     isLoading,
     isFetching,
     isFetched,
-    isSuccess 
+    isSuccess
   } = trpc.board.get.useQuery({ linkPath: (query.board?? "") as string }, {
     refetchOnWindowFocus: false,
     enabled: false,
@@ -26,17 +25,17 @@ export const useSetupCurrentBoard = () => {
       })
     }
   })
- 
+
   useEffect(() =>{
     if ( currentBoard && currentBoard.hasLoaded ) return
-    
-    if ( query.board && boards.some(board => board.linkPath===query.board) ) refetch()
-  }, [ currentBoard, query, boards ])
+
+    if ( query.board ) refetch()
+  }, [ query.board ])
 
   return {
     currentBoard,
     isLoading: isLoading && isFetching,
-    isSuccess,
-    isFetched
+    isFetched,
+    isSuccess
   }
 }
