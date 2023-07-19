@@ -11,6 +11,7 @@ import {
   useDispatch, 
   useTrackedState } from "@/store"
 import { useEffect } from "react"
+import { Analytics } from "@vercel/analytics/react"
 
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -29,6 +30,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
     <Provider>
       <ThemedApp>
         { getLayout(<Component { ...pageProps } />) }
+        <Analytics />
       </ThemedApp>
     </Provider>
   )
