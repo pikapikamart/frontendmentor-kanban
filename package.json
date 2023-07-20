@@ -25,7 +25,7 @@
     "focus-trap-react": "^10.1.4",
     "framer-motion": "^10.12.16",
     "immer": "^9.0.19",
-    "mongoose": "^6.8.3",
+    "mongoose": "^6.11.3",
     "nanoid": "^4.0.2",
     "next": "13.0.7",
     "randomcolor": "^0.6.2",
